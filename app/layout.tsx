@@ -1,6 +1,8 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
+import { RoleProvider } from '@/lib/role-context'
+import { SubmissionProvider } from '@/lib/submission-context'
 
 export const metadata: Metadata = {
   title: 'ICM Digital Trust Layer',
@@ -44,8 +46,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-background">
       <body className="antialiased bg-background text-foreground">
-        {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        <RoleProvider>
+          <SubmissionProvider>
+            {children}
+            {process.env.NODE_ENV === 'production' && <Analytics />}
+          </SubmissionProvider>
+        </RoleProvider>
       </body>
     </html>
   )
