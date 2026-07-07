@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { ChevronRight, ChevronLeft, CheckCircle2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { FileUploadZone, UploadedFile } from '@/components/file-upload-zone'
+import { DataPreviewViewer } from '@/components/data-preview-viewer'
 import { useSubmissions } from '@/lib/submission-context'
 import { validateSubmission, calculateEmissionsFromData } from '@/lib/calculations'
 
@@ -133,6 +134,22 @@ export function SubmissionWizard({
           <div className="space-y-4">
             <h3 className="font-semibold">Upload Supporting Data</h3>
             <FileUploadZone onFilesSelected={handleFilesSelected} />
+            
+            {uploadedFiles.length > 0 && (
+              <div className="space-y-3">
+                <h4 className="text-sm font-medium text-muted-foreground">Data Preview - Click eye icon to see sample data</h4>
+                <div className="space-y-2">
+                  {uploadedFiles.map((file) => (
+                    <DataPreviewViewer
+                      key={file.id}
+                      fileName={file.name}
+                      fileType={file.type}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+
             {exceptions.length > 0 && (
               <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
                 <p className="font-medium text-sm text-yellow-900 mb-2">Outstanding Items</p>

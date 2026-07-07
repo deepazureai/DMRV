@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { useSubmissions } from '@/lib/submission-context'
 import { useRole } from '@/lib/role-context'
+import { DataPreviewViewer } from '@/components/data-preview-viewer'
 import { VerifierReviewPanel } from '@/components/verifier-review-panel'
 import { RegulatorApprovalPanel } from '@/components/regulator-approval-panel'
 import { BlockchainRegistrationPanel } from '@/components/blockchain-registration-panel'
@@ -118,17 +119,18 @@ export function SubmissionDetailModal({ submissionId, onClose }: SubmissionDetai
                   {submission.uploadedFiles.length === 0 ? (
                     <p className="text-sm text-muted-foreground">No files uploaded</p>
                   ) : (
-                    submission.uploadedFiles.map((file, idx) => (
-                      <div key={idx} className="flex items-center justify-between p-3 bg-muted rounded border">
-                        <div>
-                          <p className="font-medium text-sm">{file.name}</p>
-                          <p className="text-xs text-muted-foreground">{file.type.toUpperCase()}</p>
-                        </div>
-                        <Button variant="ghost" size="sm">
-                          <Download className="w-4 h-4" />
-                        </Button>
+                    <>
+                      <p className="text-xs text-muted-foreground mb-3">Click the eye icon to preview sample data from each file</p>
+                      <div className="space-y-2">
+                        {submission.uploadedFiles.map((file, idx) => (
+                          <DataPreviewViewer
+                            key={idx}
+                            fileName={file.name}
+                            fileType={file.type}
+                          />
+                        ))}
                       </div>
-                    ))
+                    </>
                   )}
                 </div>
               </div>
