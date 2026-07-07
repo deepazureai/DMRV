@@ -2,13 +2,9 @@
 
 import React from 'react'
 import { AppShell } from '@/components/app-shell'
-import { mockDataQualityIssues, mockSubmissions, getDataQualityIssuesBySubmissionId } from '@/lib/mock-data'
+import { mockSubmissions, getIssuesBySubmissionId } from '@/lib/mock-data'
 import { Badge } from '@/components/ui/badge'
 import { AlertTriangle, CheckCircle, AlertCircle } from 'lucide-react'
-
-function getDataQualityIssuesBySubmissionId(submissionId: string) {
-  return mockDataQualityIssues.filter(i => i.submissionId === submissionId)
-}
 
 const severityColors: Record<string, string> = {
   low: 'bg-blue-100 text-blue-900 border-blue-200',
@@ -34,7 +30,7 @@ export default function DataQualityPage() {
         </div>
 
         {mockSubmissions.map((submission) => {
-          const issues = getDataQualityIssuesBySubmissionId(submission.id)
+          const issues = getIssuesBySubmissionId(submission.id)
           if (issues.length === 0) return null
 
           return (

@@ -2,13 +2,9 @@
 
 import React from 'react'
 import { AppShell } from '@/components/app-shell'
-import { mockSubmissions, getEntityById, getProjectById } from '@/lib/mock-data'
+import { mockSubmissions, getEntityById } from '@/lib/mock-data'
 import { Badge } from '@/components/ui/badge'
 import { CheckCircle, AlertCircle, Clock } from 'lucide-react'
-
-function getProjectById(id: string) {
-  return mockSubmissions.find(s => s.id === id)?.projectId || null
-}
 
 const statusIcons: Record<string, React.ReactNode> = {
   draft: <Clock className="text-gray-500" size={16} />,
