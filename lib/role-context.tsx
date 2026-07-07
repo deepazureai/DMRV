@@ -12,6 +12,7 @@ export type UserRole =
 export interface RoleContextType {
   currentRole: UserRole | null
   setRole: (role: UserRole) => void
+  clearRole: () => void
   userId: string
   userName: string
 }
@@ -50,11 +51,17 @@ export function RoleProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('userRole', role)
   }
 
+  const handleClearRole = () => {
+    setCurrentRole(null)
+    localStorage.removeItem('userRole')
+  }
+
   return (
     <RoleContext.Provider
       value={{
         currentRole,
         setRole: handleSetRole,
+        clearRole: handleClearRole,
         userId,
         userName: currentRole ? roleUserNames[currentRole] : '',
       }}

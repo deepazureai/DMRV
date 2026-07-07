@@ -2,7 +2,9 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { ChevronDown, Menu, X } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { ChevronDown, Menu, X, LogOut } from 'lucide-react'
+import { useRole } from '@/lib/role-context'
 
 interface AppShellProps {
   children: React.ReactNode
@@ -17,6 +19,9 @@ interface AppShellProps {
 
 export function AppShell({ children, currentPage = 'dashboard', lifecycleEvents = [] }: AppShellProps) {
   const [sidebarOpen, setSidebarOpen] = React.useState(true)
+  const [dropdownOpen, setDropdownOpen] = React.useState(false)
+  const router = useRouter()
+  const { clearRole } = useRole()
 
   const navigationItems = [
     { href: '/', label: 'Dashboard', icon: '📊' },
@@ -42,6 +47,11 @@ export function AppShell({ children, currentPage = 'dashboard', lifecycleEvents 
     registered: 'bg-green-50 text-green-900 border-green-200'
   }
 
+  const handleChangeRole = () => {
+    clearRole()
+    router.push('/')
+  }
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -61,15 +71,32 @@ export function AppShell({ children, currentPage = 'dashboard', lifecycleEvents 
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 rounded-lg bg-muted px-4 py-2">
-              <div className="h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-semibold text-sm">
-                RK
-              </div>
-              <div className="hidden flex-col gap-1 sm:flex">
-                <span className="text-sm font-medium text-foreground">Rajesh Kumar</span>
-                <span className="text-xs text-muted-foreground">ECWL Entity</span>
-              </div>
-              <ChevronDown size={16} className="text-muted-foreground" />
+            <div className="relative">
+              <button
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className="flex items-center gap-2 rounded-lg bg-muted px-4 py-2 hover:bg-muted/80 transition-colors"
+              >
+                <div className="h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-semibold text-sm">
+                  RK
+                </div>
+                <div className="hidden flex-col gap-1 sm:flex items-start">
+                  <span className="text-sm font-medium text-foreground">Rajesh Kumar</span>
+                  <span className="text-xs text-muted-foreground">ECWL Entity</span>
+                </div>
+                <ChevronDown size={16} className={`text-muted-foreground transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {dropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 rounded-lg border border-border bg-card shadow-lg z-50">
+                  <button
+                    onClick={handleChangeRole}
+                    className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-foreground hover:bg-muted rounded-lg transition-colors border-b border-border"
+                  >
+                    <LogOut size={16} />
+                    Change Role
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
