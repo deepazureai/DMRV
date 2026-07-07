@@ -5,6 +5,7 @@ import { Award, AlertCircle, CheckCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useSubmissions, SubmissionState } from '@/lib/submission-context'
 import { useRole } from '@/lib/role-context'
+import { ApprovalConfirmationModal } from '@/components/approval-confirmation-modal'
 import { calculateCCCAmount, generateBlockchainHash } from '@/lib/calculations'
 
 interface RegulatorApprovalPanelProps {
@@ -16,6 +17,7 @@ export function RegulatorApprovalPanel({ submission }: RegulatorApprovalPanelPro
   const { userId } = useRole()
   const [notes, setNotes] = useState(submission.regulatorNotes || '')
   const [isApproving, setIsApproving] = useState(false)
+  const [showApprovalModal, setShowApprovalModal] = useState(false)
 
   // Calculate CCC amount based on quality score and emissions
   const estimatedEmissions = submission.uploadedFiles.length * 5000 // Mock calculation
@@ -26,11 +28,16 @@ export function RegulatorApprovalPanel({ submission }: RegulatorApprovalPanelPro
     projectType: 'renewable',
   })
 
-  const handleApprove = () => {
+  const handleApproveClick = () => {
+    setShowApprovalModal(true)
+  }
+
+  const handleConfirmApproval = () => {
     setIsApproving(true)
     setTimeout(() => {
       approveSubmission(submission.id, notes, userId, cccAmount)
       setIsApproving(false)
+      setShowApprovalModal(false)
     }, 1000)
   }
 
@@ -125,7 +132,7 @@ export function RegulatorApprovalPanel({ submission }: RegulatorApprovalPanelPro
             Defer
           </Button>
           <Button
-            onClick={handleApprove}
+            onClick={handleApproveClick}
             disabled={isApproving}
             className="bg-green-600 hover:bg-green-700"
           >
@@ -138,6 +145,25 @@ export function RegulatorApprovalPanel({ submission }: RegulatorApprovalPanelPro
           <span className="text-sm text-green-700">Carbon credits have been issued and certified.</span>
         </div>
       )}
+
+      {/* Approval Confirmation Modal */}
+      <ApprovalConfirmationModal
+        isOpen={showApprovalModal}
+        onClose={() => setShowApprovalModal(false)}
+        onConfirm={handleConfirmApproval}
+        isLoading={isApproving}
+        submission={{
+          id: submission.id,
+          period: submission.projectName || 'Q1 FY2026-27',
+          dataQuality: submission.qualityScore,
+          cccs: cccAmount,
+          submittedDate: submission.submittedDate || new Date().toLocaleDateString(),
+          uploadedFiles: submission.uploadedFiles.map((file: any) => ({
+            name: file.name || `File ${submission.uploadedFiles.indexOf(file) + 1}`,
+            type: file.type || 'unknown'
+          }))
+        }}
+      />
     </div>
   )
 }
