@@ -1,0 +1,21 @@
+Facility_ID,Date,Energy_Source,Energy_Consumed_kWh,Emission_Factor_kg_CO2_per_kWh,CO2_Emissions_kg,Carbon_Credits_Generated,Fuel_Type,Deviation_Flag,Duplicate_Flag,Exception_Type,Data_Quality_Score,Status
+FAC001,2025-01-01,Coal,1000,0.95,950,0.95,Coal,0,0,None,95,Valid
+FAC001,2025-01-02,Coal,1050,0.95,997.5,0.998,Coal,0,0,None,95,Valid
+FAC001,2025-01-03,Coal,980,0.95,931,0.931,Coal,0,0,None,94,Valid
+FAC001,2025-01-04,Natural Gas,1200,0.45,540,0.54,Gas,0,0,None,96,Valid
+FAC001,2025-01-05,Natural Gas,1180,0.45,531,0.531,Gas,0,0,None,95,Valid
+FAC002,2025-01-01,Solar,800,0,0,0,Solar,0,0,None,98,Valid
+FAC002,2025-01-02,Solar,820,0,0,0,Solar,0,0,None,98,Valid
+FAC002,2025-01-03,Solar,795,0,0,0,Solar,1,0,High_Deviation,88,Warning
+FAC002,2025-01-04,Wind,1500,0,0,0,Wind,0,0,None,97,Valid
+FAC002,2025-01-05,Wind,1480,0,0,0,Wind,0,0,None,97,Valid
+FAC003,2025-01-01,Hydro,2000,0,0,0,Hydro,0,1,Duplicate_Record,85,Warning
+FAC003,2025-01-02,Hydro,2050,0,0,0,Hydro,0,0,None,97,Valid
+FAC003,2025-01-03,Hydro,1950,0,0,0,Hydro,0,0,None,96,Valid
+FAC003,2025-01-04,Biomass,500,0.35,175,0.175,Biomass,1,0,High_Variance,80,Warning
+FAC003,2025-01-05,Biomass,520,0.35,182,0.182,Biomass,0,0,None,95,Valid
+FAC004,2025-01-01,Natural Gas,1100,0.45,495,0.495,Gas,0,0,None,96,Valid
+FAC004,2025-01-02,Natural Gas,1150,0.45,517.5,0.518,Gas,0,0,None,95,Valid
+FAC004,2025-01-03,Coal,900,0.95,855,0.855,Coal,0,0,None,94,Valid
+FAC004,2025-01-04,Coal,920,0.95,874,0.874,Coal,1,0,Outlier_Value,82,Warning
+FAC004,2025-01-05,Natural Gas,1200,0.45,540,0.54,Gas,0,0,None,96,Valid

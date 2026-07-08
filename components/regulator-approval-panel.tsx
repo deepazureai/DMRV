@@ -1,12 +1,13 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Award, AlertCircle, CheckCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useSubmissions, SubmissionState } from '@/lib/submission-context'
 import { useRole } from '@/lib/role-context'
-import { ApprovalConfirmationModal } from '@/components/approval-confirmation-modal'
+import { ApprovalWithMetricsModal } from '@/components/approval-with-metrics-modal'
 import { calculateCCCAmount, generateBlockchainHash } from '@/lib/calculations'
+import { loadSampleCSV } from '@/lib/csv-parser'
 
 interface RegulatorApprovalPanelProps {
   submission: SubmissionState
@@ -18,6 +19,18 @@ export function RegulatorApprovalPanel({ submission }: RegulatorApprovalPanelPro
   const [notes, setNotes] = useState(submission.regulatorNotes || '')
   const [isApproving, setIsApproving] = useState(false)
   const [showApprovalModal, setShowApprovalModal] = useState(false)
+  const [gridData, setGridData] = useState<Array<Record<string, any>>>([])
+  const [dataMetrics, setDataMetrics] = useState<any>(null)
+
+  // Load sample CSV data on mount
+  useEffect(() => {
+    const loadData = async () => {
+      const csvData = await loadSampleCSV('entity-1')
+      setGridData(csvData.records)
+      setDataMetrics(csvData.metrics)
+    }
+    loadData()
+  }, [])
 
   // Calculate CCC amount based on quality score and emissions
   const estimatedEmissions = submission.uploadedFiles.length * 5000 // Mock calculation
@@ -146,8 +159,8 @@ export function RegulatorApprovalPanel({ submission }: RegulatorApprovalPanelPro
         </div>
       )}
 
-      {/* Approval Confirmation Modal */}
-      <ApprovalConfirmationModal
+      {/* Approval Confirmation Modal with Metrics */}
+      <ApprovalWithMetricsModal
         isOpen={showApprovalModal}
         onClose={() => setShowApprovalModal(false)}
         onConfirm={handleConfirmApproval}
@@ -163,6 +176,8 @@ export function RegulatorApprovalPanel({ submission }: RegulatorApprovalPanelPro
             type: file.type || 'unknown'
           }))
         }}
+        dataMetrics={dataMetrics}
+        gridData={gridData}
       />
     </div>
   )
