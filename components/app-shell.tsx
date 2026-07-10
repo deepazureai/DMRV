@@ -4,7 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ChevronDown, Menu, X, LogOut } from 'lucide-react'
-import { useRole } from '@/lib/role-context'
+import { useRole, UserRole } from '@/lib/role-context'
 
 interface AppShellProps {
   children: React.ReactNode
@@ -17,27 +17,43 @@ interface AppShellProps {
   }>
 }
 
+type NavigationItem = {
+  href: string
+  label: string
+  icon: string
+  roles?: UserRole[]
+}
+
 export function AppShell({ children, currentPage = 'dashboard', lifecycleEvents = [] }: AppShellProps) {
   const [sidebarOpen, setSidebarOpen] = React.useState(true)
   const [dropdownOpen, setDropdownOpen] = React.useState(false)
   const router = useRouter()
-  const { clearRole } = useRole()
+  const { clearRole, currentRole } = useRole()
 
-  const navigationItems = [
+  const allNavigationItems: NavigationItem[] = [
     { href: '/', label: 'Dashboard', icon: '📊' },
     { href: '/golden-path', label: 'Golden Path', icon: '⭐' },
-    { href: '/entities', label: 'Entities', icon: '🏢' },
-    { href: '/projects', label: 'Projects', icon: '📁' },
-    { href: '/submissions', label: 'Submissions', icon: '📤' },
-    { href: '/data-quality', label: 'Data Quality', icon: '✓' },
-    { href: '/methodology', label: 'Methodology', icon: '📐' },
-    { href: '/evidence', label: 'Evidence', icon: '📄' },
-    { href: '/verification', label: 'Verification', icon: '🔍' },
-    { href: '/approvals', label: 'Approvals', icon: '✅' },
-    { href: '/blockchain', label: 'Blockchain', icon: '⛓' },
-    { href: '/registry', label: 'Registry', icon: '📋' },
+    { href: '/entities', label: 'Entities', icon: '🏢', roles: ['entity-submitter', 'sector-officer'] },
+    { href: '/projects', label: 'Projects', icon: '📁', roles: ['registry-operator', 'sector-officer'] },
+    { href: '/submissions', label: 'Submissions', icon: '📤', roles: ['entity-submitter', 'sector-officer'] },
+    { href: '/data-quality', label: 'Data Quality', icon: '✓', roles: ['entity-submitter', 'verifier-auditor', 'sector-officer'] },
+    { href: '/methodology', label: 'Methodology', icon: '📐', roles: ['entity-submitter', 'verifier-auditor', 'sector-officer'] },
+    { href: '/evidence', label: 'Evidence', icon: '📄', roles: ['entity-submitter', 'sector-officer'] },
+    { href: '/verification', label: 'Verifier Auditor', icon: '🔍', roles: ['verifier-auditor', 'sector-officer'] },
+    { href: '/approvals', label: 'BEE Regulator', icon: '✅', roles: ['bee-regulator', 'sector-officer'] },
+    { href: '/blockchain', label: 'Blockchain', icon: '⛓', roles: ['registry-operator', 'bee-regulator', 'sector-officer'] },
+    { href: '/registry', label: 'Registry', icon: '📋', roles: ['registry-operator', 'sector-officer'] },
     { href: '/settings', label: 'Settings', icon: '⚙' }
   ]
+
+  // Filter navigation items based on current role
+  const navigationItems = allNavigationItems.filter(item => {
+    // Items without role restrictions are always shown
+    if (!item.roles) return true
+    // If user has a role and it's in the allowed roles, show it
+    if (currentRole && item.roles.includes(currentRole)) return true
+    return false
+  })
 
   const statusColors: Record<string, string> = {
     submitted: 'bg-blue-50 text-blue-900 border-blue-200',
