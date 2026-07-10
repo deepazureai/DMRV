@@ -1,0 +1,21 @@
+facility_id,facility_name,measurement_date,energy_source,energy_consumed_kwh,emission_factor_kg_co2_per_kwh,co2_emissions_kg,carbon_credits_generated,fuel_type,data_quality_score,status,deviation_flag,duplicate_flag,exception_type
+FAC-009-CNM,Carbon Neutral Manufacturing Ltd,2025-01-01,Wind,6500,0.0,0,0.0,Renewable,98,Valid,0,0,None
+FAC-009-CNM,Carbon Neutral Manufacturing Ltd,2025-01-02,Solar,5800,0.0,0,0.0,Renewable,97,Valid,0,0,None
+FAC-009-CNM,Carbon Neutral Manufacturing Ltd,2025-01-03,Hydro,7200,0.0,0,0.0,Renewable,96,Valid,0,0,None
+FAC-009-CNM,Carbon Neutral Manufacturing Ltd,2025-01-04,Natural Gas,3200,0.45,1440,28.8,Fossil Fuel,92,Valid,0,0,None
+FAC-009-CNM,Carbon Neutral Manufacturing Ltd,2025-01-05,Wind,6800,0.0,0,0.0,Renewable,97,Valid,0,0,None
+FAC-010-CNM,Carbon Neutral Manufacturing Ltd,2025-01-01,Solar,6200,0.0,0,0.0,Renewable,99,Valid,0,0,None
+FAC-010-CNM,Carbon Neutral Manufacturing Ltd,2025-01-02,Biomass,2600,0.25,650,13.0,Renewable,93,Valid,0,0,None
+FAC-010-CNM,Carbon Neutral Manufacturing Ltd,2025-01-03,Wind,7100,0.0,0,0.0,Renewable,98,Valid,0,0,None
+FAC-010-CNM,Carbon Neutral Manufacturing Ltd,2025-01-04,Hydro,6900,0.0,0,0.0,Renewable,96,Valid,0,0,None
+FAC-010-CNM,Carbon Neutral Manufacturing Ltd,2025-01-05,Solar,6400,0.0,0,0.0,Renewable,99,Valid,0,1,Duplicate_Record
+FAC-011-CNM,Carbon Neutral Manufacturing Ltd,2025-01-01,Natural Gas,3600,0.45,1620,32.4,Fossil Fuel,91,Valid,0,0,None
+FAC-011-CNM,Carbon Neutral Manufacturing Ltd,2025-01-02,Wind,6900,0.0,0,0.0,Renewable,97,Valid,0,0,None
+FAC-011-CNM,Carbon Neutral Manufacturing Ltd,2025-01-03,Solar,5900,0.0,0,0.0,Renewable,98,Valid,0,0,None
+FAC-011-CNM,Carbon Neutral Manufacturing Ltd,2025-01-04,Biomass,2700,0.25,675,13.5,Renewable,94,Valid,0,0,None
+FAC-011-CNM,Carbon Neutral Manufacturing Ltd,2025-01-05,Hydro,7000,0.0,0,0.0,Renewable,97,Valid,0,0,None
+FAC-012-CNM,Carbon Neutral Manufacturing Ltd,2025-01-01,Wind,7200,0.0,0,0.0,Renewable,98,Valid,0,0,None
+FAC-012-CNM,Carbon Neutral Manufacturing Ltd,2025-01-02,Solar,6100,0.0,0,0.0,Renewable,99,Valid,0,0,None
+FAC-012-CNM,Carbon Neutral Manufacturing Ltd,2025-01-03,Natural Gas,2900,0.45,1305,26.1,Fossil Fuel,90,Valid,0,0,None
+FAC-012-CNM,Carbon Neutral Manufacturing Ltd,2025-01-04,Hydro,7400,0.0,0,0.0,Renewable,97,Valid,0,0,None
+FAC-012-CNM,Carbon Neutral Manufacturing Ltd,2025-01-05,Wind,7100,0.0,0,0.0,Renewable,96,Valid,0,0,None

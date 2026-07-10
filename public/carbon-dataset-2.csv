@@ -1,0 +1,21 @@
+facility_id,facility_name,measurement_date,energy_source,energy_consumed_kwh,emission_factor_kg_co2_per_kwh,co2_emissions_kg,carbon_credits_generated,fuel_type,data_quality_score,status,deviation_flag,duplicate_flag,exception_type
+FAC-005-GT,GreenTech Solutions Plant,2025-01-01,Solar,8000,0.0,0,0.0,Renewable,99,Valid,0,0,None
+FAC-005-GT,GreenTech Solutions Plant,2025-01-02,Wind,9500,0.0,0,0.0,Renewable,98,Valid,0,0,None
+FAC-005-GT,GreenTech Solutions Plant,2025-01-03,Hydro,7200,0.0,0,0.0,Renewable,97,Valid,0,0,None
+FAC-005-GT,GreenTech Solutions Plant,2025-01-04,Solar,8100,0.0,0,0.0,Renewable,99,Valid,0,0,None
+FAC-005-GT,GreenTech Solutions Plant,2025-01-05,Natural Gas,2100,0.45,945,18.9,Fossil Fuel,94,Valid,0,0,None
+FAC-006-GT,GreenTech Solutions Plant,2025-01-01,Wind,8800,0.0,0,0.0,Renewable,97,Valid,0,0,None
+FAC-006-GT,GreenTech Solutions Plant,2025-01-02,Solar,7500,0.0,0,0.0,Renewable,96,Valid,0,0,None
+FAC-006-GT,GreenTech Solutions Plant,2025-01-03,Biomass,3200,0.25,800,16.0,Renewable,92,Valid,0,0,None
+FAC-006-GT,GreenTech Solutions Plant,2025-01-04,Hydro,6800,0.0,0,0.0,Renewable,98,Valid,0,0,None
+FAC-006-GT,GreenTech Solutions Plant,2025-01-05,Solar,7900,0.0,0,0.0,Renewable,99,Valid,0,1,Duplicate_Record
+FAC-007-GT,GreenTech Solutions Plant,2025-01-01,Natural Gas,3500,0.45,1575,31.5,Fossil Fuel,90,Valid,0,0,None
+FAC-007-GT,GreenTech Solutions Plant,2025-01-02,Solar,8200,0.0,0,0.0,Renewable,98,Valid,0,0,None
+FAC-007-GT,GreenTech Solutions Plant,2025-01-03,Wind,9100,0.0,0,0.0,Renewable,97,Valid,0,0,None
+FAC-007-GT,GreenTech Solutions Plant,2025-01-04,Hydro,7100,0.0,0,0.0,Renewable,96,Valid,0,0,None
+FAC-007-GT,GreenTech Solutions Plant,2025-01-05,Biomass,2800,0.25,700,14.0,Renewable,93,Valid,0,0,None
+FAC-008-GT,GreenTech Solutions Plant,2025-01-01,Solar,7800,0.0,0,0.0,Renewable,99,Valid,0,0,None
+FAC-008-GT,GreenTech Solutions Plant,2025-01-02,Wind,8900,0.0,0,0.0,Renewable,98,Valid,0,0,None
+FAC-008-GT,GreenTech Solutions Plant,2025-01-03,Natural Gas,2800,0.45,1260,25.2,Fossil Fuel,91,Valid,0,0,None
+FAC-008-GT,GreenTech Solutions Plant,2025-01-04,Hydro,7300,0.0,0,0.0,Renewable,97,Valid,0,0,None
+FAC-008-GT,GreenTech Solutions Plant,2025-01-05,Solar,8300,0.0,0,0.0,Renewable,99,Valid,0,0,None

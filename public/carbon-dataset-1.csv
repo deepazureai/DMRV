@@ -1,0 +1,21 @@
+facility_id,facility_name,measurement_date,energy_source,energy_consumed_kwh,emission_factor_kg_co2_per_kwh,co2_emissions_kg,carbon_credits_generated,fuel_type,data_quality_score,status,deviation_flag,duplicate_flag,exception_type
+FAC-001-EC,EnergyCore Facility A,2025-01-01,Coal,5000,0.95,4750,95.0,Fossil Fuel,92,Valid,0,0,None
+FAC-001-EC,EnergyCore Facility A,2025-01-02,Natural Gas,4200,0.45,1890,37.8,Fossil Fuel,91,Valid,0,0,None
+FAC-001-EC,EnergyCore Facility A,2025-01-03,Solar,3500,0.0,0,0.0,Renewable,98,Valid,0,0,None
+FAC-001-EC,EnergyCore Facility A,2025-01-04,Wind,6000,0.0,0,0.0,Renewable,97,Valid,0,0,None
+FAC-001-EC,EnergyCore Facility A,2025-01-05,Coal,5100,0.95,4845,96.9,Fossil Fuel,89,Warning,1,0,High_Deviation
+FAC-002-EC,EnergyCore Facility B,2025-01-01,Natural Gas,3800,0.45,1710,34.2,Fossil Fuel,94,Valid,0,0,None
+FAC-002-EC,EnergyCore Facility B,2025-01-02,Hydro,4500,0.0,0,0.0,Renewable,96,Valid,0,0,None
+FAC-002-EC,EnergyCore Facility B,2025-01-03,Biomass,2100,0.25,525,10.5,Renewable,90,Valid,0,0,None
+FAC-002-EC,EnergyCore Facility B,2025-01-04,Natural Gas,3900,0.45,1755,35.1,Fossil Fuel,93,Valid,0,0,None
+FAC-002-EC,EnergyCore Facility B,2025-01-05,Solar,3200,0.0,0,0.0,Renewable,95,Valid,0,1,Duplicate_Record
+FAC-003-EC,EnergyCore Facility C,2025-01-01,Wind,5500,0.0,0,0.0,Renewable,97,Valid,0,0,None
+FAC-003-EC,EnergyCore Facility C,2025-01-02,Coal,4800,0.95,4560,91.2,Fossil Fuel,88,Warning,1,0,Outlier_Value
+FAC-003-EC,EnergyCore Facility C,2025-01-03,Natural Gas,4100,0.45,1845,36.9,Fossil Fuel,92,Valid,0,0,None
+FAC-003-EC,EnergyCore Facility C,2025-01-04,Solar,3800,0.0,0,0.0,Renewable,96,Valid,0,0,None
+FAC-003-EC,EnergyCore Facility C,2025-01-05,Hydro,5200,0.0,0,0.0,Renewable,98,Valid,0,0,None
+FAC-004-EC,EnergyCore Facility D,2025-01-01,Natural Gas,4300,0.45,1935,38.7,Fossil Fuel,91,Valid,0,0,None
+FAC-004-EC,EnergyCore Facility D,2025-01-02,Solar,4000,0.0,0,0.0,Renewable,99,Valid,0,0,None
+FAC-004-EC,EnergyCore Facility D,2025-01-03,Wind,5800,0.0,0,0.0,Renewable,97,Valid,0,0,None
+FAC-004-EC,EnergyCore Facility D,2025-01-04,Coal,5200,0.95,4940,98.8,Fossil Fuel,87,Warning,1,0,Quality_Issue
+FAC-004-EC,EnergyCore Facility D,2025-01-05,Biomass,2400,0.25,600,12.0,Renewable,94,Valid,0,0,None
