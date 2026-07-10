@@ -5,7 +5,7 @@ import { Upload, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { CarbonFileList } from '@/components/carbon-file-list'
 import { CarbonRecordsGrid } from '@/components/carbon-records-grid'
-import { createUploadedFile, loadSampleDataset, UploadedFile } from '@/lib/carbon-file-manager'
+import { createUploadedFile, loadEntityDatasets, UploadedFile } from '@/lib/carbon-file-manager'
 
 export function CarbonFileUploader() {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([])
@@ -13,25 +13,17 @@ export function CarbonFileUploader() {
   const [isDragging, setIsDragging] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
-  // Load sample datasets on mount
+  // Load entity datasets on mount
   useEffect(() => {
     const loadSamples = async () => {
       try {
-        const dataset1 = await loadSampleDataset('1')
-        const dataset2 = await loadSampleDataset('2')
-        const dataset3 = await loadSampleDataset('3')
-
-        const files: UploadedFile[] = []
-        if (dataset1) files.push(dataset1)
-        if (dataset2) files.push(dataset2)
-        if (dataset3) files.push(dataset3)
-
+        const files = await loadEntityDatasets()
         setUploadedFiles(files)
         if (files.length > 0) {
           setSelectedFileId(files[0].id)
         }
       } catch (error) {
-        console.error('Error loading sample datasets:', error)
+        console.error('Error loading entity datasets:', error)
       } finally {
         setIsLoading(false)
       }

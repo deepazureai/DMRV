@@ -1,0 +1,21 @@
+Facility_ID,Facility_Name,Date,Energy_Source,Energy_Consumed_kWh,Emission_Factor_kg_CO2_per_kWh,CO2_Emissions_kg,Carbon_Credits_Generated,Fuel_Type,Deviation_Flag,Duplicate_Flag,Exception_Type,Data_Quality_Score,Status
+GSM-BF001,Blast Furnace 1,2025-01-01,Coal,8500,0.95,8075,161.5,Coke,0,0,None,91,Valid
+GSM-BF001,Blast Furnace 1,2025-01-02,Coal,8600,0.95,8170,163.4,Coke,0,0,None,91,Valid
+GSM-BF002,Blast Furnace 2,2025-01-01,Coal,8200,0.95,7790,155.8,Coke,0,0,None,90,Valid
+GSM-EAF001,Electric Arc Furnace,2025-01-01,Electricity,5500,0.65,3575,71.5,Grid Power,0,0,None,96,Valid
+GSM-EAF001,Electric Arc Furnace,2025-01-02,Electricity,5600,0.65,3640,72.8,Grid Power,0,0,None,96,Valid
+GSM-ROL001,Rolling Mill,2025-01-01,Electricity,4200,0.65,2730,54.6,Grid Power,0,0,None,94,Valid
+GSM-ROL001,Rolling Mill,2025-01-02,Electricity,4300,0.65,2795,55.9,Grid Power,0,0,None,94,Valid
+GSM-SOL001,Solar Plant,2025-01-01,Solar,3000,0.05,150,3,Renewable,0,0,None,98,Valid
+GSM-SOL001,Solar Plant,2025-01-02,Solar,3100,0.05,155,3.1,Renewable,0,0,None,98,Valid
+GSM-WND001,Wind Plant,2025-01-01,Wind,4500,0.08,360,7.2,Renewable,0,0,None,97,Valid
+GSM-BF001,Blast Furnace 1,2025-01-03,Coal,8450,0.95,8027.5,160.55,Coke,0,0,None,91,Valid
+GSM-BF002,Blast Furnace 2,2025-01-02,Coal,8350,0.95,7932.5,158.65,Coke,0,1,Duplicate,88,Warning
+GSM-EAF001,Electric Arc Furnace,2025-01-03,Electricity,5450,0.65,3542.5,70.85,Grid Power,0,0,None,96,Valid
+GSM-ROL001,Rolling Mill,2025-01-03,Electricity,4150,0.65,2697.5,53.95,Grid Power,0,0,None,94,Valid
+GSM-SOL001,Solar Plant,2025-01-03,Solar,3200,0.05,160,3.2,Renewable,0,0,None,98,Valid
+GSM-WND001,Wind Plant,2025-01-02,Wind,4600,0.08,368,7.36,Renewable,0,0,None,97,Valid
+GSM-BF001,Blast Furnace 1,2025-01-04,Coal,8700,0.95,8265,165.3,Coke,1,0,Deviation,87,Warning
+GSM-EAF001,Electric Arc Furnace,2025-01-04,Electricity,5700,0.65,3705,74.1,Grid Power,0,0,None,96,Valid
+GSM-ROL001,Rolling Mill,2025-01-04,Electricity,4400,0.65,2860,57.2,Grid Power,0,0,None,94,Valid
+GSM-WND001,Wind Plant,2025-01-03,Wind,4400,0.08,352,7.04,Renewable,0,0,None,97,Valid

@@ -114,3 +114,22 @@ export function loadSampleDataset(datasetName: string): Promise<UploadedFile | n
     .then((csv) => createUploadedFile(`carbon-dataset-${datasetName}.csv`, csv))
     .catch(() => null)
 }
+
+// Load datasets for actual entities in the system
+export const entityDatasets = [
+  { filename: 'eastern-cement-works-data.csv', company: 'Eastern Cement Works Ltd' },
+  { filename: 'green-steel-manufacturing-data.csv', company: 'Green Steel Manufacturing' },
+  { filename: 'sustainable-energy-solutions-data.csv', company: 'Sustainable Energy Solutions' },
+]
+
+export async function loadEntityDatasets(): Promise<UploadedFile[]> {
+  const files = await Promise.all(
+    entityDatasets.map((dataset) =>
+      fetch(`/${dataset.filename}`)
+        .then((res) => res.text())
+        .then((csv) => createUploadedFile(dataset.filename, csv))
+        .catch(() => null)
+    )
+  )
+  return files.filter((f) => f !== null) as UploadedFile[]
+}

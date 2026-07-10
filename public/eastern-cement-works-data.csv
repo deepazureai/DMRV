@@ -1,0 +1,21 @@
+Facility_ID,Facility_Name,Date,Energy_Source,Energy_Consumed_kWh,Emission_Factor_kg_CO2_per_kWh,CO2_Emissions_kg,Carbon_Credits_Generated,Fuel_Type,Deviation_Flag,Duplicate_Flag,Exception_Type,Data_Quality_Score,Status
+ECWL-K001,Kiln Unit 1,2025-01-01,Coal,4500,0.95,4275,85.5,Thermal Coal,0,0,None,94,Valid
+ECWL-K001,Kiln Unit 1,2025-01-02,Coal,4650,0.95,4417.5,88.35,Thermal Coal,0,0,None,94,Valid
+ECWL-K002,Kiln Unit 2,2025-01-01,Coal,4200,0.95,3990,79.8,Thermal Coal,0,0,None,92,Valid
+ECWL-K002,Kiln Unit 2,2025-01-02,Coal,4400,0.95,4180,83.6,Thermal Coal,0,0,None,92,Valid
+ECWL-P001,Packer Unit,2025-01-01,Gas,2100,0.42,882,17.64,Natural Gas,0,0,None,95,Valid
+ECWL-P001,Packer Unit,2025-01-02,Gas,2200,0.42,924,18.48,Natural Gas,0,0,None,95,Valid
+ECWL-R001,Raw Mill,2025-01-01,Electricity,3200,0.65,2080,41.6,Grid Power,0,0,None,93,Valid
+ECWL-R001,Raw Mill,2025-01-02,Electricity,3100,0.65,2015,40.3,Grid Power,0,0,None,93,Valid
+ECWL-C001,Cement Mill,2025-01-01,Electricity,2800,0.65,1820,36.4,Grid Power,0,0,None,91,Valid
+ECWL-C001,Cement Mill,2025-01-02,Electricity,2900,0.65,1885,37.7,Grid Power,0,0,None,91,Valid
+ECWL-K001,Kiln Unit 1,2025-01-03,Coal,4550,0.95,4322.5,86.45,Thermal Coal,0,0,None,94,Valid
+ECWL-K002,Kiln Unit 2,2025-01-03,Coal,4350,0.95,4132.5,82.65,Thermal Coal,0,0,None,92,Valid
+ECWL-P001,Packer Unit,2025-01-03,Gas,2150,0.42,903,18.06,Natural Gas,0,0,None,95,Valid
+ECWL-R001,Raw Mill,2025-01-03,Electricity,3150,0.65,2047.5,40.95,Grid Power,0,0,None,93,Valid
+ECWL-C001,Cement Mill,2025-01-03,Electricity,2850,0.65,1852.5,37.05,Grid Power,0,1,Duplicate,88,Warning
+ECWL-K001,Kiln Unit 1,2025-01-04,Coal,4700,0.95,4465,89.3,Thermal Coal,1,0,Deviation,89,Warning
+ECWL-K002,Kiln Unit 2,2025-01-04,Coal,4300,0.95,4085,81.7,Thermal Coal,0,0,None,92,Valid
+ECWL-P001,Packer Unit,2025-01-04,Gas,2250,0.42,945,18.9,Natural Gas,0,0,None,95,Valid
+ECWL-R001,Raw Mill,2025-01-04,Electricity,3050,0.65,1982.5,39.65,Grid Power,0,0,None,93,Valid
+ECWL-C001,Cement Mill,2025-01-04,Electricity,2750,0.65,1787.5,35.75,Grid Power,0,0,None,91,Valid
