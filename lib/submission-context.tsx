@@ -65,8 +65,90 @@ export interface SubmissionContextType {
 
 const SubmissionContext = createContext<SubmissionContextType | undefined>(undefined)
 
+// Mock submissions for testing
+const MOCK_SUBMISSIONS: SubmissionState[] = [
+  {
+    id: 'SUB-2024001',
+    status: 'pending_verification',
+    entityId: 'ECWL-001',
+    projectId: 'PROJ-SOLAR-A',
+    uploadedFiles: [
+      { name: 'carbon_data_2024_q1.xlsx', type: 'application/vnd.ms-excel', size: 245000, uploadedAt: '2024-01-15T10:30:00Z' },
+      { name: 'energy_records.pdf', type: 'application/pdf', size: 512000, uploadedAt: '2024-01-15T10:31:00Z' },
+    ],
+    qualityScore: 87,
+    exceptions: [],
+    verifierNotes: '',
+    regulatorNotes: '',
+    cccAmount: 100000,
+  },
+  {
+    id: 'SUB-2024002',
+    status: 'pending_verification',
+    entityId: 'ECWL-002',
+    projectId: 'PROJ-WIND-B',
+    uploadedFiles: [
+      { name: 'wind_farm_emissions.xlsx', type: 'application/vnd.ms-excel', size: 180000, uploadedAt: '2024-01-14T14:20:00Z' },
+    ],
+    qualityScore: 92,
+    exceptions: [],
+    verifierNotes: '',
+    regulatorNotes: '',
+    cccAmount: 85000,
+  },
+  {
+    id: 'SUB-2024003',
+    status: 'verified',
+    entityId: 'ECWL-003',
+    projectId: 'PROJ-HYDRO-C',
+    uploadedFiles: [
+      { name: 'hydro_carbon_data.xlsx', type: 'application/vnd.ms-excel', size: 156000, uploadedAt: '2024-01-13T09:15:00Z' },
+    ],
+    qualityScore: 95,
+    exceptions: [],
+    verifierNotes: 'All data validated. No anomalies detected. Ready for approval.',
+    verifierId: 'verifier-1',
+    verifiedAt: '2024-01-15T16:45:00Z',
+    regulatorNotes: '',
+    cccAmount: 120000,
+  },
+  {
+    id: 'SUB-2024004',
+    status: 'pending_approval',
+    entityId: 'ECWL-004',
+    projectId: 'PROJ-FACTORY-D',
+    uploadedFiles: [
+      { name: 'factory_emissions_2024.xlsx', type: 'application/vnd.ms-excel', size: 298000, uploadedAt: '2024-01-12T11:45:00Z' },
+      { name: 'methodology.pdf', type: 'application/pdf', size: 450000, uploadedAt: '2024-01-12T11:46:00Z' },
+    ],
+    qualityScore: 88,
+    exceptions: [],
+    verifierNotes: 'Data quality excellent. Calculations verified. Ready for regulatory approval.',
+    verifierId: 'verifier-1',
+    verifiedAt: '2024-01-14T15:30:00Z',
+    regulatorNotes: '',
+    cccAmount: 145000,
+  },
+  {
+    id: 'SUB-2024005',
+    status: 'pending_approval',
+    entityId: 'ECWL-005',
+    projectId: 'PROJ-RENEWABLE-E',
+    uploadedFiles: [
+      { name: 'renewable_energy_data.xlsx', type: 'application/vnd.ms-excel', size: 215000, uploadedAt: '2024-01-11T13:20:00Z' },
+    ],
+    qualityScore: 91,
+    exceptions: [],
+    verifierNotes: 'All anomalies reviewed and accepted. Methodology compliant. Approved for final step.',
+    verifierId: 'verifier-2',
+    verifiedAt: '2024-01-13T14:00:00Z',
+    regulatorNotes: '',
+    cccAmount: 105000,
+  },
+]
+
 export function SubmissionProvider({ children }: { children: ReactNode }) {
-  const [submissions, setSubmissions] = useState<SubmissionState[]>([])
+  const [submissions, setSubmissions] = useState<SubmissionState[]>(MOCK_SUBMISSIONS)
 
   const createSubmission = (entityId: string, projectId: string): SubmissionState => {
     const newSubmission: SubmissionState = {
