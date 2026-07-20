@@ -1,17 +1,32 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { Upload, Plus } from 'lucide-react'
+import { Upload, Plus, AlertCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import { CarbonFileList } from '@/components/carbon-file-list'
 import { CarbonRecordsGrid } from '@/components/carbon-records-grid'
 import { createUploadedFile, loadEntityDatasets, UploadedFile } from '@/lib/carbon-file-manager'
+
+interface PendingUpload {
+  files: FileList
+  filenames: string[]
+}
 
 export function CarbonFileUploader() {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([])
   const [selectedFileId, setSelectedFileId] = useState<string | null>(null)
   const [isDragging, setIsDragging] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [pendingUpload, setPendingUpload] = useState<PendingUpload | null>(null)
+  const [showConfirmation, setShowConfirmation] = useState(false)
 
   // Load entity datasets on mount
   useEffect(() => {
@@ -59,13 +74,34 @@ export function CarbonFileUploader() {
   }
 
   const processFiles = async (files: FileList) => {
+    const filenames: string[] = []
+    let hasInvalidFiles = false
+
     for (let i = 0; i < files.length; i++) {
       const file = files[i]
       if (!file.name.endsWith('.csv')) {
         alert(`${file.name} is not a CSV file. Please upload CSV files only.`)
+        hasInvalidFiles = true
         continue
       }
+      filenames.push(file.name)
+    }
 
+    if (hasInvalidFiles || filenames.length === 0) {
+      return
+    }
+
+    // Show confirmation dialog before uploading
+    setPendingUpload({ files, filenames })
+    setShowConfirmation(true)
+  }
+
+  const confirmUpload = async () => {
+    if (!pendingUpload) return
+
+    const { files } = pendingUpload
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i]
       try {
         const csvContent = await file.text()
         const uploadedFile = createUploadedFile(file.name, csvContent)
@@ -76,6 +112,9 @@ export function CarbonFileUploader() {
         alert(`Error processing ${file.name}`)
       }
     }
+
+    setPendingUpload(null)
+    setShowConfirmation(false)
   }
 
   const handleDeleteFile = (fileId: string) => {
@@ -100,6 +139,65 @@ export function CarbonFileUploader() {
 
   return (
     <div className="space-y-6">
+      {/* Upload Confirmation Dialog */}
+      <Dialog open={showConfirmation} onOpenChange={setShowConfirmation}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <AlertCircle className="h-5 w-5 text-amber-600" />
+              Confirm File Upload
+            </DialogTitle>
+            <DialogDescription>
+              Please verify the following before uploading:
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4">
+            <div className="rounded-lg bg-blue-50 p-4 border border-blue-200">
+              <p className="text-sm font-medium text-blue-900 mb-2">Files to Upload:</p>
+              <ul className="space-y-1">
+                {pendingUpload?.filenames.map((filename, idx) => (
+                  <li key={idx} className="text-sm text-blue-800">
+                    • {filename}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Verification Checklist:</p>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" defaultChecked className="rounded" />
+                  <span>File format is valid CSV</span>
+                </label>
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" defaultChecked className="rounded" />
+                  <span>Data includes facility IDs, energy sources, and emissions</span>
+                </label>
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" defaultChecked className="rounded" />
+                  <span>Carbon credit calculations are accurate</span>
+                </label>
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" defaultChecked className="rounded" />
+                  <span>All required fields are populated</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <DialogFooter className="gap-2">
+            <Button variant="outline" onClick={() => setShowConfirmation(false)}>
+              Cancel
+            </Button>
+            <Button onClick={confirmUpload} className="bg-primary">
+              Confirm & Upload
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       {/* Upload Section */}
       <div className="bg-card rounded-lg border border-border overflow-hidden">
         {/* Upload Zone */}

@@ -1,10 +1,38 @@
 'use client'
 
 import React from 'react'
+import { useRouter } from 'next/navigation'
 import { AppShell } from '@/components/app-shell'
+import { useRole } from '@/lib/role-context'
 import { mockSubmissions, getEvidenceBySubmissionId, getIssuesBySubmissionId } from '@/lib/mock-data'
 
 export default function VerificationPage() {
+  const router = useRouter()
+  const { currentRole } = useRole()
+
+  // Only Verifier Auditor and Sector Officer can access verification
+  React.useEffect(() => {
+    if (currentRole && currentRole !== 'verifier-auditor' && currentRole !== 'sector-officer') {
+      router.push('/')
+    }
+  }, [currentRole, router])
+
+  // If user doesn't have proper role, show access denied
+  if (currentRole && currentRole !== 'verifier-auditor' && currentRole !== 'sector-officer') {
+    return (
+      <AppShell currentPage="verification">
+        <div className="space-y-6 p-6">
+          <div className="rounded-lg border border-red-200 bg-red-50 p-6">
+            <h2 className="text-lg font-semibold text-red-900">Access Denied</h2>
+            <p className="mt-2 text-sm text-red-800">
+              Only Verifier Auditor can access the verification workbench. Please switch to the correct role.
+            </p>
+          </div>
+        </div>
+      </AppShell>
+    )
+  }
+
   const verifiedSubmissions = mockSubmissions.filter(s => s.status === 'verified' || s.status === 'approved')
 
   return (
