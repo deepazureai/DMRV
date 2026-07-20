@@ -72,9 +72,9 @@ export function DataPreviewViewer({ fileName, fileType }: DataPreviewViewerProps
   return (
     <div className="w-full border rounded-lg bg-card overflow-hidden">
       {/* Header */}
-      <button
+      <div
+        className="w-full flex items-center justify-between p-4 hover:bg-muted/50 transition-colors cursor-pointer"
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full flex items-center justify-between p-4 hover:bg-muted/50 transition-colors"
       >
         <div className="flex items-center gap-3 flex-1 min-w-0">
           <ChevronDown
@@ -96,7 +96,7 @@ export function DataPreviewViewer({ fileName, fileType }: DataPreviewViewerProps
         >
           {showPreview ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
         </Button>
-      </button>
+      </div>
 
       {/* Preview Content */}
       {isExpanded && showPreview && (
