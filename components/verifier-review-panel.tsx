@@ -3,6 +3,14 @@
 import React, { useState } from 'react'
 import { CheckCircle, AlertCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import { useSubmissions, SubmissionState } from '@/lib/submission-context'
 import { useRole } from '@/lib/role-context'
 import { validateSubmission } from '@/lib/calculations'
@@ -17,17 +25,23 @@ export function VerifierReviewPanel({ submission }: VerifierReviewPanelProps) {
   const [notes, setNotes] = useState(submission.verifierNotes || '')
   const [isReviewing, setIsReviewing] = useState(false)
   const [exceptions, setExceptions] = useState<any[]>([])
+  const [showConfirmation, setShowConfirmation] = useState(false)
 
   React.useEffect(() => {
     const exceptionsList = validateSubmission(submission.uploadedFiles)
     setExceptions(exceptionsList)
   }, [submission])
 
-  const handleApprove = () => {
+  const handleApproveClick = () => {
+    setShowConfirmation(true)
+  }
+
+  const handleConfirmVerification = () => {
     setIsReviewing(true)
     setTimeout(() => {
       verifySubmission(submission.id, notes, userId)
       setIsReviewing(false)
+      setShowConfirmation(false)
     }, 1000)
   }
 
@@ -41,7 +55,67 @@ export function VerifierReviewPanel({ submission }: VerifierReviewPanelProps) {
   }
 
   return (
-    <div className="space-y-6">
+    <>
+      {/* Verification Confirmation Dialog */}
+      <Dialog open={showConfirmation} onOpenChange={setShowConfirmation}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Confirm Verification</DialogTitle>
+            <DialogDescription>
+              You are about to mark this submission as verified. This will move it to the approval queue.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4">
+            <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <p className="text-sm font-medium text-blue-900 mb-2">Verification Summary:</p>
+              <div className="space-y-1 text-sm text-blue-800">
+                <div className="flex justify-between">
+                  <span>Submission ID:</span>
+                  <span className="font-medium">{submission.id}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Quality Score:</span>
+                  <span className="font-medium">{submission.qualityScore}%</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Files Reviewed:</span>
+                  <span className="font-medium">{submission.uploadedFiles.length}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Verification Checklist:</p>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" defaultChecked className="rounded" />
+                  <span>Data quality is acceptable</span>
+                </label>
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" defaultChecked className="rounded" />
+                  <span>All exceptions have been reviewed</span>
+                </label>
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" defaultChecked className="rounded" />
+                  <span>Calculations are correct</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <DialogFooter className="gap-2">
+            <Button variant="outline" onClick={() => setShowConfirmation(false)}>
+              Cancel
+            </Button>
+            <Button onClick={handleConfirmVerification} className="bg-green-600 hover:bg-green-700">
+              Confirm Verification
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <div className="space-y-6">
       {/* Verification Status */}
       <div className="p-4 bg-muted rounded-lg">
         <h3 className="font-semibold mb-3">Verification Status</h3>
@@ -112,17 +186,17 @@ export function VerifierReviewPanel({ submission }: VerifierReviewPanelProps) {
       </div>
 
       {/* Actions */}
-      {submission.status === 'submitted' || submission.status === 'under-review' ? (
+      {submission.status === 'submitted' || submission.status === 'pending_verification' ? (
         <div className="flex gap-3 pt-4 border-t">
           <Button variant="outline" disabled={isReviewing}>
             Reject
           </Button>
           <Button
-            onClick={handleApprove}
+            onClick={handleApproveClick}
             disabled={isReviewing}
             className="bg-green-600 hover:bg-green-700"
           >
-            {isReviewing ? 'Verifying...' : 'Approve for Verification'}
+            {isReviewing ? 'Verifying...' : 'Mark as Verified'}
           </Button>
         </div>
       ) : (
@@ -132,5 +206,6 @@ export function VerifierReviewPanel({ submission }: VerifierReviewPanelProps) {
         </div>
       )}
     </div>
+    </>
   )
 }

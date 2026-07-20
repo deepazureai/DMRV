@@ -34,9 +34,35 @@ export function SubmissionDetailModal({ submissionId, onClose }: SubmissionDetai
     )
   }
 
-  const canReview = currentRole === 'verifier-auditor'
-  const canApprove = currentRole === 'bee-regulator'
-  const canRegister = currentRole === 'registry-operator'
+  // Check role-based access permissions
+  const isSubmitter = currentRole === 'entity-submitter'
+  const isVerifier = currentRole === 'verifier-auditor'
+  const isApprover = currentRole === 'bee-regulator'
+  const isRegistry = currentRole === 'registry-operator'
+
+  // Verify tab access permissions
+  const hasVerificationAccess = !isSubmitter && (isVerifier || currentRole === 'sector-officer')
+  const hasApprovalAccess = !isSubmitter && !isVerifier && (isApprover || currentRole === 'sector-officer')
+  const hasBlockchainAccess = !isSubmitter && !isVerifier && !isApprover && (isRegistry || currentRole === 'sector-officer')
+
+  // Prevent unauthorized tab access
+  if (activeTab === 'verification' && !hasVerificationAccess) {
+    setActiveTab('overview')
+  }
+  if (activeTab === 'approval' && !hasApprovalAccess) {
+    setActiveTab('overview')
+  }
+  if (activeTab === 'blockchain' && !hasBlockchainAccess) {
+    setActiveTab('overview')
+  }
+
+  // Determine which tabs should be visible based on role and status
+  const showVerificationTab = hasVerificationAccess && 
+    ['pending_verification', 'verified', 'verification_rejected', 'verification_requested_corrections'].includes(submission.status)
+  const showApprovalTab = hasApprovalAccess && 
+    ['pending_approval', 'approved', 'approval_rejected', 'approval_requested_corrections'].includes(submission.status)
+  const showBlockchainTab = hasBlockchainAccess && 
+    ['pending_registration', 'registered', 'registration_failed'].includes(submission.status)
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
@@ -64,7 +90,7 @@ export function SubmissionDetailModal({ submissionId, onClose }: SubmissionDetai
           >
             Overview
           </button>
-          {(canReview || submission.status !== 'draft') && (
+          {showVerificationTab && (
             <button
               onClick={() => setActiveTab('verification')}
               className={`px-4 py-3 font-medium text-sm ${
@@ -74,7 +100,7 @@ export function SubmissionDetailModal({ submissionId, onClose }: SubmissionDetai
               Verification
             </button>
           )}
-          {(canApprove || submission.status === 'verified') && (
+          {showApprovalTab && (
             <button
               onClick={() => setActiveTab('approval')}
               className={`px-4 py-3 font-medium text-sm ${
@@ -84,7 +110,7 @@ export function SubmissionDetailModal({ submissionId, onClose }: SubmissionDetai
               Approval
             </button>
           )}
-          {(canRegister || submission.status === 'approved') && (
+          {showBlockchainTab && (
             <button
               onClick={() => setActiveTab('blockchain')}
               className={`px-4 py-3 font-medium text-sm ${
