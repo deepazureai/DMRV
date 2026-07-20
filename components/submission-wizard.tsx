@@ -1,8 +1,16 @@
 'use client'
 
 import React, { useState } from 'react'
-import { ChevronRight, ChevronLeft, CheckCircle2 } from 'lucide-react'
+import { ChevronRight, ChevronLeft, CheckCircle2, AlertCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import { FileUploadZone, UploadedFile } from '@/components/file-upload-zone'
 import { DataPreviewViewer } from '@/components/data-preview-viewer'
 import { useSubmissions } from '@/lib/submission-context'
@@ -27,6 +35,7 @@ export function SubmissionWizard({
   const [methodology, setMethodology] = useState('cdm')
   const [description, setDescription] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showConfirmation, setShowConfirmation] = useState(false)
 
   const { createSubmission, submitForReview, uploadFiles, calculateQualityScore } = useSubmissions()
 
@@ -36,8 +45,13 @@ export function SubmissionWizard({
     setExceptions(exceptionsList)
   }
 
-  const handleSubmit = async () => {
+  const handleSubmitClick = () => {
+    setShowConfirmation(true)
+  }
+
+  const confirmSubmission = async () => {
     setIsSubmitting(true)
+    setShowConfirmation(false)
     try {
       const submission = createSubmission(entityId, projectId)
       uploadFiles(submission.id, uploadedFiles)
@@ -62,8 +76,79 @@ export function SubmissionWizard({
   ]
 
   return (
-    <div className="w-full max-w-2xl bg-card border rounded-lg p-6 space-y-6">
-      {/* Step Indicator */}
+    <>
+      {/* Submission Confirmation Dialog */}
+      <Dialog open={showConfirmation} onOpenChange={setShowConfirmation}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <AlertCircle className="h-5 w-5 text-amber-600" />
+              Confirm Submission
+            </DialogTitle>
+            <DialogDescription>
+              Please verify the submission details before proceeding:
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4">
+            <div className="rounded-lg bg-blue-50 p-4 border border-blue-200 space-y-2">
+              <p className="text-sm font-medium text-blue-900">Submission Summary:</p>
+              <div className="space-y-1 text-sm text-blue-800">
+                <div className="flex justify-between">
+                  <span>Entity ID:</span>
+                  <span className="font-medium">{entityId}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Project ID:</span>
+                  <span className="font-medium">{projectId}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Files Uploaded:</span>
+                  <span className="font-medium">{uploadedFiles.length}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Methodology:</span>
+                  <span className="font-medium capitalize">{methodology}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Verification Checklist:</p>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" defaultChecked className="rounded" />
+                  <span>All data files are complete and valid</span>
+                </label>
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" defaultChecked className="rounded" />
+                  <span>Quality assurance checks passed</span>
+                </label>
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" defaultChecked className="rounded" />
+                  <span>Methodology selection is appropriate</span>
+                </label>
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" defaultChecked className="rounded" />
+                  <span>I understand this will be sent for verification</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <DialogFooter className="gap-2">
+            <Button variant="outline" onClick={() => setShowConfirmation(false)}>
+              Cancel
+            </Button>
+            <Button onClick={confirmSubmission} className="bg-green-600 hover:bg-green-700">
+              Confirm & Submit
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <div className="w-full max-w-2xl bg-card border rounded-lg p-6 space-y-6">
+        {/* Step Indicator */}
       <div className="flex items-center justify-between">
         {steps.map((s, idx) => (
           <React.Fragment key={s.number}>
@@ -237,12 +322,13 @@ export function SubmissionWizard({
               <ChevronRight className="w-4 h-4 ml-2" />
             </Button>
           ) : (
-            <Button onClick={handleSubmit} disabled={isSubmitting} className="bg-green-600 hover:bg-green-700">
+            <Button onClick={handleSubmitClick} disabled={isSubmitting} className="bg-green-600 hover:bg-green-700">
               {isSubmitting ? 'Submitting...' : 'Submit'}
             </Button>
           )}
         </div>
       </div>
     </div>
+    </>
   )
 }
