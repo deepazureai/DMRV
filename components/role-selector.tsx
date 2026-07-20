@@ -70,9 +70,8 @@ export function RoleSelector() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
           {roles.map(role => (
-            <button
+            <div
               key={role.value}
-              onClick={() => handleSelectRole(role.value)}
               className="group relative overflow-hidden rounded-lg border border-border bg-card p-6 transition-all hover:border-primary hover:shadow-lg hover:shadow-primary/20"
             >
               <div className={`absolute inset-0 bg-gradient-to-br ${role.color} opacity-0 group-hover:opacity-10 transition-opacity`} />
@@ -87,6 +86,7 @@ export function RoleSelector() {
 
                 <div className="pt-2">
                   <Button
+                    onClick={() => handleSelectRole(role.value)}
                     className="w-full"
                     variant="outline"
                     size="sm"
@@ -95,7 +95,7 @@ export function RoleSelector() {
                   </Button>
                 </div>
               </div>
-            </button>
+            </div>
           ))}
         </div>
 
