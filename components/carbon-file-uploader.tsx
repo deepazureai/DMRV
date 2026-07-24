@@ -27,6 +27,7 @@ export function CarbonFileUploader() {
   const [isLoading, setIsLoading] = useState(true)
   const [pendingUpload, setPendingUpload] = useState<PendingUpload | null>(null)
   const [showConfirmation, setShowConfirmation] = useState(false)
+  const fileInputRef = React.useRef<HTMLInputElement>(null)
 
   // Load entity datasets on mount
   useEffect(() => {
@@ -52,6 +53,10 @@ export function CarbonFileUploader() {
     if (files) {
       processFiles(files)
     }
+  }
+
+  const handleButtonClick = () => {
+    fileInputRef.current?.click()
   }
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -217,19 +222,18 @@ export function CarbonFileUploader() {
             Drag and drop DMRV-format CSV files here, or click to browse. Data will be parsed and available for creating formal submissions.
           </p>
 
-          <label className="inline-block cursor-pointer">
-            <input
-              type="file"
-              multiple
-              accept=".csv"
-              onChange={handleFileSelect}
-              className="hidden"
-            />
-            <Button className="cursor-pointer">
-              <Upload className="h-4 w-4 mr-2" />
-              Choose DMRV Data Files
-            </Button>
-          </label>
+          <input
+            ref={fileInputRef}
+            type="file"
+            multiple
+            accept=".csv"
+            onChange={handleFileSelect}
+            className="hidden"
+          />
+          <Button onClick={handleButtonClick} className="cursor-pointer">
+            <Upload className="h-4 w-4 mr-2" />
+            Choose DMRV Data Files
+          </Button>
 
           <p className="text-xs text-muted-foreground mt-4">
             Supported format: CSV with facility data, energy source, emissions, and carbon credits
