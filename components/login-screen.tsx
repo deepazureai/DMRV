@@ -110,12 +110,11 @@ export function LoginScreen() {
                   const isSelected = selectedRole === role.value
 
                   return (
-                    <button
+                    <div
                       key={role.value}
                       onMouseEnter={() => handleRoleHover(role.value)}
                       onMouseLeave={() => setSelectedRole(null)}
-                      onClick={() => handleSelectRole(role.value)}
-                      className={`group relative overflow-hidden rounded-xl border-2 transition-all duration-300 p-5 text-left ${
+                      className={`group relative overflow-hidden rounded-xl border-2 transition-all duration-300 p-5 text-left flex flex-col h-full cursor-pointer ${
                         isSelected
                           ? `border-blue-400 bg-slate-700/60 shadow-lg shadow-blue-500/30`
                           : `border-slate-600/50 bg-slate-700/30 hover:border-slate-500 hover:bg-slate-700/50`
@@ -141,7 +140,7 @@ export function LoginScreen() {
 
                       {/* Role Title & Description */}
                       <h3 className="font-bold text-base text-white mb-1">{role.label}</h3>
-                      <p className={`text-xs mb-2 transition-colors ${
+                      <p className={`text-xs mb-3 transition-colors flex-grow ${
                         isSelected ? 'text-slate-200' : 'text-slate-400'
                       }`}>
                         {role.description}
@@ -149,13 +148,21 @@ export function LoginScreen() {
 
                       {/* User Profile - Only show on hover/select */}
                       {isSelected && (
-                        <div className="mt-4 pt-4 border-t border-slate-600/50 space-y-1 animate-in fade-in duration-300">
+                        <div className="mt-3 pt-3 border-t border-slate-600/50 space-y-1 animate-in fade-in duration-300">
                           <p className="text-xs font-semibold text-slate-200">{profile.userName}</p>
                           <p className="text-xs text-slate-400">{profile.organization}</p>
                           <p className="text-xs text-slate-500">{profile.position}</p>
                         </div>
                       )}
-                    </button>
+
+                      {/* Login Button - Always at bottom */}
+                      <button
+                        onClick={() => handleSelectRole(role.value)}
+                        className="mt-auto pt-3 w-full px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-lg transition-colors"
+                      >
+                        Login as {role.label}
+                      </button>
+                    </div>
                   )
                 })}
               </div>
