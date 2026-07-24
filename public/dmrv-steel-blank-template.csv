@@ -1,0 +1,6 @@
+Reporting_Period,Entity_ID,Entity_Name,Facility_ID,Facility_Name,Activity_Type,Fuel_Type,Activity_Value_Unit,Activity_Value,Emission_Factor_kg_CO2_per_Unit,EF_Source,EF_Version,Adjustments_Renewable_MWh,Adjustments_Other,Output_Type,Output_Unit,Output_Value,Notes,Evidence_Reference,Validation_Status,Anomaly_Flag
+2024-Q1,,,,,Fuel Combustion,Coke,tonnes,,,BEE-Library,v3.2,0,0,Steel Production,tonnes,,,,
+2024-Q1,,,,,Fuel Combustion,Coke,tonnes,,,BEE-Library,v3.2,0,0,Steel Production,tonnes,,,,
+2024-Q1,,,,,Electricity,Grid Power,MWh,,,BEE-Library,v3.2,0,0,Steel Production,tonnes,,,,
+2024-Q1,,,,,Electricity,Grid Power,MWh,,,BEE-Library,v3.2,0,0,Steel Production,tonnes,,,,
+2024-Q1,,,,,Electricity,Solar (Captive),MWh,,,BEE-Library,v3.2,0,0,Steel Production,tonnes,,,,

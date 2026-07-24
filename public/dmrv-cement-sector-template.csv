@@ -1,0 +1,16 @@
+Reporting_Period,Entity_ID,Entity_Name,Facility_ID,Facility_Name,Activity_Type,Fuel_Type,Activity_Value_Unit,Activity_Value,Emission_Factor_kg_CO2_per_Unit,EF_Source,EF_Version,Adjustments_Renewable_MWh,Adjustments_Other,Output_Type,Output_Unit,Output_Value,Notes,Evidence_Reference,Validation_Status,Anomaly_Flag
+2024-Q1,ECE-001,Eastern Cement Works,ECE-K001,Kiln Unit 1 (Production),Fuel Combustion,Coal,tonnes,1250,2.41,BEE-Library,v3.2,0,0,Cement Production,tonnes,8500,Thermal coal for clinker production,INV-2024-001,Passed,None
+2024-Q1,ECE-001,Eastern Cement Works,ECE-K001,Kiln Unit 1 (Production),Fuel Combustion,Natural Gas,m3,15000,0.002,BEE-Library,v3.2,0,0,Cement Production,tonnes,8500,Kiln auxiliary heating,INV-2024-002,Passed,None
+2024-Q1,ECE-001,Eastern Cement Works,ECE-R001,Raw Mill (Processing),Electricity,Grid Power,MWh,850,0.65,BEE-Library,v3.2,0,0,Cement Production,tonnes,8500,Raw material grinding,MTR-2024-001,Passed,None
+2024-Q1,ECE-001,Eastern Cement Works,ECE-C001,Cement Mill (Grinding),Electricity,Grid Power,MWh,720,0.65,BEE-Library,v3.2,0,0,Cement Production,tonnes,8500,Final cement grinding,MTR-2024-002,Passed,None
+2024-Q1,ECE-001,Eastern Cement Works,ECE-PKR,Packing Unit,Electricity,Grid Power,MWh,180,0.65,BEE-Library,v3.2,0,0,Cement Production,tonnes,8500,Packing and bagging,MTR-2024-003,Passed,None
+2024-Q1,ECE-001,Eastern Cement Works,ECE-K001,Kiln Unit 1 (Production),Fuel Combustion,Coal,tonnes,1180,2.41,BEE-Library,v3.2,0,0,Cement Production,tonnes,8250,Thermal coal - Feb data,INV-2024-003,Passed,Deviation
+2024-Q1,ECE-001,Eastern Cement Works,ECE-K001,Kiln Unit 1 (Production),Fuel Combustion,Natural Gas,m3,14500,0.002,BEE-Library,v3.2,0,0,Cement Production,tonnes,8250,Feb auxiliary heat,INV-2024-004,Passed,None
+2024-Q1,ECE-001,Eastern Cement Works,ECE-R001,Raw Mill (Processing),Electricity,Grid Power,MWh,820,0.65,BEE-Library,v3.2,0,0,Cement Production,tonnes,8250,Raw mill - Feb,MTR-2024-004,Passed,None
+2024-Q1,ECE-001,Eastern Cement Works,ECE-C001,Cement Mill (Grinding),Electricity,Grid Power,MWh,710,0.65,BEE-Library,v3.2,0,0,Cement Production,tonnes,8250,Cement mill - Feb,MTR-2024-005,Passed,None
+2024-Q1,ECE-001,Eastern Cement Works,ECE-PKR,Packing Unit,Electricity,Grid Power,MWh,175,0.65,BEE-Library,v3.2,0,0,Cement Production,tonnes,8250,Feb packing,MTR-2024-006,Passed,None
+2024-Q1,ECE-001,Eastern Cement Works,ECE-K001,Kiln Unit 1 (Production),Fuel Combustion,Coal,tonnes,1210,2.41,BEE-Library,v3.2,0,0,Cement Production,tonnes,8100,Thermal coal - Mar data,INV-2024-005,Passed,None
+2024-Q1,ECE-001,Eastern Cement Works,ECE-K001,Kiln Unit 1 (Production),Fuel Combustion,Natural Gas,m3,14800,0.002,BEE-Library,v3.2,0,0,Cement Production,tonnes,8100,Mar auxiliary heat,INV-2024-006,Passed,None
+2024-Q1,ECE-001,Eastern Cement Works,ECE-R001,Raw Mill (Processing),Electricity,Grid Power,MWh,830,0.65,BEE-Library,v3.2,0,0,Cement Production,tonnes,8100,Raw mill - Mar,MTR-2024-007,Passed,None
+2024-Q1,ECE-001,Eastern Cement Works,ECE-C001,Cement Mill (Grinding),Electricity,Grid Power,MWh,715,0.65,BEE-Library,v3.2,0,0,Cement Production,tonnes,8100,Cement mill - Mar,MTR-2024-008,Passed,None
+2024-Q1,ECE-001,Eastern Cement Works,ECE-PKR,Packing Unit,Electricity,Grid Power,MWh,178,0.65,BEE-Library,v3.2,0,0,Cement Production,tonnes,8100,Mar packing,MTR-2024-009,Passed,None
