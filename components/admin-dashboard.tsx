@@ -84,6 +84,10 @@ export function AdminDashboard() {
   const [selectedEntity, setSelectedEntity] = useState<StagingEntity | null>(null)
   const [reviewNotes, setReviewNotes] = useState('')
   const [copiedId, setCopiedId] = useState<string | null>(null)
+  const [isImporting, setIsImporting] = useState(false)
+  const [importProgress, setImportProgress] = useState(0)
+  const [importStatus, setImportStatus] = useState<'idle' | 'importing' | 'complete' | 'error'>('idle')
+  const [showValidationReport, setShowValidationReport] = useState(false)
 
   const pendingCount = stagingEntities.filter(e => e.status === 'pending_review').length
   const approvedCount = stagingEntities.filter(e => e.status === 'approved').length
@@ -129,6 +133,62 @@ export function AdminDashboard() {
     navigator.clipboard.writeText(text)
     setCopiedId(id)
     setTimeout(() => setCopiedId(null), 2000)
+  }
+
+  const handleImportFromICM = async () => {
+    setIsImporting(true)
+    setImportStatus('importing')
+    setImportProgress(0)
+
+    // Simulate import progress
+    for (let i = 0; i <= 100; i += 20) {
+      await new Promise(resolve => setTimeout(resolve, 300))
+      setImportProgress(i)
+    }
+
+    // Simulate completion
+    await new Promise(resolve => setTimeout(resolve, 500))
+    setImportProgress(100)
+    setImportStatus('complete')
+    setIsImporting(false)
+
+    // Reset after 2 seconds
+    setTimeout(() => {
+      setImportStatus('idle')
+      setImportProgress(0)
+    }, 2000)
+  }
+
+  const handleExportValidationReport = () => {
+    setShowValidationReport(true)
+  }
+
+  const downloadValidationReport = () => {
+    const report = {
+      timestamp: new Date().toISOString(),
+      batchId: `BATCH-${Date.now()}`,
+      totalEntities: stagingEntities.length,
+      pendingReview: stagingEntities.filter(e => e.status === 'pending_review').length,
+      approved: stagingEntities.filter(e => e.status === 'approved').length,
+      rejected: stagingEntities.filter(e => e.status === 'rejected').length,
+      entities: stagingEntities.map(e => ({
+        id: e.id,
+        name: e.name,
+        status: e.status,
+        dataQuality: e.dataQuality,
+        duplicateFlags: e.duplicateFlags,
+        validationIssues: e.validationIssues,
+      })),
+    }
+
+    const dataStr = JSON.stringify(report, null, 2)
+    const dataBlob = new Blob([dataStr], { type: 'application/json' })
+    const url = URL.createObjectURL(dataBlob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `validation-report-${Date.now()}.json`
+    link.click()
+    URL.revokeObjectURL(url)
   }
 
   const getStatusColor = (status: string) => {
@@ -182,15 +242,58 @@ export function AdminDashboard() {
       </div>
 
       {/* Batch Import Actions */}
-      <div className="rounded-lg border border-border bg-card p-4 flex gap-3">
-        <Button className="gap-2 flex-1">
-          <Upload className="w-4 h-4" />
-          Import New Batch from ICM
-        </Button>
-        <Button variant="outline" className="gap-2 flex-1">
-          <Download className="w-4 h-4" />
-          Export Validation Report
-        </Button>
+      <div className="space-y-3">
+        <div className="rounded-lg border border-border bg-card p-4 flex gap-3">
+          <Button 
+            className="gap-2 flex-1" 
+            onClick={handleImportFromICM}
+            disabled={isImporting}
+          >
+            <Upload className="w-4 h-4" />
+            {isImporting ? 'Importing...' : 'Import New Batch from ICM'}
+          </Button>
+          <Button 
+            variant="outline" 
+            className="gap-2 flex-1"
+            onClick={handleExportValidationReport}
+          >
+            <Download className="w-4 h-4" />
+            Export Validation Report
+          </Button>
+        </div>
+
+        {/* Import Progress Bar */}
+        {importStatus !== 'idle' && (
+          <div className="rounded-lg border border-border bg-card p-4">
+            {importStatus === 'importing' && (
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-medium text-foreground">Importing entities from ICM...</p>
+                  <p className="text-sm font-semibold text-blue-400">{importProgress}%</p>
+                </div>
+                <div className="w-full bg-slate-700 rounded-full h-2">
+                  <div 
+                    className="bg-blue-500 h-2 rounded-full transition-all duration-300"
+                    style={{ width: `${importProgress}%` }}
+                  />
+                </div>
+                <p className="text-xs text-muted-foreground">Processing batch data and running validation checks...</p>
+              </div>
+            )}
+            {importStatus === 'complete' && (
+              <div className="flex items-start gap-3 p-3 bg-emerald-900/20 rounded border border-emerald-500/30">
+                <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-semibold text-emerald-300">Import completed successfully!</p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {stagingEntities.length} entities imported and ready for review. 
+                    {stagingEntities.filter(e => e.status === 'pending_review').length} pending approval.
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">
@@ -399,6 +502,103 @@ export function AdminDashboard() {
           <p>• Last sync: 2024-03-20 08:15 UTC from ICM master registry</p>
         </div>
       </div>
+
+      {/* Validation Report Modal */}
+      {showValidationReport && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-card border border-border rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+            <div className="sticky top-0 bg-card border-b border-border p-6 flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-bold text-foreground">Validation Report</h2>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Generated: {new Date().toLocaleString()}
+                </p>
+              </div>
+              <button
+                onClick={() => setShowValidationReport(false)}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="p-6 space-y-6">
+              {/* Summary Stats */}
+              <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+                <div className="rounded border border-border p-3">
+                  <p className="text-xs text-muted-foreground mb-1">Total Entities</p>
+                  <p className="text-2xl font-bold text-blue-400">{stagingEntities.length}</p>
+                </div>
+                <div className="rounded border border-amber-500/30 bg-amber-900/10 p-3">
+                  <p className="text-xs text-amber-400 mb-1">Pending Review</p>
+                  <p className="text-2xl font-bold text-amber-300">{pendingCount}</p>
+                </div>
+                <div className="rounded border border-emerald-500/30 bg-emerald-900/10 p-3">
+                  <p className="text-xs text-emerald-400 mb-1">Approved</p>
+                  <p className="text-2xl font-bold text-emerald-300">{approvedCount}</p>
+                </div>
+                <div className="rounded border border-red-500/30 bg-red-900/10 p-3">
+                  <p className="text-xs text-red-400 mb-1">Rejected</p>
+                  <p className="text-2xl font-bold text-red-300">{rejectedCount}</p>
+                </div>
+              </div>
+
+              {/* Detailed Entity Report */}
+              <div>
+                <h3 className="text-sm font-semibold text-foreground mb-3">Entity Details</h3>
+                <div className="space-y-2 max-h-64 overflow-y-auto">
+                  {stagingEntities.map((entity) => (
+                    <div key={entity.id} className="border border-border rounded p-2 text-xs">
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex-1">
+                          <p className="font-medium text-foreground">{entity.name}</p>
+                          <p className="text-muted-foreground">{entity.registrationNumber}</p>
+                        </div>
+                        <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(entity.status)}`}>
+                          {entity.status.replace('_', ' ').toUpperCase()}
+                        </span>
+                      </div>
+                      <div className="mt-2 flex items-center gap-2">
+                        <div className="flex-1 bg-slate-800 rounded-full h-1.5">
+                          <div
+                            className={`h-full rounded-full ${
+                              entity.dataQuality >= 90
+                                ? 'bg-emerald-500'
+                                : entity.dataQuality >= 80
+                                ? 'bg-blue-500'
+                                : 'bg-amber-500'
+                            }`}
+                            style={{ width: `${entity.dataQuality}%` }}
+                          />
+                        </div>
+                        <span className="text-muted-foreground">{entity.dataQuality}%</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Report Actions */}
+              <div className="flex gap-3 pt-4 border-t border-border">
+                <Button
+                  className="flex-1 gap-2"
+                  onClick={downloadValidationReport}
+                >
+                  <Download className="w-4 h-4" />
+                  Download JSON Report
+                </Button>
+                <Button
+                  variant="outline"
+                  className="flex-1"
+                  onClick={() => setShowValidationReport(false)}
+                >
+                  Close
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

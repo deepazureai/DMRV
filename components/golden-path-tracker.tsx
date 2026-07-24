@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { CheckCircle, Clock, AlertCircle } from 'lucide-react'
+import { CheckCircle2, Clock, AlertCircle } from 'lucide-react'
 
 interface PathStep {
   id: string
