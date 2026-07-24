@@ -5,6 +5,9 @@
 
 import { ReviewCommentSeverity, ReviewCommentStatus } from './dmrv-data-mapping'
 
+// Re-export for convenience
+export { ReviewCommentStatus, ReviewCommentSeverity }
+
 export interface ReviewComment {
   id: string
   submissionId: string
