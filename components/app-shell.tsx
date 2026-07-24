@@ -34,7 +34,7 @@ export function AppShell({ children, currentPage = 'dashboard', lifecycleEvents 
   const allNavigationItems: NavigationItem[] = [
     { href: '/', label: 'Dashboard', icon: '📊' },
     { href: '/golden-path', label: 'Golden Path', icon: '⭐' },
-    { href: '/entities', label: 'Entities', icon: '🏢', roles: ['obligated-entity', 'bee-officer'] },
+    { href: '/entities', label: 'Entities', icon: '🏢', roles: ['bee-officer'] },
     { href: '/submissions', label: 'Submissions', icon: '📤', roles: ['obligated-entity', 'bee-officer', 'acva-verifier'] },
     { href: '/data-quality', label: 'Data Quality', icon: '✓', roles: ['obligated-entity', 'acva-verifier'] },
     { href: '/methodology', label: 'Methodology', icon: '📐', roles: ['obligated-entity', 'acva-verifier'] },
