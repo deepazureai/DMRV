@@ -27,93 +27,209 @@ function MetricCard({ label, value, description, icon, trend }: MetricCardProps)
   )
 }
 
-// Obligated Entity Dashboard (Submitter)
+// Obligated Entity Dashboard (Submitter) - SUBMISSION FOCUSED
 function ObligedEntityDashboard() {
   return (
     <div className="space-y-8 p-6">
       <div className="space-y-2">
-        <h2 className="text-3xl font-bold text-foreground">GEI Reporting & Compliance Portal</h2>
-        <p className="text-muted-foreground">CCTS Baseline-and-Credit Compliance Dashboard | Eastern Cement Works</p>
+        <h2 className="text-3xl font-bold text-foreground">GEI Submission & Verification Status</h2>
+        <p className="text-muted-foreground">Eastern Cement Works | 2024-Q1 Submission | Obligated Entity Portal</p>
       </div>
 
-      {/* Key Compliance Metrics */}
+      {/* Latest Submission Status */}
       <div>
-        <h3 className="text-lg font-semibold text-foreground mb-4">2024 Compliance Status (Q1-Q3)</h3>
+        <h3 className="text-lg font-semibold text-foreground mb-4">Last Submission: 2024-Q1 (Jan-Mar)</h3>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <MetricCard
-            label="GEI Achieved"
+            label="Submission Status"
+            value="VERIFIED"
+            description="ACVA verified on 2024-03-28"
+            icon={<CheckCircle className="text-emerald-600" size={24} />}
+          />
+          <MetricCard
+            label="Data Quality Score"
+            value="94%"
+            description="Confidence: HIGH"
+            icon={<BarChart3 className="text-blue-600" size={24} />}
+          />
+          <MetricCard
+            label="GEI Calculated"
             value="1,361.84"
             description="kg CO2e/tonne"
             icon={<Zap className="text-emerald-600" size={24} />}
           />
           <MetricCard
-            label="Baseline (BEE)"
-            value="1,520"
-            description="kg CO2e/tonne"
-            icon={<BarChart3 className="text-blue-600" size={24} />}
+            label="Outstanding Queries"
+            value="0"
+            description="All CARs resolved"
+            icon={<CheckCircle className="text-emerald-600" size={24} />}
+          />
+        </div>
+      </div>
+
+      {/* Validation Pipeline Progress */}
+      <div>
+        <h3 className="text-lg font-semibold text-foreground mb-4">dMRV Validation Pipeline (6-Step)</h3>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <MetricCard
+            label="1. Schema Validation"
+            value="✓ PASS"
+            description="Format & Structure OK"
+            icon={<CheckCircle className="text-emerald-600" size={20} />}
+          />
+          <MetricCard
+            label="2. Completeness"
+            value="✓ PASS"
+            description="Fuel, output, evidence"
+            icon={<CheckCircle className="text-emerald-600" size={20} />}
+          />
+          <MetricCard
+            label="3. Range & Outliers"
+            value="⚠ WARN"
+            description="Consumption spike +18%"
+            icon={<AlertCircle className="text-amber-600" size={20} />}
+          />
+          <MetricCard
+            label="4. Duplicates"
+            value="✓ PASS"
+            description="No double-counting"
+            icon={<CheckCircle className="text-emerald-600" size={20} />}
+          />
+          <MetricCard
+            label="5. Evidence Credibility"
+            value="✓ PASS"
+            description="Certs valid until 2024-06"
+            icon={<CheckCircle className="text-emerald-600" size={20} />}
+          />
+          <MetricCard
+            label="6. Confidence Score"
+            value="94%"
+            description="Data credibility HIGH"
+            icon={<CheckCircle className="text-emerald-600" size={20} />}
+          />
+        </div>
+      </div>
+
+      {/* ML Anomalies & Rule Deviations */}
+      <div className="rounded-lg border border-amber-200 bg-amber-50/5 p-6">
+        <h3 className="text-lg font-semibold text-foreground mb-4">ML Anomalies & Rule-Based Deviations Detected</h3>
+        <div className="space-y-3 text-sm">
+          <div className="flex items-start gap-3 p-3 bg-muted rounded">
+            <AlertCircle className="text-amber-600 flex-shrink-0 mt-0.5" size={18} />
+            <div>
+              <p className="font-medium">ML Alert: Consumption Spike</p>
+              <p className="text-xs text-muted-foreground">Jan 15-20: Coal consumption +18% vs baseline. ACVA CAR issued & resolved.</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-3 p-3 bg-muted rounded">
+            <AlertCircle className="text-blue-600 flex-shrink-0 mt-0.5" size={18} />
+            <div>
+              <p className="font-medium">Rule-Based: Calibration Renewal</p>
+              <p className="text-xs text-muted-foreground">Meter calibration certificate expires 2024-06-30. Renewal recommended before Q2 submission.</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-3 p-3 bg-emerald-50 rounded">
+            <CheckCircle className="text-emerald-600 flex-shrink-0 mt-0.5" size={18} />
+            <div>
+              <p className="font-medium">GEI vs Baseline Comparison</p>
+              <p className="text-xs text-muted-foreground">Your GEI (1,361.84) is 10.4% below baseline (1,520). Over-performer status confirmed.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Verifier Feedback & Comments */}
+      <div>
+        <h3 className="text-lg font-semibold text-foreground mb-4">Verifier Feedback (ACVA - TUV-SUD India)</h3>
+        <div className="rounded-lg border border-border bg-card p-6 space-y-4">
+          <div className="border-l-4 border-amber-600 pl-4 py-2">
+            <p className="text-sm font-medium text-foreground">CAR-001: Coal Consumption Variance (Status: RESOLVED)</p>
+            <p className="text-xs text-muted-foreground mt-1">Raised: 2024-03-10 | Your Response: 2024-03-18 | Closed: 2024-03-25</p>
+            <p className="text-xs mt-2 text-muted-foreground italic">"Verifier: Explanation accepted. Kiln maintenance logs & extended run schedule confirmed via meter data. No credibility issue."</p>
+          </div>
+          <div className="border-l-4 border-emerald-600 pl-4 py-2">
+            <p className="text-sm font-medium text-foreground">Query: Renewable Energy Offset Documentation (Status: RESOLVED)</p>
+            <p className="text-xs text-muted-foreground mt-1">Raised: 2024-03-15 | Your Response: 2024-03-19 | Closed: 2024-03-25</p>
+            <p className="text-xs mt-2 text-muted-foreground italic">"Verifier: Wind farm off-take agreement verified. All renewable generation properly documented."</p>
+          </div>
+        </div>
+      </div>
+
+      {/* CCC Issuance Projection */}
+      <div>
+        <h3 className="text-lg font-semibold text-foreground mb-4">Carbon Credit Certificate (CCC) Projection</h3>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <MetricCard
+            label="Performance"
+            value="Over-Performer"
+            description="GEI below baseline"
+            icon={<TrendingUp className="text-emerald-600" size={24} />}
           />
           <MetricCard
             label="CCC Surplus"
             value="19,288"
-            description="Over-performer benefit"
-            icon={<CheckCircle className="text-green-600" size={24} />}
+            description="Credits to be earned"
+            icon={<Zap className="text-emerald-600" size={24} />}
           />
           <MetricCard
-            label="Submission Status"
-            value="Verified"
-            description="By ACVA Agency"
-            icon={<CheckCircle className="text-emerald-600" size={24} />}
+            label="Expected Issuance"
+            value="Jun 2024"
+            description="After BEE approval"
+            icon={<Clock className="text-blue-600" size={24} />}
           />
         </div>
       </div>
 
-      {/* Data Quality & Validation */}
-      <div>
-        <h3 className="text-lg font-semibold text-foreground mb-4">dMRV Validation Results</h3>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <MetricCard
-            label="Data Quality Score"
-            value="94%"
-            description="Confidence Level"
-            icon={<CheckCircle className="text-green-600" size={24} />}
-          />
-          <MetricCard
-            label="Schema Validation"
-            value="PASS"
-            description="Format & Structure"
-            icon={<CheckCircle className="text-emerald-600" size={24} />}
-          />
-          <MetricCard
-            label="Completeness Check"
-            value="PASS"
-            description="All Mandatory Fields"
-            icon={<CheckCircle className="text-emerald-600" size={24} />}
-          />
-          <MetricCard
-            label="Outstanding Queries"
-            value="0"
-            description="CAR Resolution"
-            icon={<CheckCircle className="text-emerald-600" size={24} />}
-          />
-        </div>
-      </div>
-
-      {/* Activity & Evidence Tracking */}
+      {/* Timeline & Upcoming Deadlines */}
       <div className="rounded-lg border border-border bg-card p-6">
-        <h3 className="text-lg font-semibold text-foreground mb-4">Activity Data & Evidence Pack</h3>
-        <div className="space-y-3 text-sm">
-          <div className="flex items-center justify-between p-3 bg-muted rounded">
-            <span>Coal Consumption Data (Invoices)</span>
-            <CheckCircle size={16} className="text-emerald-600" />
+        <h3 className="text-lg font-semibold text-foreground mb-4">Submission Timeline & Deadlines</h3>
+        <div className="space-y-4 text-sm">
+          <div className="flex items-center gap-4">
+            <div className="text-xs font-semibold bg-emerald-100 text-emerald-700 px-3 py-1 rounded">COMPLETED</div>
+            <div>
+              <p className="font-medium">2024-Q1 Submission</p>
+              <p className="text-xs text-muted-foreground">Uploaded: 2024-02-15 | Verified: 2024-03-28</p>
+            </div>
           </div>
-          <div className="flex items-center justify-between p-3 bg-muted rounded">
-            <span>Electricity Meter Logs & Calibration Certificates</span>
-            <CheckCircle size={16} className="text-emerald-600" />
+          <div className="flex items-center gap-4">
+            <div className="text-xs font-semibold bg-blue-100 text-blue-700 px-3 py-1 rounded">UPCOMING</div>
+            <div>
+              <p className="font-medium">2024-Q2 Submission</p>
+              <p className="text-xs text-muted-foreground">Deadline: 2024-08-15 | Expected verification: 2024-09-30</p>
+            </div>
           </div>
-          <div className="flex items-center justify-between p-3 bg-muted rounded">
-            <span>Production Output Records (Cement Produced)</span>
-            <CheckCircle size={16} className="text-emerald-600" />
+          <div className="flex items-center gap-4">
+            <div className="text-xs font-semibold bg-amber-100 text-amber-700 px-3 py-1 rounded">ACTION NEEDED</div>
+            <div>
+              <p className="font-medium">Calibration Certificate Renewal</p>
+              <p className="text-xs text-muted-foreground">Current certificate expires: 2024-06-30 | Renew before Q2 submission</p>
+            </div>
           </div>
+        </div>
+      </div>
+
+      {/* Historical Metrics & Trends */}
+      <div>
+        <h3 className="text-lg font-semibold text-foreground mb-4">Historical Performance (2023-2024)</h3>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <MetricCard
+            label="Avg Data Quality"
+            value="91%"
+            description="3-quarter average"
+            icon={<BarChart3 className="text-blue-600" size={24} />}
+          />
+          <MetricCard
+            label="Avg GEI"
+            value="1,389"
+            description="kg CO2e/tonne (Q4 2023-Q1 2024)"
+            icon={<Zap className="text-blue-600" size={24} />}
+          />
+          <MetricCard
+            label="Total CCCs Earned"
+            value="52,144"
+            description="2023-2024 YTD"
+            icon={<CheckCircle className="text-emerald-600" size={24} />}
+          />
         </div>
       </div>
     </div>
