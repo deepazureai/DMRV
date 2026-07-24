@@ -178,7 +178,7 @@ export function CarbonRecordsGrid({ records, companyName, fileName }: CarbonReco
                         </span>
                       </td>
                       <td className="px-4 py-3 text-right font-semibold text-green-600">
-                        {record.carbon_credits_generated.toFixed(1)}
+                        {(record.carbon_credits_generated ?? 0).toFixed(1)}
                       </td>
                       <td className="px-4 py-3 text-right">
                         <span
