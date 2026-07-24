@@ -9,6 +9,7 @@ export type UserRole =
   | 'check-verifier'
   | 'bee-officer'
   | 'icm-registry'
+  | 'dmrv-admin'
 
 export interface RoleContextType {
   currentRole: UserRole | null

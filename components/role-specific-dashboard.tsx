@@ -5,6 +5,7 @@ import { useRole } from '@/lib/role-context'
 import { CheckVerifierDashboard as CheckVerifierDashboardComponent } from './check-verifier-dashboard'
 import { BEEOfficerDashboard as BEEOfficerDashboardComponent } from './bee-officer-dashboard'
 import { ICMRegistryDashboard as ICMRegistryDashboardComponent } from './icm-registry-dashboard'
+import { AdminDashboard as AdminDashboardComponent } from './admin-dashboard'
 import Link from 'next/link'
 import { TrendingUp, AlertCircle, CheckCircle, Clock, FileText, Lock, Zap, BarChart3, MessageSquare } from 'lucide-react'
 
@@ -910,6 +911,8 @@ export function RoleSpecificDashboard() {
       return <BEEOfficerDashboard />
     case 'icm-registry':
       return <ICMRegistryDashboard />
+    case 'dmrv-admin':
+      return <AdminDashboardComponent />
     default:
       return null
   }

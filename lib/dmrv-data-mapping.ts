@@ -3,7 +3,7 @@
  * Defines realistic user profiles, dashboard metrics, and page-specific data for each role
  */
 
-export type UserRole = 'obligated-entity' | 'acva-verifier' | 'check-verifier' | 'bee-officer' | 'icm-registry'
+export type UserRole = 'obligated-entity' | 'acva-verifier' | 'check-verifier' | 'bee-officer' | 'icm-registry' | 'dmrv-admin'
 
 export interface UserProfile {
   role: UserRole
@@ -66,6 +66,16 @@ export const USER_PROFILES: Record<UserRole, UserProfile> = {
     domain: 'Indian Carbon Market | Blockchain Registration & Trading',
     avatar: 'VD',
     position: 'Ledger Operations Manager',
+  },
+  'dmrv-admin': {
+    role: 'dmrv-admin',
+    userId: 'ADMIN-001',
+    userName: 'Suresh Verma',
+    organization: 'ICM-DMRV Administration',
+    email: 'suresh.verma@dmrv.gov.in',
+    domain: 'DMRV System Administration | ICM Integration & Data Governance',
+    avatar: 'SV',
+    position: 'Integration Administrator',
   },
 }
 

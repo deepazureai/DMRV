@@ -54,6 +54,14 @@ const roles: Array<{
     icon: '⛓',
     color: 'from-purple-500 to-purple-600',
   },
+  {
+    value: 'dmrv-admin',
+    label: 'DMRV Administrator',
+    description: 'Manage entity batch imports from ICM, validate data integration',
+    domain: 'DMRV System Administration | ICM Integration',
+    icon: '🔗',
+    color: 'from-slate-500 to-slate-600',
+  },
 ]
 
 export function LoginScreen() {

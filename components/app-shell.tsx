@@ -44,6 +44,7 @@ export function AppShell({ children, currentPage = 'dashboard', lifecycleEvents 
     { href: '/blockchain', label: 'Blockchain', icon: '⛓', roles: ['icm-registry', 'bee-officer'] },
     { href: '/registry', label: 'Registry', icon: '📋', roles: ['icm-registry'] },
     { href: '/review-comments', label: 'Review Comments', icon: '💬', roles: ['acva-verifier', 'check-verifier', 'bee-officer'] },
+    { href: '/admin', label: 'Data Integration', icon: '🔗', roles: ['dmrv-admin'] },
     { href: '/settings', label: 'Settings', icon: '⚙' }
   ]
 
