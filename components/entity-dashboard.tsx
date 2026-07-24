@@ -150,6 +150,21 @@ export function EntityDashboard({
             <p className="text-xs text-muted-foreground mt-1">vs BEE baseline</p>
           </CardContent>
         </Card>
+
+        <Link href="/submissions/feedback">
+          <Card className="cursor-pointer hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/10 transition-all border-blue-500/30 bg-blue-900/10">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium text-blue-300">ACVA Feedback</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center gap-2">
+                <AlertCircle className="w-5 h-5 text-blue-400" />
+                <p className="font-bold text-blue-300">1 Pending</p>
+              </div>
+              <p className="text-xs text-muted-foreground mt-1">Review & respond</p>
+            </CardContent>
+          </Card>
+        </Link>
       </div>
 
       {/* Main Tabs */}

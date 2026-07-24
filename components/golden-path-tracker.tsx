@@ -83,29 +83,30 @@ const goldenPathSteps: PathStep[] = [
 
 const statusConfig = {
   completed: {
-    icon: CheckCircle,
+    icon: CheckCircle2,
     color: 'text-emerald-600',
-    bgColor: 'bg-emerald-50',
-    borderColor: 'border-emerald-200'
+    bgColor: 'bg-emerald-900/10 backdrop-blur-sm',
+    borderColor: 'border-emerald-500/40'
   },
   in_progress: {
     icon: Clock,
-    color: 'text-blue-600',
-    bgColor: 'bg-blue-50',
-    borderColor: 'border-blue-200'
+    color: 'text-blue-400',
+    bgColor: 'bg-blue-900/10 backdrop-blur-sm',
+    borderColor: 'border-blue-500/40'
   },
   pending: {
-    icon: Clock,
-    color: 'text-amber-600',
-    bgColor: 'bg-amber-50',
-    borderColor: 'border-amber-200'
+    icon: AlertCircle,
+    color: 'text-amber-400',
+    bgColor: 'bg-amber-900/10 backdrop-blur-sm',
+    borderColor: 'border-amber-500/40'
   },
   blocked: {
     icon: AlertCircle,
-    color: 'text-red-600',
-    bgColor: 'bg-red-50',
-    borderColor: 'border-red-200'
+    color: 'text-red-400',
+    bgColor: 'bg-red-900/10 backdrop-blur-sm',
+    borderColor: 'border-red-500/40'
   }
+}
 }
 
 export function GoldenPathTracker() {
@@ -172,22 +173,22 @@ export function GoldenPathTracker() {
       </div>
 
       {/* Summary Stats */}
-      <div className="grid gap-4 md:grid-cols-4 rounded-lg border border-emerald-200 bg-emerald-50 p-6">
+      <div className="grid gap-4 md:grid-cols-4 rounded-lg border border-emerald-500/40 bg-emerald-900/10 backdrop-blur-sm p-6">
         <div>
-          <p className="text-xs font-medium text-emerald-600 mb-1">Total Duration</p>
-          <p className="text-2xl font-bold text-emerald-700">21 days</p>
+          <p className="text-xs font-medium text-emerald-400 mb-1">Total Duration</p>
+          <p className="text-2xl font-bold text-emerald-300">21 days</p>
         </div>
         <div>
-          <p className="text-xs font-medium text-emerald-600 mb-1">Data Quality</p>
-          <p className="text-2xl font-bold text-emerald-700">87%</p>
+          <p className="text-xs font-medium text-emerald-400 mb-1">Data Quality</p>
+          <p className="text-2xl font-bold text-emerald-300">87%</p>
         </div>
         <div>
-          <p className="text-xs font-medium text-emerald-600 mb-1">CCCs Verified</p>
-          <p className="text-2xl font-bold text-emerald-700">14,850</p>
+          <p className="text-xs font-medium text-emerald-400 mb-1">CCCs Verified</p>
+          <p className="text-2xl font-bold text-emerald-300">14,850</p>
         </div>
         <div>
-          <p className="text-xs font-medium text-emerald-600 mb-1">Status</p>
-          <p className="text-2xl font-bold text-emerald-700">Registered</p>
+          <p className="text-xs font-medium text-emerald-400 mb-1">Status</p>
+          <p className="text-2xl font-bold text-emerald-300">Registered</p>
         </div>
       </div>
 
