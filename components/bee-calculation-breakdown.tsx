@@ -30,7 +30,7 @@ export function BEECalculationBreakdown({ isOpen, onClose, baselineEnergy, proje
         { label: 'Scope', value: 'Optimization of energy systems - Kiln operations & raw material sourcing' },
         { label: 'Sector', value: 'Cement Manufacturing' },
         { label: 'Standard', value: 'BEE CCTS (Carbon Credit Certification Scheme)' },
-        { label: 'Reference', value: 'BEE Portal - ACM0013 Protocol', link: 'https://beeindia.gov.in' },
+        { label: 'Reference', value: 'BEE Portal - ACM0013 Protocol', link: 'https://beeindia.gov.in/documents-tools/act-policies-and-codes/ccts-approved-acm-methodologies' },
       ],
     },
     {
@@ -86,7 +86,7 @@ export function BEECalculationBreakdown({ isOpen, onClose, baselineEnergy, proje
         { label: 'Emission Factor (Coal)', value: '2.41 kg CO₂e/kg' },
         { label: 'Emission Factor (Diesel)', value: '3.16 kg CO₂e/litre' },
         { label: 'Emission Factor (Electricity)', value: '0.73 kg CO₂e/kWh (National Grid)' },
-        { label: 'Reference', value: 'BEE CCTS Guidelines v2024', link: 'https://beeindia.gov.in/ccts' },
+        { label: 'Reference', value: 'BEE CCTS Guidelines v2024', link: 'https://beeindia.gov.in/sites/default/files/CCTS%20Guidelines%202024.pdf' },
       ],
     },
     {
@@ -328,25 +328,25 @@ Report ID: CCC-CALC-${Date.now()}
             <ul className="space-y-2 text-sm">
               <li className="flex items-center gap-2 text-muted-foreground">
                 <span className="text-blue-400">→</span>
-                <a href="https://beeindia.gov.in/ccts" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                <a href="https://beeindia.gov.in/sites/default/files/CCTS%20Guidelines%202024.pdf" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 flex items-center gap-1">
                   BEE CCTS Guidelines v2024 <ExternalLink className="w-3 h-3" />
                 </a>
               </li>
               <li className="flex items-center gap-2 text-muted-foreground">
                 <span className="text-blue-400">→</span>
-                <a href="https://beeindia.gov.in/methodologies" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                <a href="https://beeindia.gov.in/documents-tools/act-policies-and-codes/ccts-approved-acm-methodologies" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 flex items-center gap-1">
                   ACM0013 Methodology Protocol <ExternalLink className="w-3 h-3" />
                 </a>
               </li>
               <li className="flex items-center gap-2 text-muted-foreground">
                 <span className="text-blue-400">→</span>
-                <a href="https://beeindia.gov.in/baselines" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                <a href="https://beeindia.gov.in/documents-tools/tools/ccts-sectoral-baselines" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 flex items-center gap-1">
                   Sector-Specific Baselines <ExternalLink className="w-3 h-3" />
                 </a>
               </li>
               <li className="flex items-center gap-2 text-muted-foreground">
                 <span className="text-blue-400">→</span>
-                <a href="https://beeindia.gov.in/emission-factors" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                <a href="https://beeindia.gov.in/documents-tools/tools/default-emission-factors" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 flex items-center gap-1">
                   Standard Emission Factors <ExternalLink className="w-3 h-3" />
                 </a>
               </li>
