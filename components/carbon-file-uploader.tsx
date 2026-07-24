@@ -217,7 +217,7 @@ export function CarbonFileUploader() {
             Drag and drop DMRV-format CSV files here, or click to browse. Data will be parsed and available for creating formal submissions.
           </p>
 
-          <label className="inline-block">
+          <label className="inline-block cursor-pointer">
             <input
               type="file"
               multiple
@@ -225,11 +225,9 @@ export function CarbonFileUploader() {
               onChange={handleFileSelect}
               className="hidden"
             />
-            <Button asChild className="cursor-pointer bg-primary hover:bg-primary/90">
-              <span>
-                <Upload className="h-4 w-4 mr-2" />
-                Choose DMRV Data Files
-              </span>
+            <Button className="cursor-pointer">
+              <Upload className="h-4 w-4 mr-2" />
+              Choose DMRV Data Files
             </Button>
           </label>
 
