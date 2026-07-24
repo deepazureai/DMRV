@@ -3,6 +3,7 @@
 import React from 'react'
 import { useRole } from '@/lib/role-context'
 import { CheckVerifierDashboard as CheckVerifierDashboardComponent } from './check-verifier-dashboard'
+import { BEEOfficerDashboard as BEEOfficerDashboardComponent } from './bee-officer-dashboard'
 import Link from 'next/link'
 import { TrendingUp, AlertCircle, CheckCircle, Clock, FileText, Lock, Zap, BarChart3, MessageSquare } from 'lucide-react'
 
@@ -424,8 +425,13 @@ function CheckVerifierDashboard() {
   return <CheckVerifierDashboardComponent />
 }
 
-// BEE Officer Dashboard - APPROVAL & ISSUANCE FOCUSED
+// BEE Officer Dashboard - uses dedicated component
 function BEEOfficerDashboard() {
+  return <BEEOfficerDashboardComponent />
+}
+
+// Legacy BEE Officer Dashboard - APPROVAL & ISSUANCE FOCUSED
+function BEEOfficerDashboardLegacy() {
   return (
     <div className="space-y-8 p-6">
       <div className="space-y-2">
