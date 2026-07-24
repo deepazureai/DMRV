@@ -133,10 +133,10 @@ export function GoldenPathTracker() {
                   </div>
                   <div>
                     <h3 className={`font-semibold ${config.color}`}>{step.title}</h3>
-                    <p className="text-sm text-muted-foreground">{step.description}</p>
+                    <p className="text-sm text-foreground">{step.description}</p>
                   </div>
                 </div>
-                {step.date && <time className="text-sm font-medium text-muted-foreground">{step.date}</time>}
+                {step.date && <time className="text-sm font-medium text-foreground">{step.date}</time>}
               </div>
 
               {/* Step Details */}
@@ -163,7 +163,7 @@ export function GoldenPathTracker() {
               {idx < goldenPathSteps.length - 1 && (
                 <div className="ml-8 mt-4 flex items-center gap-2">
                   <div className="h-6 w-0.5 bg-muted" />
-                  <span className="text-xs font-medium text-muted-foreground">→ Next Step</span>
+                  <span className="text-xs font-medium text-foreground">→ Next Step</span>
                 </div>
               )}
             </div>
