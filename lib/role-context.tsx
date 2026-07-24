@@ -3,11 +3,11 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 
 export type UserRole =
-  | 'entity-submitter'
-  | 'verifier-auditor'
-  | 'bee-regulator'
-  | 'registry-operator'
-  | 'sector-officer'
+  | 'obligated-entity'
+  | 'acva-verifier'
+  | 'check-verifier'
+  | 'bee-officer'
+  | 'icm-registry'
 
 export interface RoleContextType {
   currentRole: UserRole | null
@@ -15,24 +15,33 @@ export interface RoleContextType {
   clearRole: () => void
   userId: string
   userName: string
+  roleDomain: string
 }
 
 const RoleContext = createContext<RoleContextType | undefined>(undefined)
 
 const roleLabels: Record<UserRole, string> = {
-  'entity-submitter': 'Entity Submitter',
-  'verifier-auditor': 'Verifier Auditor',
-  'bee-regulator': 'BEE Regulator',
-  'registry-operator': 'Registry Operator',
-  'sector-officer': 'Sector Officer',
+  'obligated-entity': 'Obligated Entity',
+  'acva-verifier': 'ACVA (Verification)',
+  'check-verifier': 'Check-Verifier',
+  'bee-officer': 'BEE Officer',
+  'icm-registry': 'ICM Registry',
 }
 
 const roleUserNames: Record<UserRole, string> = {
-  'entity-submitter': 'ECWL Operations',
-  'verifier-auditor': 'TUV-SUD India',
-  'bee-regulator': 'Ministry of Power',
-  'registry-operator': 'NVCCC Registry',
-  'sector-officer': 'State Nodal Agency',
+  'obligated-entity': 'Eastern Cement Works',
+  'acva-verifier': 'TUV-SUD India (ACVA)',
+  'check-verifier': 'Bureau Veritas (CV)',
+  'bee-officer': 'BEE Headquarters',
+  'icm-registry': 'Indian Carbon Market Registry',
+}
+
+const roleDomainDesc: Record<UserRole, string> = {
+  'obligated-entity': 'CCTS Obligated Entity | GEI Reporting',
+  'acva-verifier': 'Accredited Carbon Verification Agency | dMRV Validation & Verification',
+  'check-verifier': 'Independent Check-Verification | Audit Trail Confirmation',
+  'bee-officer': 'Bureau of Energy Efficiency | CCC Issuance & Regulatory Oversight',
+  'icm-registry': 'Indian Carbon Market Registry | Blockchain Registration & Trading',
 }
 
 export function RoleProvider({ children }: { children: ReactNode }) {
@@ -64,6 +73,7 @@ export function RoleProvider({ children }: { children: ReactNode }) {
         clearRole: handleClearRole,
         userId,
         userName: currentRole ? roleUserNames[currentRole] : '',
+        roleDomain: currentRole ? roleDomainDesc[currentRole] : '',
       }}
     >
       {children}

@@ -4,7 +4,7 @@ import React from 'react'
 import { useRole } from '@/lib/role-context'
 import { RoleSelector } from '@/components/role-selector'
 import { AppShell } from '@/components/app-shell'
-import { DashboardOverview } from '@/components/dashboard-overview'
+import { RoleSpecificDashboard } from '@/components/role-specific-dashboard'
 import { mockLifecycleEvents } from '@/lib/mock-data'
 
 export default function Page() {
@@ -16,7 +16,7 @@ export default function Page() {
 
   return (
     <AppShell currentPage="dashboard" lifecycleEvents={mockLifecycleEvents}>
-      <DashboardOverview />
+      <RoleSpecificDashboard />
     </AppShell>
   )
 }
