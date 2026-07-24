@@ -43,7 +43,7 @@ export function AppShell({ children, currentPage = 'dashboard', lifecycleEvents 
     { href: '/approvals', label: 'Approvals', icon: '✅', roles: ['bee-officer', 'check-verifier'] },
     { href: '/blockchain', label: 'Blockchain', icon: '⛓', roles: ['icm-registry', 'bee-officer'] },
     { href: '/registry', label: 'Registry', icon: '📋', roles: ['icm-registry'] },
-    { href: '/review-comments', label: 'Review Comments', icon: '💬', roles: ['obligated-entity', 'acva-verifier'] },
+    { href: '/review-comments', label: 'Review Comments', icon: '💬', roles: ['acva-verifier', 'check-verifier', 'bee-officer'] },
     { href: '/settings', label: 'Settings', icon: '⚙' }
   ]
 
