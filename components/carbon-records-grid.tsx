@@ -219,13 +219,13 @@ export function CarbonRecordsGrid({ records, companyName, fileName }: CarbonReco
                             <div>
                               <p className="text-xs text-muted-foreground">Energy Consumed</p>
                               <p className="font-semibold text-foreground">
-                                {record.energy_consumed_kwh.toLocaleString()} kWh
+                                {(record.energy_consumed_kwh ?? 0).toLocaleString()} kWh
                               </p>
                             </div>
                             <div>
                               <p className="text-xs text-muted-foreground">CO2 Emissions</p>
                               <p className="font-semibold text-foreground">
-                                {record.co2_emissions_kg.toLocaleString()} kg
+                                {(record.co2_emissions_kg ?? 0).toLocaleString()} kg
                               </p>
                             </div>
                             <div>
