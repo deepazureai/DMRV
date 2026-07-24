@@ -212,28 +212,26 @@ export function CarbonFileUploader() {
           }`}
         >
           <Upload className="mx-auto h-12 w-12 text-muted-foreground mb-3" />
-          <h3 className="font-semibold text-foreground mb-1">Upload Carbon Credit Data</h3>
+          <h3 className="font-semibold text-foreground mb-1">Upload Activity Data Files</h3>
           <p className="text-sm text-muted-foreground mb-4">
-            Drag and drop CSV files here, or click to browse
+            Drag and drop DMRV-format CSV files here, or click to browse. Data will be parsed and available for creating formal submissions.
           </p>
 
-          <div className="flex gap-3 justify-center">
-            <label>
-              <input
-                type="file"
-                multiple
-                accept=".csv"
-                onChange={handleFileSelect}
-                className="hidden"
-              />
-              <Button asChild className="cursor-pointer">
-                <span>
-                  <Plus className="h-4 w-4 mr-2" />
-                  Select CSV Files
-                </span>
-              </Button>
-            </label>
-          </div>
+          <label className="inline-block">
+            <input
+              type="file"
+              multiple
+              accept=".csv"
+              onChange={handleFileSelect}
+              className="hidden"
+            />
+            <Button asChild className="cursor-pointer bg-primary hover:bg-primary/90">
+              <span>
+                <Upload className="h-4 w-4 mr-2" />
+                Choose DMRV Data Files
+              </span>
+            </Button>
+          </label>
 
           <p className="text-xs text-muted-foreground mt-4">
             Supported format: CSV with facility data, energy source, emissions, and carbon credits
