@@ -2,7 +2,8 @@
 
 import React from 'react'
 import { useRole } from '@/lib/role-context'
-import { TrendingUp, AlertCircle, CheckCircle, Clock, FileText, Lock, Zap, BarChart3 } from 'lucide-react'
+import Link from 'next/link'
+import { TrendingUp, AlertCircle, CheckCircle, Clock, FileText, Lock, Zap, BarChart3, MessageSquare } from 'lucide-react'
 
 interface MetricCardProps {
   label: string
@@ -58,12 +59,18 @@ function ObligedEntityDashboard() {
             description="kg CO2e/tonne"
             icon={<Zap className="text-emerald-600" size={24} />}
           />
-          <MetricCard
-            label="Outstanding Queries"
-            value="0"
-            description="All CARs resolved"
-            icon={<CheckCircle className="text-emerald-600" size={24} />}
-          />
+          <Link href="/review-comments" className="rounded-lg border border-border bg-card p-6 shadow-sm hover:shadow-md hover:border-primary transition-all cursor-pointer">
+            <div className="flex items-start justify-between">
+              <div className="space-y-2 flex-1">
+                <p className="text-sm font-medium text-muted-foreground">Review Comments Pending</p>
+                <p className="text-2xl font-bold text-foreground">0</p>
+                <p className="text-xs text-muted-foreground mt-1">No action items</p>
+              </div>
+              <div className="text-muted-foreground ml-4">
+                <MessageSquare size={24} />
+              </div>
+            </div>
+          </Link>
         </div>
       </div>
 
