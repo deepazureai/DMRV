@@ -107,7 +107,6 @@ const statusConfig = {
     borderColor: 'border-red-500/40'
   }
 }
-}
 
 export function GoldenPathTracker() {
   return (
