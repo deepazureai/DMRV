@@ -1,9 +1,16 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { AppShell } from '@/components/app-shell'
+import { BEECalculationBreakdown } from '@/components/bee-calculation-breakdown'
 
 export default function MethodologyPage() {
+  const [showCalculationBreakdown, setShowCalculationBreakdown] = useState(false)
+
+  const baselineEnergy = 450000
+  const projectEnergy = 405000
+  const confidenceFactor = 0.95
+
   return (
     <AppShell currentPage="methodology">
       <div className="space-y-6 p-6">
@@ -26,15 +33,18 @@ export default function MethodologyPage() {
               <div className="grid gap-2 md:grid-cols-2">
                 <div>
                   <p className="text-xs font-medium text-muted-foreground">Baseline Energy</p>
-                  <p className="text-sm font-semibold text-foreground">450,000 MWh</p>
+                  <p className="text-sm font-semibold text-foreground">{baselineEnergy.toLocaleString()} MWh</p>
                 </div>
                 <div>
                   <p className="text-xs font-medium text-muted-foreground">Project Energy</p>
-                  <p className="text-sm font-semibold text-foreground">405,000 MWh</p>
+                  <p className="text-sm font-semibold text-foreground">{projectEnergy.toLocaleString()} MWh</p>
                 </div>
               </div>
             </div>
-            <button className="w-full rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">
+            <button 
+              onClick={() => setShowCalculationBreakdown(true)}
+              className="w-full rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+            >
               View Full Calculation
             </button>
           </div>
@@ -50,7 +60,7 @@ export default function MethodologyPage() {
               <div className="grid gap-2 md:grid-cols-2 text-xs">
                 <div className="rounded-lg bg-muted p-2">
                   <p className="font-medium text-muted-foreground mb-1">Confidence Factor</p>
-                  <p className="font-semibold text-foreground">0.95 (95%)</p>
+                  <p className="font-semibold text-foreground">{(confidenceFactor * 100).toFixed(0)}%</p>
                 </div>
                 <div className="rounded-lg bg-muted p-2">
                   <p className="font-medium text-muted-foreground mb-1">Quality Score</p>
@@ -61,6 +71,14 @@ export default function MethodologyPage() {
           </div>
         </div>
       </div>
+
+      <BEECalculationBreakdown
+        isOpen={showCalculationBreakdown}
+        onClose={() => setShowCalculationBreakdown(false)}
+        baselineEnergy={baselineEnergy}
+        projectEnergy={projectEnergy}
+        confidenceFactor={confidenceFactor}
+      />
     </AppShell>
   )
 }
