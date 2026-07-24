@@ -55,14 +55,14 @@ export default function GoldenPathPage() {
               { num: 8, name: 'Verifier Review', status: '✓ Complete' },
               { num: 9, name: 'BEE Approval', status: '✓ Complete' }
             ].map((mod) => (
-              <div key={mod.num} className="rounded-lg border border-emerald-200 bg-emerald-50 p-4">
+              <div key={mod.num} className="rounded-lg border border-emerald-300 bg-emerald-900/10 backdrop-blur-sm p-4">
                 <div className="flex items-start justify-between mb-2">
                   <div className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-emerald-600 text-emerald-50 font-bold text-sm">
                     {mod.num}
                   </div>
-                  <span className="text-xs font-semibold text-emerald-700">{mod.status}</span>
+                  <span className="text-xs font-semibold text-emerald-400">{mod.status}</span>
                 </div>
-                <p className="font-medium text-foreground text-sm">{mod.name}</p>
+                <p className="font-medium text-emerald-200 text-sm">{mod.name}</p>
               </div>
             ))}
           </div>
