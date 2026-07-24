@@ -4,6 +4,7 @@ import React from 'react'
 import { useRole } from '@/lib/role-context'
 import { CheckVerifierDashboard as CheckVerifierDashboardComponent } from './check-verifier-dashboard'
 import { BEEOfficerDashboard as BEEOfficerDashboardComponent } from './bee-officer-dashboard'
+import { ICMRegistryDashboard as ICMRegistryDashboardComponent } from './icm-registry-dashboard'
 import Link from 'next/link'
 import { TrendingUp, AlertCircle, CheckCircle, Clock, FileText, Lock, Zap, BarChart3, MessageSquare } from 'lucide-react'
 
@@ -635,8 +636,13 @@ function BEEOfficerDashboardLegacy() {
   )
 }
 
-// ICM Registry Dashboard - LEDGER OPERATIONS & TRADING FOCUSED
+// ICM Registry Dashboard - uses dedicated component
 function ICMRegistryDashboard() {
+  return <ICMRegistryDashboardComponent />
+}
+
+// Legacy ICM Registry Dashboard - LEDGER OPERATIONS & TRADING FOCUSED
+function ICMRegistryDashboardLegacy() {
   return (
     <div className="space-y-8 p-6">
       <div className="space-y-2">
