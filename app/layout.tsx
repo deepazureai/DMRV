@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import { RoleProvider } from '@/lib/role-context'
+import { ReviewProvider } from '@/lib/review-context'
 import { SubmissionProvider } from '@/lib/submission-context'
 
 export const metadata: Metadata = {
@@ -47,10 +48,12 @@ export default function RootLayout({
     <html lang="en" className="bg-background">
       <body className="antialiased bg-background text-foreground">
         <RoleProvider>
-          <SubmissionProvider>
-            {children}
-            {process.env.NODE_ENV === 'production' && <Analytics />}
-          </SubmissionProvider>
+          <ReviewProvider>
+            <SubmissionProvider>
+              {children}
+              {process.env.NODE_ENV === 'production' && <Analytics />}
+            </SubmissionProvider>
+          </ReviewProvider>
         </RoleProvider>
       </body>
     </html>

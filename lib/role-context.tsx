@@ -1,6 +1,7 @@
 'use client'
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import { USER_PROFILES, UserProfile } from './dmrv-data-mapping'
 
 export type UserRole =
   | 'obligated-entity'
@@ -11,38 +12,19 @@ export type UserRole =
 
 export interface RoleContextType {
   currentRole: UserRole | null
+  userProfile: UserProfile | null
   setRole: (role: UserRole) => void
   clearRole: () => void
   userId: string
   userName: string
+  userOrganization: string
+  userPosition: string
   roleDomain: string
+  userEmail: string
+  userAvatar: string
 }
 
 const RoleContext = createContext<RoleContextType | undefined>(undefined)
-
-const roleLabels: Record<UserRole, string> = {
-  'obligated-entity': 'Obligated Entity',
-  'acva-verifier': 'ACVA (Verification)',
-  'check-verifier': 'Check-Verifier',
-  'bee-officer': 'BEE Officer',
-  'icm-registry': 'ICM Registry',
-}
-
-const roleUserNames: Record<UserRole, string> = {
-  'obligated-entity': 'Eastern Cement Works',
-  'acva-verifier': 'TUV-SUD India (ACVA)',
-  'check-verifier': 'Bureau Veritas (CV)',
-  'bee-officer': 'BEE Headquarters',
-  'icm-registry': 'Indian Carbon Market Registry',
-}
-
-const roleDomainDesc: Record<UserRole, string> = {
-  'obligated-entity': 'CCTS Obligated Entity | GEI Reporting',
-  'acva-verifier': 'Accredited Carbon Verification Agency | dMRV Validation & Verification',
-  'check-verifier': 'Independent Check-Verification | Audit Trail Confirmation',
-  'bee-officer': 'Bureau of Energy Efficiency | CCC Issuance & Regulatory Oversight',
-  'icm-registry': 'Indian Carbon Market Registry | Blockchain Registration & Trading',
-}
 
 export function RoleProvider({ children }: { children: ReactNode }) {
   const [currentRole, setCurrentRole] = useState<UserRole | null>(null)
@@ -65,15 +47,22 @@ export function RoleProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem('userRole')
   }
 
+  const userProfile = currentRole ? USER_PROFILES[currentRole] : null
+
   return (
     <RoleContext.Provider
       value={{
         currentRole,
+        userProfile,
         setRole: handleSetRole,
         clearRole: handleClearRole,
         userId,
-        userName: currentRole ? roleUserNames[currentRole] : '',
-        roleDomain: currentRole ? roleDomainDesc[currentRole] : '',
+        userName: userProfile?.userName || '',
+        userOrganization: userProfile?.organization || '',
+        userPosition: userProfile?.position || '',
+        roleDomain: userProfile?.domain || '',
+        userEmail: userProfile?.email || '',
+        userAvatar: userProfile?.avatar || '',
       }}
     >
       {children}
@@ -87,8 +76,4 @@ export function useRole() {
     throw new Error('useRole must be used within RoleProvider')
   }
   return context
-}
-
-export function getRoleLabel(role: UserRole): string {
-  return roleLabels[role]
 }

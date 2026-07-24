@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { useRole } from '@/lib/role-context'
-import { RoleSelector } from '@/components/role-selector'
+import { LoginScreen } from '@/components/login-screen'
 import { AppShell } from '@/components/app-shell'
 import { RoleSpecificDashboard } from '@/components/role-specific-dashboard'
 import { mockLifecycleEvents } from '@/lib/mock-data'
@@ -11,7 +11,7 @@ export default function Page() {
   const { currentRole } = useRole()
 
   if (!currentRole) {
-    return <RoleSelector />
+    return <LoginScreen />
   }
 
   return (

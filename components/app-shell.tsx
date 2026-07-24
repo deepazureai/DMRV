@@ -4,7 +4,8 @@ import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ChevronDown, Menu, X, LogOut } from 'lucide-react'
-import { useRole, UserRole } from '@/lib/role-context'
+import { useRole } from '@/lib/role-context'
+import { UserRole } from '@/lib/dmrv-data-mapping'
 
 interface AppShellProps {
   children: React.ReactNode
@@ -28,21 +29,21 @@ export function AppShell({ children, currentPage = 'dashboard', lifecycleEvents 
   const [sidebarOpen, setSidebarOpen] = React.useState(true)
   const [dropdownOpen, setDropdownOpen] = React.useState(false)
   const router = useRouter()
-  const { clearRole, currentRole } = useRole()
+  const { clearRole, currentRole, userAvatar, userName, userOrganization, userPosition } = useRole()
 
   const allNavigationItems: NavigationItem[] = [
     { href: '/', label: 'Dashboard', icon: '📊' },
     { href: '/golden-path', label: 'Golden Path', icon: '⭐' },
-    { href: '/entities', label: 'Entities', icon: '🏢', roles: ['entity-submitter', 'sector-officer'] },
-    { href: '/projects', label: 'Projects', icon: '📁', roles: ['registry-operator', 'sector-officer'] },
-    { href: '/submissions', label: 'Submissions', icon: '📤', roles: ['entity-submitter', 'sector-officer'] },
-    { href: '/data-quality', label: 'Data Quality', icon: '✓', roles: ['entity-submitter', 'verifier-auditor', 'sector-officer'] },
-    { href: '/methodology', label: 'Methodology', icon: '📐', roles: ['entity-submitter', 'verifier-auditor', 'sector-officer'] },
-    { href: '/evidence', label: 'Evidence', icon: '📄', roles: ['entity-submitter', 'sector-officer'] },
-    { href: '/verification', label: 'Verifier Auditor', icon: '🔍', roles: ['verifier-auditor', 'sector-officer'] },
-    { href: '/approvals', label: 'BEE Regulator', icon: '✅', roles: ['bee-regulator', 'sector-officer'] },
-    { href: '/blockchain', label: 'Blockchain', icon: '⛓', roles: ['registry-operator', 'bee-regulator', 'sector-officer'] },
-    { href: '/registry', label: 'Registry', icon: '📋', roles: ['registry-operator', 'sector-officer'] },
+    { href: '/entities', label: 'Entities', icon: '🏢', roles: ['obligated-entity', 'bee-officer'] },
+    { href: '/submissions', label: 'Submissions', icon: '📤', roles: ['obligated-entity', 'bee-officer', 'acva-verifier'] },
+    { href: '/data-quality', label: 'Data Quality', icon: '✓', roles: ['obligated-entity', 'acva-verifier'] },
+    { href: '/methodology', label: 'Methodology', icon: '📐', roles: ['obligated-entity', 'acva-verifier'] },
+    { href: '/evidence', label: 'Evidence', icon: '📄', roles: ['obligated-entity'] },
+    { href: '/verification', label: 'Verification', icon: '🔍', roles: ['acva-verifier', 'check-verifier'] },
+    { href: '/approvals', label: 'Approvals', icon: '✅', roles: ['bee-officer', 'check-verifier'] },
+    { href: '/blockchain', label: 'Blockchain', icon: '⛓', roles: ['icm-registry', 'bee-officer'] },
+    { href: '/registry', label: 'Registry', icon: '📋', roles: ['icm-registry'] },
+    { href: '/review-comments', label: 'Review Comments', icon: '💬', roles: ['obligated-entity', 'acva-verifier'] },
     { href: '/settings', label: 'Settings', icon: '⚙' }
   ]
 
@@ -93,11 +94,11 @@ export function AppShell({ children, currentPage = 'dashboard', lifecycleEvents 
                 className="flex items-center gap-2 rounded-lg bg-muted px-4 py-2 hover:bg-muted/80 transition-colors"
               >
                 <div className="h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-semibold text-sm">
-                  RK
+                  {userAvatar}
                 </div>
                 <div className="hidden flex-col gap-1 sm:flex items-start">
-                  <span className="text-sm font-medium text-foreground">Rajesh Kumar</span>
-                  <span className="text-xs text-muted-foreground">ECWL Entity</span>
+                  <span className="text-sm font-medium text-foreground">{userName}</span>
+                  <span className="text-xs text-muted-foreground">{userOrganization}</span>
                 </div>
                 <ChevronDown size={16} className={`text-muted-foreground transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
               </button>
