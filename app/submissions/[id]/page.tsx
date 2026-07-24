@@ -55,8 +55,9 @@ const mockSubmissions: Record<string, SubmissionDetail> = {
   },
 }
 
-export default function SubmissionDetailPage({ params }: { params: { id: string } }) {
+export default function SubmissionDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { currentRole } = useRole()
+  const resolvedParams = React.use(params)
   const [submission, setSubmission] = useState<SubmissionDetail | null>(null)
   const [autoComments, setAutoComments] = useState<ReviewComment[]>([])
   const [isEditing, setIsEditing] = useState(false)
@@ -64,15 +65,15 @@ export default function SubmissionDetailPage({ params }: { params: { id: string 
 
   useEffect(() => {
     // Load submission detail
-    const sub = mockSubmissions[params.id]
+    const sub = mockSubmissions[resolvedParams.id]
     if (sub) {
       setSubmission(sub)
       // Generate auto-review comments
-      const comments = generateAutoReviewComments(params.id, sub.entity)
+      const comments = generateAutoReviewComments(resolvedParams.id, sub.entity)
       setAutoComments(comments)
       setEditedComments(comments)
     }
-  }, [params.id])
+  }, [resolvedParams.id])
 
   // Only ACVA and Check-Verifier can review submissions
   const canReview = currentRole === 'acva-verifier' || currentRole === 'check-verifier'
