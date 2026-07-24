@@ -148,10 +148,10 @@ export function AppShell({ children, currentPage = 'dashboard', lifecycleEvents 
         <main className="flex-1 overflow-auto">
           {children}
 
-          {/* Lifecycle Ribbon */}
-          {lifecycleEvents.length > 0 && (
-            <div className="sticky bottom-0 left-0 right-0 z-20 border-t border-border bg-card shadow-lg">
-              <div className="max-h-48 overflow-y-auto">
+          {/* Lifecycle Ribbon - Only show for dashboard page to avoid overlap */}
+          {lifecycleEvents.length > 0 && currentPage === 'dashboard' && (
+            <div className="border-t border-border bg-card">
+              <div className="max-h-56 overflow-y-auto">
                 <div className="space-y-0">
                   {lifecycleEvents.map((event, idx) => {
                     const statusColor = statusColors[event.status] || 'bg-gray-50 text-gray-900 border-gray-200'
