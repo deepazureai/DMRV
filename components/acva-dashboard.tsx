@@ -19,6 +19,7 @@ import {
   MessageSquare,
 } from 'lucide-react'
 import { formatGEI, formatCCCAmount, getPerformanceStatusLabel } from '@/lib/gei-calculation-engine'
+import { VerificationPlanCard } from '@/components/verification-plan-card'
 
 interface ACVADashboardProps {
   actor: DmrvActor
@@ -116,8 +117,9 @@ export function ACVADashboard({
 
       {/* Main Tabs */}
       <Tabs defaultValue="risk-queue" className="w-full">
-        <TabsList className="grid w-full grid-cols-5">
+        <TabsList className="grid w-full grid-cols-6">
           <TabsTrigger value="risk-queue">Risk Queue</TabsTrigger>
+          <TabsTrigger value="verification-plan">Plan & Risk</TabsTrigger>
           <TabsTrigger value="queries">
             Queries
             {pendingQueries.length > 0 && <Badge className="ml-2 bg-orange-600">{pendingQueries.length}</Badge>}
@@ -246,6 +248,29 @@ export function ACVADashboard({
               </div>
             </CardContent>
           </Card>
+        </TabsContent>
+
+        {/* Phase 3: Verification Plan & Risk Assessment Tab */}
+        <TabsContent value="verification-plan" className="space-y-4">
+          {underReview.length === 0 ? (
+            <Card>
+              <CardContent className="pt-8 pb-8 text-center">
+                <Clock className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                <p className="text-foreground font-semibold mb-2">No submissions under review</p>
+                <p className="text-sm text-muted-foreground">Verification plans appear when submissions are assigned</p>
+              </CardContent>
+            </Card>
+          ) : (
+            underReview.slice(0, 1).map(sub => (
+              <VerificationPlanCard
+                key={sub.id}
+                submissionId={sub.id}
+                entityName={sub.entityName}
+                dataQualityScore={sub.dataQualityScore || 87}
+                riskLevel={countAnomalies(sub, 'critical') > 0 ? 'high' : countAnomalies(sub, 'major') > 0 ? 'medium' : 'low'}
+              />
+            ))
+          )}
         </TabsContent>
 
         {/* Queries Tab */}

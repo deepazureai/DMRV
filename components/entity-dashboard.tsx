@@ -26,6 +26,7 @@ import {
   Download,
 } from 'lucide-react'
 import { formatCCCAmount } from '@/lib/gei-calculation-engine'
+import { TrajectoryTargetCard } from '@/components/trajectory-target-card'
 
 interface EntityDashboardProps {
   actor: DmrvActor
@@ -85,13 +86,19 @@ export function EntityDashboard({
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="space-y-2">
-        <h1 className="text-3xl font-bold text-foreground">Obligated Entity Portal</h1>
-        <p className="text-muted-foreground">
-          {actor.organization} - Submission & Verification Dashboard
-        </p>
+        <h2 className="text-2xl font-bold text-foreground">GEI Submission & Verification Status</h2>
+        <p className="text-muted-foreground">Monitor your carbon data and verification progress</p>
       </div>
+
+      {/* Phase 1: Trajectory & Target Management */}
+      <TrajectoryTargetCard
+        complianceCycle="FY2026-27"
+        annualTarget={1.85}
+        baselineIntensity={2.05}
+        projectedIntensity={1.82}
+        isCompliant={true}
+      />
 
       {/* Key Metrics */}
       <div className="grid gap-4 md:grid-cols-4">

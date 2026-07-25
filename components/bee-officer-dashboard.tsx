@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { CheckCircle2, AlertCircle, Clock, ArrowRight, FileText, Zap, Lock } from 'lucide-react'
 import Link from 'next/link'
+import { MultiStepCCCIssuance } from '@/components/multi-step-ccc-issuance'
 
 // Mock BEE approval queue
 const mockApprovalQueue = [
@@ -340,20 +341,19 @@ export function BEEOfficerDashboard() {
                   </CardContent>
                 </Card>
               ) : (
-                <div className="flex gap-2">
-                  <Button
-                    onClick={handleApprove}
-                    disabled={approvingId === selectedApp.id || selectedApp.status === 'approved'}
-                    className="flex-1 bg-emerald-600 hover:bg-emerald-700"
-                  >
-                    <CheckCircle2 className="w-4 h-4 mr-2" />
-                    {approvingId === selectedApp.id ? 'Generating CCC...' : 'Approve & Issue CCC'}
-                  </Button>
-                  <Button variant="outline" className="flex-1">
+                <>
+                  {/* Phase 2: Multi-Step CCC Issuance */}
+                  <MultiStepCCCIssuance
+                    submissionId={selectedApp.submissionId}
+                    entityName={selectedApp.entity}
+                    estimatedCCCs={selectedApp.cccSurplus || selectedApp.cccDeficit || 0}
+                    currentStatus="check-verified"
+                  />
+                  <Button variant="outline" className="w-full">
                     <AlertCircle className="w-4 h-4 mr-2" />
                     Request Clarification
                   </Button>
-                </div>
+                </>
               )}
             </>
           ) : (
