@@ -422,7 +422,8 @@ export default function CheckVerifierReviewPage() {
                     '-APPROVED'
                 )
               }}
-              className="w-full h-auto py-4 gap-2 bg-emerald-600/20 border-2 border-emerald-500 hover:bg-emerald-600/40 text-emerald-300"
+              style={{ pointerEvents: 'auto' }}
+              className="w-full h-auto py-4 gap-2 bg-emerald-600/20 border-2 border-emerald-500 hover:bg-emerald-600/40 text-emerald-300 cursor-pointer"
             >
               <CheckCircle2 className="w-5 h-5" />
               <span className="text-left">
@@ -443,7 +444,8 @@ export default function CheckVerifierReviewPage() {
                     '-CONDITIONAL. ACVA must respond within 7 days.'
                 )
               }}
-              className="w-full h-auto py-4 gap-2 bg-amber-600/20 border-2 border-amber-500 hover:bg-amber-600/40 text-amber-300"
+              style={{ pointerEvents: 'auto' }}
+              className="w-full h-auto py-4 gap-2 bg-amber-600/20 border-2 border-amber-500 hover:bg-amber-600/40 text-amber-300 cursor-pointer"
             >
               <AlertTriangle className="w-5 h-5" />
               <span className="text-left">
@@ -464,7 +466,8 @@ export default function CheckVerifierReviewPage() {
                     '-REJECTED. Entity must resubmit with full data rectification.'
                 )
               }}
-              className="w-full h-auto py-4 gap-2 bg-red-600/20 border-2 border-red-500 hover:bg-red-600/40 text-red-300"
+              style={{ pointerEvents: 'auto' }}
+              className="w-full h-auto py-4 gap-2 bg-red-600/20 border-2 border-red-500 hover:bg-red-600/40 text-red-300 cursor-pointer"
             >
               <AlertTriangle className="w-5 h-5" />
               <span className="text-left">
