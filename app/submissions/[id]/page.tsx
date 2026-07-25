@@ -108,11 +108,19 @@ export default function SubmissionDetailPage({ params }: { params: Promise<{ id:
     <AppShell currentPage="submissions" lifecycleEvents={mockLifecycleEvents}>
       <div className="p-6 max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-6 flex items-center gap-3">
-          <Link href="/submissions">
-            <Button variant="outline" size="sm">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Submissions
+        <div className="mb-6 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Link href="/submissions">
+              <Button variant="outline" size="sm">
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Submissions
+              </Button>
+            </Link>
+          </div>
+          <Link href={`/submissions/${submission.id}/status`}>
+            <Button variant="outline" size="sm" className="gap-2">
+              <Clock className="w-4 h-4" />
+              View Status Tracker
             </Button>
           </Link>
         </div>
