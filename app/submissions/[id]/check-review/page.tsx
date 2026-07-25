@@ -44,6 +44,39 @@ const mockEntityResponse = [
   },
 ]
 
+const checklistItems = [
+  {
+    id: 'data-schema',
+    name: 'Data Schema Verification',
+    description: 'Confirm all required fields present and valid format',
+    required: true,
+  },
+  {
+    id: 'baseline-consistency',
+    name: 'Baseline Consistency Review',
+    description: 'Cross-check against industry baseline and BEE standards',
+    required: true,
+  },
+  {
+    id: 'emission-factor',
+    name: 'Emission Factor Validation',
+    description: 'Verify correct emission factors used per latest guidelines',
+    required: false,
+  },
+  {
+    id: 'variance-analysis',
+    name: 'Variance Analysis',
+    description: 'Investigate any unusual outliers or seasonal variations',
+    required: false,
+  },
+  {
+    id: 'acva-resolution',
+    name: 'ACVA Comments Resolution',
+    description: '3 comments to review and validate',
+    required: true,
+  },
+]
+
 export default function CheckVerifierReviewPage() {
   const params = useParams()
   const submissionId = params.id as string
@@ -54,6 +87,25 @@ export default function CheckVerifierReviewPage() {
   const [independentIssues, setIndependentIssues] = useState<string>('')
   const [auditDecision, setAuditDecision] = useState<string | null>(null)
   const [submittedMessage, setSubmittedMessage] = useState<string | null>(null)
+  const [checklist, setChecklist] = useState<Record<string, boolean>>({
+    'data-schema': true,
+    'baseline-consistency': true,
+    'emission-factor': false,
+    'variance-analysis': false,
+    'acva-resolution': false,
+  })
+  const [auditStatus, setAuditStatus] = useState<'in-progress' | 'completed' | 'submitted'>('in-progress')
+  const [auditLog, setAuditLog] = useState<Array<{
+    timestamp: Date
+    action: string
+    details: string
+  }>>([
+    {
+      timestamp: new Date('2025-01-15'),
+      action: 'Audit Started',
+      details: 'Check-Verifier Rajesh Kumar started independent audit review',
+    },
+  ])
 
   const toggleChallenge = (commentId: string) => {
     setChallengedComments(prev =>
@@ -69,11 +121,26 @@ export default function CheckVerifierReviewPage() {
 
   const handleAuditDecision = (decision: string, message: string) => {
     setAuditDecision(decision)
+    setAuditStatus('completed')
+    setAuditLog(prev => [
+      ...prev,
+      {
+        timestamp: new Date(),
+        action: `Audit Decision: ${decision}`,
+        details: message,
+      },
+    ])
     setSubmittedMessage(message)
     setTimeout(() => {
       setSubmittedMessage(null)
     }, 5000)
   }
+
+  const requiredItemsComplete = checklistItems
+    .filter(item => item.required)
+    .every(item => checklist[item.id])
+
+  const allItemsComplete = checklistItems.every(item => checklist[item.id])
 
   return (
     <div className="min-h-screen bg-background p-6 space-y-6">
@@ -257,6 +324,63 @@ export default function CheckVerifierReviewPage() {
         </TabsContent>
       </Tabs>
 
+      {/* Independent Verification Checklist */}
+      <Card className="border-border bg-card">
+        <CardHeader>
+          <CardTitle className="text-base">Independent Verification Checklist</CardTitle>
+          <CardDescription>
+            Complete all required items before submitting audit decision
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {checklistItems.map(item => (
+            <div
+              key={item.id}
+              className="flex items-start gap-3 p-3 rounded border border-border hover:bg-muted/30 cursor-pointer transition"
+              onClick={() =>
+                setChecklist(prev => ({
+                  ...prev,
+                  [item.id]: !prev[item.id],
+                }))
+              }
+            >
+              <input
+                type="checkbox"
+                checked={checklist[item.id] || false}
+                onChange={() => {}}
+                className="mt-1 cursor-pointer"
+              />
+              <div className="flex-1 min-w-0">
+                <div className="font-medium text-foreground text-sm">{item.name}</div>
+                <div className="text-xs text-muted-foreground">{item.description}</div>
+              </div>
+              {item.required && (
+                <Badge variant="outline" className="bg-amber-500/10 border-amber-500/20 text-amber-300 text-xs">
+                  Required
+                </Badge>
+              )}
+            </div>
+          ))}
+
+          <div className="mt-4 p-3 bg-muted/30 rounded border border-border">
+            <div className="text-xs font-medium text-muted-foreground mb-2">Checklist Completion</div>
+            <div className="flex items-center gap-2">
+              <div className="flex-1 bg-background rounded-full h-2 overflow-hidden">
+                <div
+                  className="bg-emerald-500 h-full transition-all"
+                  style={{
+                    width: `${(Object.values(checklist).filter(Boolean).length / checklistItems.length) * 100}%`,
+                  }}
+                />
+              </div>
+              <span className="text-xs font-semibold text-foreground">
+                {Object.values(checklist).filter(Boolean).length}/{checklistItems.length}
+              </span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Audit Decision Section */}
       <Card className="border-border bg-card">
         <CardHeader>
@@ -275,6 +399,15 @@ export default function CheckVerifierReviewPage() {
             </Alert>
           )}
 
+          {!requiredItemsComplete && (
+            <Alert className="border-amber-500/30 bg-amber-900/20">
+              <AlertTriangle className="w-4 h-4 text-amber-400" />
+              <AlertDescription className="text-amber-300">
+                Complete all required checklist items before making an audit decision
+              </AlertDescription>
+            </Alert>
+          )}
+
           <div className="grid gap-3">
             <Button
               onClick={() =>
@@ -285,7 +418,8 @@ export default function CheckVerifierReviewPage() {
                     '-APPROVED'
                 )
               }
-              className="w-full h-auto py-4 gap-2 bg-emerald-600/20 border-2 border-emerald-500 hover:bg-emerald-600/40 text-emerald-300"
+              disabled={!requiredItemsComplete}
+              className="w-full h-auto py-4 gap-2 bg-emerald-600/20 border-2 border-emerald-500 hover:bg-emerald-600/40 text-emerald-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <CheckCircle2 className="w-5 h-5" />
               <span className="text-left">
@@ -303,7 +437,8 @@ export default function CheckVerifierReviewPage() {
                     '-CONDITIONAL. ACVA must respond within 7 days.'
                 )
               }
-              className="w-full h-auto py-4 gap-2 bg-amber-600/20 border-2 border-amber-500 hover:bg-amber-600/40 text-amber-300"
+              disabled={!requiredItemsComplete}
+              className="w-full h-auto py-4 gap-2 bg-amber-600/20 border-2 border-amber-500 hover:bg-amber-600/40 text-amber-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <AlertTriangle className="w-5 h-5" />
               <span className="text-left">
@@ -321,7 +456,8 @@ export default function CheckVerifierReviewPage() {
                     '-REJECTED. Entity must resubmit with full data rectification.'
                 )
               }
-              className="w-full h-auto py-4 gap-2 bg-red-600/20 border-2 border-red-500 hover:bg-red-600/40 text-red-300"
+              disabled={!requiredItemsComplete}
+              className="w-full h-auto py-4 gap-2 bg-red-600/20 border-2 border-red-500 hover:bg-red-600/40 text-red-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <AlertTriangle className="w-5 h-5" />
               <span className="text-left">
@@ -353,17 +489,52 @@ export default function CheckVerifierReviewPage() {
             )}
           </div>
 
-          {auditDecision && (
-            <div className="bg-muted/30 rounded p-3 border border-border">
-              <p className="text-xs font-medium text-muted-foreground mb-1">Current Audit Status</p>
-              <p className="text-sm font-semibold text-foreground capitalize">
-                Decision: {auditDecision.replace('-', ' ')}
-              </p>
-              <p className="text-xs text-muted-foreground mt-1">
-                Ready to submit to BEE Officer for final processing
-              </p>
+          <div className="bg-muted/30 rounded p-3 border border-border space-y-3">
+            <div>
+              <p className="text-xs font-medium text-muted-foreground mb-1">Audit Progress</p>
+              <div className="flex items-center gap-2">
+                <div className="flex-1 bg-background rounded-full h-2 overflow-hidden">
+                  <div
+                    className={`h-full transition-all ${auditDecision ? 'bg-emerald-500' : 'bg-amber-500'}`}
+                    style={{
+                      width: auditDecision ? '100%' : '60%',
+                    }}
+                  />
+                </div>
+                <span className="text-xs font-semibold text-foreground">
+                  {auditDecision ? 'Complete' : 'In Progress'}
+                </span>
+              </div>
             </div>
-          )}
+
+            {auditDecision && (
+              <div>
+                <p className="text-xs font-medium text-muted-foreground mb-2">Audit Log</p>
+                <div className="space-y-2 max-h-32 overflow-y-auto">
+                  {auditLog.map((entry, idx) => (
+                    <div key={idx} className="text-xs border-l-2 border-emerald-500/30 pl-2">
+                      <div className="font-medium text-foreground">{entry.action}</div>
+                      <div className="text-muted-foreground text-xs">
+                        {entry.timestamp.toLocaleString()}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {auditDecision && (
+              <div className="pt-2 border-t border-border">
+                <p className="text-xs font-medium text-emerald-300 mb-1">Current Decision</p>
+                <p className="text-sm font-semibold text-foreground capitalize">
+                  {auditDecision.replace('-', ' ')}
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Ready to submit to BEE Officer for final processing
+                </p>
+              </div>
+            )}
+          </div>
         </CardContent>
       </Card>
 
