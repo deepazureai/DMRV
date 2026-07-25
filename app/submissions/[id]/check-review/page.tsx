@@ -90,9 +90,9 @@ export default function CheckVerifierReviewPage() {
   const [checklist, setChecklist] = useState<Record<string, boolean>>({
     'data-schema': true,
     'baseline-consistency': true,
-    'emission-factor': false,
-    'variance-analysis': false,
-    'acva-resolution': false,
+    'emission-factor': true,
+    'variance-analysis': true,
+    'acva-resolution': true,
   })
   const [auditStatus, setAuditStatus] = useState<'in-progress' | 'completed' | 'submitted'>('in-progress')
   const [auditLog, setAuditLog] = useState<Array<{
