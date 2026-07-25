@@ -52,6 +52,8 @@ export default function CheckVerifierReviewPage() {
   const [challengeTexts, setChallengeTexts] = useState<Record<string, string>>({})
   const [newComments, setNewComments] = useState<string>('')
   const [independentIssues, setIndependentIssues] = useState<string>('')
+  const [auditDecision, setAuditDecision] = useState<string | null>(null)
+  const [submittedMessage, setSubmittedMessage] = useState<string | null>(null)
 
   const toggleChallenge = (commentId: string) => {
     setChallengedComments(prev =>
@@ -63,6 +65,14 @@ export default function CheckVerifierReviewPage() {
 
   const handleChallengeText = (commentId: string, text: string) => {
     setChallengeTexts(prev => ({ ...prev, [commentId]: text }))
+  }
+
+  const handleAuditDecision = (decision: string, message: string) => {
+    setAuditDecision(decision)
+    setSubmittedMessage(message)
+    setTimeout(() => {
+      setSubmittedMessage(null)
+    }, 5000)
   }
 
   return (
@@ -246,6 +256,116 @@ export default function CheckVerifierReviewPage() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Audit Decision Section */}
+      <Card className="border-border bg-card">
+        <CardHeader>
+          <CardTitle className="text-base">Audit Decision</CardTitle>
+          <CardDescription>
+            Select your independent verification audit decision
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {submittedMessage && (
+            <Alert className={`border-emerald-500/30 bg-emerald-900/20`}>
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              <AlertDescription className="text-emerald-300">
+                {submittedMessage}
+              </AlertDescription>
+            </Alert>
+          )}
+
+          <div className="grid gap-3">
+            <Button
+              onClick={() =>
+                handleAuditDecision(
+                  'approved',
+                  'Independent audit passed successfully. Submission forwarded to BEE Officer for CCC issuance. Reference: CV-' +
+                    submissionId +
+                    '-APPROVED'
+                )
+              }
+              className="w-full h-auto py-4 gap-2 bg-emerald-600/20 border-2 border-emerald-500 hover:bg-emerald-600/40 text-emerald-300"
+            >
+              <CheckCircle2 className="w-5 h-5" />
+              <span className="text-left">
+                <div className="font-semibold">Approve - Pass Independent Audit</div>
+                <div className="text-xs opacity-80">Submission meets all CCTS requirements</div>
+              </span>
+            </Button>
+
+            <Button
+              onClick={() =>
+                handleAuditDecision(
+                  'conditional',
+                  'Conditional approval - Submission returned to ACVA for clarification. Reference: CV-' +
+                    submissionId +
+                    '-CONDITIONAL. ACVA must respond within 7 days.'
+                )
+              }
+              className="w-full h-auto py-4 gap-2 bg-amber-600/20 border-2 border-amber-500 hover:bg-amber-600/40 text-amber-300"
+            >
+              <AlertTriangle className="w-5 h-5" />
+              <span className="text-left">
+                <div className="font-semibold">Conditional - Return to ACVA for Clarification</div>
+                <div className="text-xs opacity-80">Minor issues found - requires ACVA revision</div>
+              </span>
+            </Button>
+
+            <Button
+              onClick={() =>
+                handleAuditDecision(
+                  'rejected',
+                  'Independent audit FAILED. Submission rejected due to significant compliance gaps. Reference: CV-' +
+                    submissionId +
+                    '-REJECTED. Entity must resubmit with full data rectification.'
+                )
+              }
+              className="w-full h-auto py-4 gap-2 bg-red-600/20 border-2 border-red-500 hover:bg-red-600/40 text-red-300"
+            >
+              <AlertTriangle className="w-5 h-5" />
+              <span className="text-left">
+                <div className="font-semibold">Reject - Fails Independent Audit</div>
+                <div className="text-xs opacity-80">Critical issues found - resubmission required</div>
+              </span>
+            </Button>
+
+            {auditDecision && (
+              <Button
+                onClick={() =>
+                  handleAuditDecision(
+                    'submitted-bee',
+                    'Independent audit report submitted to BEE Officer. Submission moved to Final Review stage. Reference: CV-' +
+                      submissionId +
+                      '-SUBMITTED-BEE. ETA for CCC issuance: 2-3 weeks'
+                  )
+                }
+                className="w-full h-auto py-4 gap-2 bg-emerald-600 hover:bg-emerald-700"
+              >
+                <CheckCircle2 className="w-5 h-5" />
+                <span className="text-left">
+                  <div className="font-semibold">Send to BEE Officer</div>
+                  <div className="text-xs opacity-90">
+                    Submit final audit decision ({auditDecision})
+                  </div>
+                </span>
+              </Button>
+            )}
+          </div>
+
+          {auditDecision && (
+            <div className="bg-muted/30 rounded p-3 border border-border">
+              <p className="text-xs font-medium text-muted-foreground mb-1">Current Audit Status</p>
+              <p className="text-sm font-semibold text-foreground capitalize">
+                Decision: {auditDecision.replace('-', ' ')}
+              </p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Ready to submit to BEE Officer for final processing
+              </p>
+            </div>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Summary & Actions */}
       <Card className="border-border bg-card">
