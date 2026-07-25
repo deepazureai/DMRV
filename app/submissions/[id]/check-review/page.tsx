@@ -86,26 +86,7 @@ export default function CheckVerifierReviewPage() {
   const [newComments, setNewComments] = useState<string>('')
   const [independentIssues, setIndependentIssues] = useState<string>('')
   const [auditDecision, setAuditDecision] = useState<string | null>(null)
-  const [submittedMessage, setSubmittedMessage] = useState<string | null>(null)
-  const [checklist, setChecklist] = useState<Record<string, boolean>>({
-    'data-schema': true,
-    'baseline-consistency': true,
-    'emission-factor': true,
-    'variance-analysis': true,
-    'acva-resolution': true,
-  })
-  const [auditStatus, setAuditStatus] = useState<'in-progress' | 'completed' | 'submitted'>('in-progress')
-  const [auditLog, setAuditLog] = useState<Array<{
-    timestamp: Date
-    action: string
-    details: string
-  }>>([
-    {
-      timestamp: new Date('2025-01-15'),
-      action: 'Audit Started',
-      details: 'Check-Verifier Rajesh Kumar started independent audit review',
-    },
-  ])
+  const [successMessage, setSuccessMessage] = useState<string | null>(null)
 
   const toggleChallenge = (commentId: string) => {
     setChallengedComments(prev =>
@@ -119,28 +100,21 @@ export default function CheckVerifierReviewPage() {
     setChallengeTexts(prev => ({ ...prev, [commentId]: text }))
   }
 
-  const handleAuditDecision = (decision: string, message: string) => {
+  const handleAuditDecision = (decision: string) => {
     setAuditDecision(decision)
-    setAuditStatus('completed')
-    setAuditLog(prev => [
-      ...prev,
-      {
-        timestamp: new Date(),
-        action: `Audit Decision: ${decision}`,
-        details: message,
-      },
-    ])
-    setSubmittedMessage(message)
-    setTimeout(() => {
-      setSubmittedMessage(null)
-    }, 5000)
+    let message = ''
+    
+    if (decision === 'approved') {
+      message = `Independent audit passed successfully. Submission forwarded to BEE Officer for CCC issuance. Reference: CV-${submissionId}-APPROVED`
+    } else if (decision === 'conditional') {
+      message = `Conditional approval - Submission returned to ACVA for clarification. Reference: CV-${submissionId}-CONDITIONAL. ACVA must respond within 7 days.`
+    } else if (decision === 'rejected') {
+      message = `Independent audit FAILED. Submission rejected due to significant compliance gaps. Reference: CV-${submissionId}-REJECTED. Entity must resubmit with full data rectification.`
+    }
+    
+    setSuccessMessage(message)
+    setTimeout(() => setSuccessMessage(null), 6000)
   }
-
-  const requiredItemsComplete = checklistItems
-    .filter(item => item.required)
-    .every(item => checklist[item.id])
-
-  const allItemsComplete = checklistItems.every(item => checklist[item.id])
 
   return (
     <div className="min-h-screen bg-background p-6 space-y-6">
@@ -324,229 +298,77 @@ export default function CheckVerifierReviewPage() {
         </TabsContent>
       </Tabs>
 
-      {/* Independent Verification Checklist */}
+      {/* Audit Decision - Simplified */}
       <Card className="border-border bg-card">
         <CardHeader>
           <CardTitle className="text-base">Independent Verification Checklist</CardTitle>
-          <CardDescription>
-            Complete all required items before submitting audit decision
-          </CardDescription>
+          <CardDescription>5 verification items completed</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-3">
+        <CardContent className="space-y-4">
           {checklistItems.map(item => (
-            <div
-              key={item.id}
-              className="flex items-start gap-3 p-3 rounded border border-border hover:bg-muted/30 cursor-pointer transition"
-              onClick={() => {
-                console.log('[v0] Toggling checklist item:', item.id, 'current state:', checklist[item.id])
-                setChecklist(prev => ({
-                  ...prev,
-                  [item.id]: !prev[item.id],
-                }))
-              }}
-            >
-              <input
-                type="checkbox"
-                checked={checklist[item.id] || false}
-                onChange={() => {}}
-                className="mt-1 cursor-pointer"
-              />
-              <div className="flex-1 min-w-0">
-                <div className="font-medium text-foreground text-sm">{item.name}</div>
-                <div className="text-xs text-muted-foreground">{item.description}</div>
+            <div key={item.id} className="flex items-start gap-3 p-3 rounded border border-emerald-500/30 bg-emerald-900/10">
+              <CheckCircle2 className="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" />
+              <div className="flex-1">
+                <div className="font-medium text-sm text-foreground">{item.name}</div>
+                <div className="text-xs text-muted-foreground mt-1">{item.description}</div>
               </div>
-              {item.required && (
-                <Badge variant="outline" className="bg-amber-500/10 border-amber-500/20 text-amber-300 text-xs">
-                  Required
-                </Badge>
-              )}
             </div>
           ))}
 
-          <div className="mt-4 p-3 bg-muted/30 rounded border border-border">
-            <div className="text-xs font-medium text-muted-foreground mb-2">Checklist Completion</div>
-            <div className="flex items-center gap-2">
-              <div className="flex-1 bg-background rounded-full h-2 overflow-hidden">
-                <div
-                  className="bg-emerald-500 h-full transition-all"
-                  style={{
-                    width: `${(Object.values(checklist).filter(Boolean).length / checklistItems.length) * 100}%`,
-                  }}
-                />
-              </div>
-              <span className="text-xs font-semibold text-foreground">
-                {Object.values(checklist).filter(Boolean).length}/{checklistItems.length}
-              </span>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Audit Decision Section */}
-      <Card className="border-border bg-card">
-        <CardHeader>
-          <CardTitle className="text-base">Audit Decision</CardTitle>
-          <CardDescription>
-            Select your independent verification audit decision
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {submittedMessage && (
-            <Alert className={`border-emerald-500/30 bg-emerald-900/20`}>
+          {successMessage && (
+            <Alert className="border-emerald-500/30 bg-emerald-900/20 mt-4">
               <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              <AlertDescription className="text-emerald-300">
-                {submittedMessage}
-              </AlertDescription>
+              <AlertDescription className="text-emerald-300">{successMessage}</AlertDescription>
             </Alert>
           )}
 
-          {!requiredItemsComplete && (
-            <Alert className="border-amber-500/30 bg-amber-900/20">
-              <AlertTriangle className="w-4 h-4 text-amber-400" />
-              <AlertDescription className="text-amber-300">
-                Complete all required checklist items before making an audit decision
-              </AlertDescription>
-            </Alert>
-          )}
-
-          <div className="grid gap-3">
+          <div className="space-y-2 mt-6">
             <Button
-              type="button"
-              onClick={() => {
-                console.log('[v0] Approve button clicked', { requiredItemsComplete })
-                alert('BUTTON CLICKED: Approve button works!')
-                handleAuditDecision(
-                  'approved',
-                  'Independent audit passed successfully. Submission forwarded to BEE Officer for CCC issuance. Reference: CV-' +
-                    submissionId +
-                    '-APPROVED'
-                )
-              }}
-              style={{ pointerEvents: 'auto' }}
-              className="w-full h-auto py-4 gap-2 bg-emerald-600/20 border-2 border-emerald-500 hover:bg-emerald-600/40 text-emerald-300 cursor-pointer"
+              onClick={() => handleAuditDecision('approved')}
+              className="w-full justify-center py-3 bg-emerald-600/20 border-2 border-emerald-500 hover:bg-emerald-600/40 text-emerald-300 font-semibold"
             >
-              <CheckCircle2 className="w-5 h-5" />
-              <span className="text-left">
-                <div className="font-semibold">Approve - Pass Independent Audit</div>
-                <div className="text-xs opacity-80">Submission meets all CCTS requirements</div>
-              </span>
+              <CheckCircle2 className="w-4 h-4 mr-2" />
+              Approve - Pass Independent Audit
             </Button>
 
             <Button
-              type="button"
-              onClick={() => {
-                console.log('[v0] Conditional button clicked', { requiredItemsComplete })
-                alert('BUTTON CLICKED: Conditional button works!')
-                handleAuditDecision(
-                  'conditional',
-                  'Conditional approval - Submission returned to ACVA for clarification. Reference: CV-' +
-                    submissionId +
-                    '-CONDITIONAL. ACVA must respond within 7 days.'
-                )
-              }}
-              style={{ pointerEvents: 'auto' }}
-              className="w-full h-auto py-4 gap-2 bg-amber-600/20 border-2 border-amber-500 hover:bg-amber-600/40 text-amber-300 cursor-pointer"
+              onClick={() => handleAuditDecision('conditional')}
+              className="w-full justify-center py-3 bg-amber-600/20 border-2 border-amber-500 hover:bg-amber-600/40 text-amber-300 font-semibold"
             >
-              <AlertTriangle className="w-5 h-5" />
-              <span className="text-left">
-                <div className="font-semibold">Conditional - Return to ACVA for Clarification</div>
-                <div className="text-xs opacity-80">Minor issues found - requires ACVA revision</div>
-              </span>
+              <AlertTriangle className="w-4 h-4 mr-2" />
+              Conditional - Return to ACVA for Clarification
             </Button>
 
             <Button
-              type="button"
-              onClick={() => {
-                console.log('[v0] Reject button clicked', { requiredItemsComplete })
-                alert('BUTTON CLICKED: Reject button works!')
-                handleAuditDecision(
-                  'rejected',
-                  'Independent audit FAILED. Submission rejected due to significant compliance gaps. Reference: CV-' +
-                    submissionId +
-                    '-REJECTED. Entity must resubmit with full data rectification.'
-                )
-              }}
-              style={{ pointerEvents: 'auto' }}
-              className="w-full h-auto py-4 gap-2 bg-red-600/20 border-2 border-red-500 hover:bg-red-600/40 text-red-300 cursor-pointer"
+              onClick={() => handleAuditDecision('rejected')}
+              className="w-full justify-center py-3 bg-red-600/20 border-2 border-red-500 hover:bg-red-600/40 text-red-300 font-semibold"
             >
-              <AlertTriangle className="w-5 h-5" />
-              <span className="text-left">
-                <div className="font-semibold">Reject - Fails Independent Audit</div>
-                <div className="text-xs opacity-80">Critical issues found - resubmission required</div>
-              </span>
+              <AlertTriangle className="w-4 h-4 mr-2" />
+              Reject - Fails Independent Audit
             </Button>
 
             {auditDecision && (
               <Button
-                type="button"
                 onClick={() => {
-                  console.log('[v0] Send to BEE Officer button clicked')
-                  handleAuditDecision(
-                    'submitted-bee',
-                    'Independent audit report submitted to BEE Officer. Submission moved to Final Review stage. Reference: CV-' +
-                      submissionId +
-                      '-SUBMITTED-BEE. ETA for CCC issuance: 2-3 weeks'
+                  setAuditDecision('submitted')
+                  setSuccessMessage(
+                    `Independent audit report submitted to BEE Officer. Reference: CV-${submissionId}-SUBMITTED. ETA for CCC issuance: 2-3 weeks`
                   )
+                  setTimeout(() => setSuccessMessage(null), 6000)
                 }}
-                className="w-full h-auto py-4 gap-2 bg-emerald-600 hover:bg-emerald-700"
+                className="w-full justify-center py-3 bg-emerald-600 hover:bg-emerald-700"
               >
-                <CheckCircle2 className="w-5 h-5" />
-                <span className="text-left">
-                  <div className="font-semibold">Send to BEE Officer</div>
-                  <div className="text-xs opacity-90">
-                    Submit final audit decision ({auditDecision})
-                  </div>
-                </span>
+                Send to BEE Officer
               </Button>
             )}
           </div>
 
-          <div className="bg-muted/30 rounded p-3 border border-border space-y-3">
-            <div>
-              <p className="text-xs font-medium text-muted-foreground mb-1">Audit Progress</p>
-              <div className="flex items-center gap-2">
-                <div className="flex-1 bg-background rounded-full h-2 overflow-hidden">
-                  <div
-                    className={`h-full transition-all ${auditDecision ? 'bg-emerald-500' : 'bg-amber-500'}`}
-                    style={{
-                      width: auditDecision ? '100%' : '60%',
-                    }}
-                  />
-                </div>
-                <span className="text-xs font-semibold text-foreground">
-                  {auditDecision ? 'Complete' : 'In Progress'}
-                </span>
-              </div>
+          {auditDecision && (
+            <div className="mt-4 p-3 bg-muted/30 rounded border border-border">
+              <p className="text-xs font-semibold text-emerald-300 mb-2">Current Audit Decision:</p>
+              <p className="text-sm font-semibold text-foreground capitalize">{auditDecision}</p>
             </div>
-
-            {auditDecision && (
-              <div>
-                <p className="text-xs font-medium text-muted-foreground mb-2">Audit Log</p>
-                <div className="space-y-2 max-h-32 overflow-y-auto">
-                  {auditLog.map((entry, idx) => (
-                    <div key={idx} className="text-xs border-l-2 border-emerald-500/30 pl-2">
-                      <div className="font-medium text-foreground">{entry.action}</div>
-                      <div className="text-muted-foreground text-xs">
-                        {entry.timestamp.toLocaleString()}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {auditDecision && (
-              <div className="pt-2 border-t border-border">
-                <p className="text-xs font-medium text-emerald-300 mb-1">Current Decision</p>
-                <p className="text-sm font-semibold text-foreground capitalize">
-                  {auditDecision.replace('-', ' ')}
-                </p>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Ready to submit to BEE Officer for final processing
-                </p>
-              </div>
-            )}
-          </div>
+          )}
         </CardContent>
       </Card>
 
