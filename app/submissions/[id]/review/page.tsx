@@ -136,7 +136,7 @@ export default function SubmissionReviewPage() {
         <Alert className="border-emerald-500/30 bg-emerald-900/20">
           <CheckCircle2 className="w-4 h-4 text-emerald-400" />
           <AlertDescription className="text-emerald-300">
-            Review comments sent successfully to {submission.entityName}. Submission status updated to "Needs Resubmission".
+            Review comments sent successfully to {submission.entityName} via DMRV Portal (dmrv.bee.gov.in). Entity can view feedback at: <span className="font-semibold">dmrv.bee.gov.in/submissions/{submissionId}/feedback</span>. Submission status updated to "Needs Resubmission" - Response due by {new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toLocaleDateString()}.
           </AlertDescription>
         </Alert>
       )}

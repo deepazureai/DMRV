@@ -110,7 +110,7 @@ export default function EntityFeedbackPage() {
         <Alert className="border-emerald-500/30 bg-emerald-900/20">
           <CheckCircle2 className="w-4 h-4 text-emerald-400" />
           <AlertDescription className="text-emerald-300">
-            All responses submitted successfully. ACVA will review your evidence within 3-5 business days.
+            All responses submitted successfully to DMRV Portal (dmrv.bee.gov.in). Submission reference: <span className="font-semibold">{submissionId}</span>. ACVA verifier (Dr. Priya Sharma, TUV-SUD) will review your evidence and supporting documents within 3-5 business days. You'll be notified at your registered email address.
           </AlertDescription>
         </Alert>
       )}
