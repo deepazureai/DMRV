@@ -337,12 +337,13 @@ export default function CheckVerifierReviewPage() {
             <div
               key={item.id}
               className="flex items-start gap-3 p-3 rounded border border-border hover:bg-muted/30 cursor-pointer transition"
-              onClick={() =>
+              onClick={() => {
+                console.log('[v0] Toggling checklist item:', item.id, 'current state:', checklist[item.id])
                 setChecklist(prev => ({
                   ...prev,
                   [item.id]: !prev[item.id],
                 }))
-              }
+              }}
             >
               <input
                 type="checkbox"
@@ -410,14 +411,16 @@ export default function CheckVerifierReviewPage() {
 
           <div className="grid gap-3">
             <Button
-              onClick={() =>
+              type="button"
+              onClick={() => {
+                console.log('[v0] Approve button clicked')
                 handleAuditDecision(
                   'approved',
                   'Independent audit passed successfully. Submission forwarded to BEE Officer for CCC issuance. Reference: CV-' +
                     submissionId +
                     '-APPROVED'
                 )
-              }
+              }}
               disabled={!requiredItemsComplete}
               className="w-full h-auto py-4 gap-2 bg-emerald-600/20 border-2 border-emerald-500 hover:bg-emerald-600/40 text-emerald-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
@@ -429,14 +432,16 @@ export default function CheckVerifierReviewPage() {
             </Button>
 
             <Button
-              onClick={() =>
+              type="button"
+              onClick={() => {
+                console.log('[v0] Conditional button clicked')
                 handleAuditDecision(
                   'conditional',
                   'Conditional approval - Submission returned to ACVA for clarification. Reference: CV-' +
                     submissionId +
                     '-CONDITIONAL. ACVA must respond within 7 days.'
                 )
-              }
+              }}
               disabled={!requiredItemsComplete}
               className="w-full h-auto py-4 gap-2 bg-amber-600/20 border-2 border-amber-500 hover:bg-amber-600/40 text-amber-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
@@ -448,14 +453,16 @@ export default function CheckVerifierReviewPage() {
             </Button>
 
             <Button
-              onClick={() =>
+              type="button"
+              onClick={() => {
+                console.log('[v0] Reject button clicked')
                 handleAuditDecision(
                   'rejected',
                   'Independent audit FAILED. Submission rejected due to significant compliance gaps. Reference: CV-' +
                     submissionId +
                     '-REJECTED. Entity must resubmit with full data rectification.'
                 )
-              }
+              }}
               disabled={!requiredItemsComplete}
               className="w-full h-auto py-4 gap-2 bg-red-600/20 border-2 border-red-500 hover:bg-red-600/40 text-red-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
@@ -468,14 +475,16 @@ export default function CheckVerifierReviewPage() {
 
             {auditDecision && (
               <Button
-                onClick={() =>
+                type="button"
+                onClick={() => {
+                  console.log('[v0] Send to BEE Officer button clicked')
                   handleAuditDecision(
                     'submitted-bee',
                     'Independent audit report submitted to BEE Officer. Submission moved to Final Review stage. Reference: CV-' +
                       submissionId +
                       '-SUBMITTED-BEE. ETA for CCC issuance: 2-3 weeks'
                   )
-                }
+                }}
                 className="w-full h-auto py-4 gap-2 bg-emerald-600 hover:bg-emerald-700"
               >
                 <CheckCircle2 className="w-5 h-5" />
