@@ -33,7 +33,7 @@ const roles: Array<{
   {
     value: 'check-verifier',
     label: 'Check-Verifier',
-    description: 'Independent review of ACVA findings, EU compliance auditor',
+    description: 'Independent review of ACVA findings, BEE compliance auditor',
     domain: 'Independent Verification | ICAP Standards',
     icon: '✓',
     color: 'from-orange-500 to-orange-600',
