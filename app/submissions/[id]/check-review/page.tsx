@@ -413,7 +413,8 @@ export default function CheckVerifierReviewPage() {
             <Button
               type="button"
               onClick={() => {
-                console.log('[v0] Approve button clicked')
+                console.log('[v0] Approve button clicked', { requiredItemsComplete })
+                alert('BUTTON CLICKED: Approve button works!')
                 handleAuditDecision(
                   'approved',
                   'Independent audit passed successfully. Submission forwarded to BEE Officer for CCC issuance. Reference: CV-' +
@@ -421,8 +422,7 @@ export default function CheckVerifierReviewPage() {
                     '-APPROVED'
                 )
               }}
-              disabled={!requiredItemsComplete}
-              className="w-full h-auto py-4 gap-2 bg-emerald-600/20 border-2 border-emerald-500 hover:bg-emerald-600/40 text-emerald-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full h-auto py-4 gap-2 bg-emerald-600/20 border-2 border-emerald-500 hover:bg-emerald-600/40 text-emerald-300"
             >
               <CheckCircle2 className="w-5 h-5" />
               <span className="text-left">
@@ -434,7 +434,8 @@ export default function CheckVerifierReviewPage() {
             <Button
               type="button"
               onClick={() => {
-                console.log('[v0] Conditional button clicked')
+                console.log('[v0] Conditional button clicked', { requiredItemsComplete })
+                alert('BUTTON CLICKED: Conditional button works!')
                 handleAuditDecision(
                   'conditional',
                   'Conditional approval - Submission returned to ACVA for clarification. Reference: CV-' +
@@ -442,8 +443,7 @@ export default function CheckVerifierReviewPage() {
                     '-CONDITIONAL. ACVA must respond within 7 days.'
                 )
               }}
-              disabled={!requiredItemsComplete}
-              className="w-full h-auto py-4 gap-2 bg-amber-600/20 border-2 border-amber-500 hover:bg-amber-600/40 text-amber-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full h-auto py-4 gap-2 bg-amber-600/20 border-2 border-amber-500 hover:bg-amber-600/40 text-amber-300"
             >
               <AlertTriangle className="w-5 h-5" />
               <span className="text-left">
@@ -455,7 +455,8 @@ export default function CheckVerifierReviewPage() {
             <Button
               type="button"
               onClick={() => {
-                console.log('[v0] Reject button clicked')
+                console.log('[v0] Reject button clicked', { requiredItemsComplete })
+                alert('BUTTON CLICKED: Reject button works!')
                 handleAuditDecision(
                   'rejected',
                   'Independent audit FAILED. Submission rejected due to significant compliance gaps. Reference: CV-' +
@@ -463,8 +464,7 @@ export default function CheckVerifierReviewPage() {
                     '-REJECTED. Entity must resubmit with full data rectification.'
                 )
               }}
-              disabled={!requiredItemsComplete}
-              className="w-full h-auto py-4 gap-2 bg-red-600/20 border-2 border-red-500 hover:bg-red-600/40 text-red-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full h-auto py-4 gap-2 bg-red-600/20 border-2 border-red-500 hover:bg-red-600/40 text-red-300"
             >
               <AlertTriangle className="w-5 h-5" />
               <span className="text-left">
