@@ -323,32 +323,32 @@ export default function CheckVerifierReviewPage() {
           )}
 
           <div className="space-y-2 mt-6">
-            <Button
+            <button
               onClick={() => handleAuditDecision('approved')}
-              className="w-full justify-center py-3 bg-emerald-600/20 border-2 border-emerald-500 hover:bg-emerald-600/40 text-emerald-300 font-semibold"
+              className="w-full px-4 py-3 bg-emerald-600/20 border-2 border-emerald-500 hover:bg-emerald-600/40 text-emerald-300 font-semibold rounded flex items-center justify-center gap-2 cursor-pointer transition-colors"
             >
-              <CheckCircle2 className="w-4 h-4 mr-2" />
+              <CheckCircle2 className="w-4 h-4" />
               Approve - Pass Independent Audit
-            </Button>
+            </button>
 
-            <Button
+            <button
               onClick={() => handleAuditDecision('conditional')}
-              className="w-full justify-center py-3 bg-amber-600/20 border-2 border-amber-500 hover:bg-amber-600/40 text-amber-300 font-semibold"
+              className="w-full px-4 py-3 bg-amber-600/20 border-2 border-amber-500 hover:bg-amber-600/40 text-amber-300 font-semibold rounded flex items-center justify-center gap-2 cursor-pointer transition-colors"
             >
-              <AlertTriangle className="w-4 h-4 mr-2" />
+              <AlertTriangle className="w-4 h-4" />
               Conditional - Return to ACVA for Clarification
-            </Button>
+            </button>
 
-            <Button
+            <button
               onClick={() => handleAuditDecision('rejected')}
-              className="w-full justify-center py-3 bg-red-600/20 border-2 border-red-500 hover:bg-red-600/40 text-red-300 font-semibold"
+              className="w-full px-4 py-3 bg-red-600/20 border-2 border-red-500 hover:bg-red-600/40 text-red-300 font-semibold rounded flex items-center justify-center gap-2 cursor-pointer transition-colors"
             >
-              <AlertTriangle className="w-4 h-4 mr-2" />
+              <AlertTriangle className="w-4 h-4" />
               Reject - Fails Independent Audit
-            </Button>
+            </button>
 
             {auditDecision && (
-              <Button
+              <button
                 onClick={() => {
                   setAuditDecision('submitted')
                   setSuccessMessage(
@@ -356,10 +356,10 @@ export default function CheckVerifierReviewPage() {
                   )
                   setTimeout(() => setSuccessMessage(null), 6000)
                 }}
-                className="w-full justify-center py-3 bg-emerald-600 hover:bg-emerald-700"
+                className="w-full px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded flex items-center justify-center gap-2 cursor-pointer transition-colors"
               >
                 Send to BEE Officer
-              </Button>
+              </button>
             )}
           </div>
 
