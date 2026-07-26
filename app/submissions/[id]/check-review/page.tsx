@@ -324,24 +324,42 @@ export default function CheckVerifierReviewPage() {
 
           <div className="space-y-2 mt-6">
             <button
-              onClick={() => handleAuditDecision('approved')}
-              className="w-full px-4 py-3 bg-emerald-600/20 border-2 border-emerald-500 hover:bg-emerald-600/40 text-emerald-300 font-semibold rounded flex items-center justify-center gap-2 cursor-pointer transition-colors"
+              type="button"
+              disabled={false}
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                handleAuditDecision('approved')
+              }}
+              className="w-full px-4 py-3 bg-emerald-600/20 border-2 border-emerald-500 hover:bg-emerald-600/40 text-emerald-300 font-semibold rounded flex items-center justify-center gap-2 cursor-pointer transition-colors active:scale-95"
             >
               <CheckCircle2 className="w-4 h-4" />
               Approve - Pass Independent Audit
             </button>
 
             <button
-              onClick={() => handleAuditDecision('conditional')}
-              className="w-full px-4 py-3 bg-amber-600/20 border-2 border-amber-500 hover:bg-amber-600/40 text-amber-300 font-semibold rounded flex items-center justify-center gap-2 cursor-pointer transition-colors"
+              type="button"
+              disabled={false}
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                handleAuditDecision('conditional')
+              }}
+              className="w-full px-4 py-3 bg-amber-600/20 border-2 border-amber-500 hover:bg-amber-600/40 text-amber-300 font-semibold rounded flex items-center justify-center gap-2 cursor-pointer transition-colors active:scale-95"
             >
               <AlertTriangle className="w-4 h-4" />
               Conditional - Return to ACVA for Clarification
             </button>
 
             <button
-              onClick={() => handleAuditDecision('rejected')}
-              className="w-full px-4 py-3 bg-red-600/20 border-2 border-red-500 hover:bg-red-600/40 text-red-300 font-semibold rounded flex items-center justify-center gap-2 cursor-pointer transition-colors"
+              type="button"
+              disabled={false}
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                handleAuditDecision('rejected')
+              }}
+              className="w-full px-4 py-3 bg-red-600/20 border-2 border-red-500 hover:bg-red-600/40 text-red-300 font-semibold rounded flex items-center justify-center gap-2 cursor-pointer transition-colors active:scale-95"
             >
               <AlertTriangle className="w-4 h-4" />
               Reject - Fails Independent Audit
@@ -349,14 +367,18 @@ export default function CheckVerifierReviewPage() {
 
             {auditDecision && (
               <button
-                onClick={() => {
+                type="button"
+                disabled={false}
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
                   setAuditDecision('submitted')
                   setSuccessMessage(
                     `Independent audit report submitted to BEE Officer. Reference: CV-${submissionId}-SUBMITTED. ETA for CCC issuance: 2-3 weeks`
                   )
                   setTimeout(() => setSuccessMessage(null), 6000)
                 }}
-                className="w-full px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded flex items-center justify-center gap-2 cursor-pointer transition-colors"
+                className="w-full px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded flex items-center justify-center gap-2 cursor-pointer transition-colors active:scale-95"
               >
                 Send to BEE Officer
               </button>
