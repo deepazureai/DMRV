@@ -123,19 +123,25 @@ const dot = (slide, x, y, d, label, fill = AMBER) => {
   const cx = 7.1, cwid = 5.63;
   s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: cx, y: 1.35, w: cwid, h: 5.5, fill: { color: NAVY }, line: { color: NAVY }, rectRadius: 0.12 });
   t(s, "OUR SOCIAL COMMITMENT", { x: cx + 0.4, y: 1.6, w: cwid - 0.8, h: 0.3, fontSize: 12, bold: true, color: "F6C27A", charSpacing: 2 });
-  t(s, "2%", { x: cx + 0.4, y: 1.95, w: 1.9, h: 1.1, fontFace: HEAD, fontSize: 64, bold: true, color: "FFFFFF" });
-  t(s, "of annual revenue, from year one, to a Bengal Social Impact Fund", { x: cx + 2.2, y: 2.15, w: cwid - 2.6, h: 0.9, fontSize: 16, color: ICE, valign: "middle" });
+  t(s, "1%", { x: cx + 0.4, y: 1.95, w: 1.9, h: 1.1, fontFace: HEAD, fontSize: 64, bold: true, color: "FFFFFF" });
+  t(s, "of total annual revenue from year one, to a Bengal Social Impact Fund", { x: cx + 2.2, y: 2.1, w: cwid - 2.6, h: 0.9, fontSize: 16, color: ICE, valign: "middle" });
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: cx + 0.4, y: 3.15, w: cwid - 0.8, h: 0.75, fill: { color: NAVY_DEEP }, line: { color: NAVY_DEEP }, rectRadius: 0.08 });
+  s.addText([
+    { text: "Once profitable, rising to ", options: { color: ICE } },
+    { text: "2% of revenue or 10% of net profit", options: { color: "FFFFFF", bold: true } },
+    { text: ", whichever is higher", options: { color: ICE } },
+  ], { isTextBox: true, x: cx + 0.6, y: 3.15, w: cwid - 1.2, h: 0.75, fontFace: BODY, fontSize: 14, margin: 0, valign: "middle" });
   const pts = [
     ["Focus areas: ", "digital skills for youth, artisan and MSME training, women entrepreneurs, STEM labs in schools."],
     ["Community-led: ", "public representatives and local bodies can propose programmes for their areas."],
-    ["Governed & reported: ", "approved by our Board under Companies Act Schedule VII areas, with an annual public report."],
-    ["Kept separate: ", "the fund is independent of any contract. We win work only through open, transparent procurement."],
+    ["Governed & reported: ", "approved by our Board in Schedule VII areas, with an annual public report."],
+    ["Kept separate: ", "based on total company revenue and independent of any contract. We win work only through open procurement."],
   ];
   s.addText(pts.flatMap(([h, b], i) => [
     { text: h, options: { bold: true, color: "F6C27A", bullet: { indent: 14 } } },
     { text: b, options: { color: ICE, breakLine: i < pts.length - 1 } },
-  ]), { isTextBox: true, x: cx + 0.4, y: 3.3, w: cwid - 0.8, h: 3.3, fontFace: BODY, fontSize: 14, margin: 0, valign: "top", paraSpaceAfter: 8 });
-  s.addNotes("The 2% figure is a proposal and can be adjusted. Keeping the fund board-governed and separate from procurement protects both the company and every partner who supports it.");
+  ]), { isTextBox: true, x: cx + 0.4, y: 4.1, w: cwid - 0.8, h: 2.6, fontFace: BODY, fontSize: 13, margin: 0, valign: "top", paraSpaceAfter: 6 });
+  s.addNotes("The 1% floor keeps the promise real in lean early years; the step-up to 2% of revenue or 10% of net profit (whichever is higher) grows with the company. Figures are proposals to confirm with our chartered accountant (80G structuring). Keeping the fund board-governed and separate from procurement protects both the company and every partner who supports it.");
 }
 
 const out = process.argv[2] || "Company_Vision_Goals.pptx";
