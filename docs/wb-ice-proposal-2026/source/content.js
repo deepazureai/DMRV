@@ -1,7 +1,7 @@
 // Content for the West Bengal ICE Department initiatives booklet.
 // Costs are in ₹ lakh (1 crore = 100 lakh) as [low, high].
 
-const COMPANY = "[Company Name]";
+const COMPANY = "Kirnova Technologies";
 
 const projects = [
   {

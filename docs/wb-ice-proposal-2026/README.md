@@ -7,7 +7,7 @@
 
 ## Editing and rebuilding
 
-All text lives in `source/content.js` (set `COMPANY` there to replace `[Company Name]`).
+All text lives in `source/content.js`, including the company name (`COMPANY`, currently Kirnova Technologies).
 
 ```bash
 cd source && npm install docx pptxgenjs
