@@ -28,7 +28,7 @@ const projects = [
       ["War-room dashboard", "A live pipeline view for the CM and Minister, plus an auto-generated weekly review pack in Bengali and English."],
       ["Public 'Investment Realised' board", "MoU value against money actually invested on the ground and verified jobs, by district and by sector."],
     ],
-    differentiator: "Most states track MoUs. Few, if any, publicly track them all the way to verified jobs. Nivesh Setu closes that loop with EPFO/ESIC-verified job data from Project 04, so the state can show 'MoU → factory → payroll'. It is also the shared backbone for all six projects: one Investor ID across land, approvals, incentives and grievances.",
+    differentiator: "Most states track MoUs. Few, if any, publicly track them all the way to verified jobs. Nivesh Setu closes that loop with EPFO/ESIC-verified job data from Project 04, so the state can show 'MoU → factory → payroll'. It is also the shared backbone for all five initiatives: one Investor ID across land, approvals, incentives and grievances.",
     phases: [
       ["0. Discovery", "3 weeks", "Map the current trackers, the 2026 MoU list and the 33 cleared projects. Agree the stages and service-level timelines with ICE and WBIDC.", "Stage model and baseline"],
       ["1. Pilot", "8–10 weeks", "War-room for the top 100 projects, the relationship-officer desk and the weekly review pack.", "Live war-room"],
@@ -232,51 +232,6 @@ const projects = [
     cost: { pilot: [35, 55], rollout: [160, 260], field: [60, 100], infra: [20, 35], om: [30, 50] },
     costNote: "Field onboarding means cluster facilitators, photography and training. QR/NFC tags cost ₹1–5 each, borne by the producer or the cluster programme.",
   },
-  {
-    code: "06",
-    risks: [["Steel and fertiliser targets not yet notified", "Configurable methodology library; build to the draft norms now."], ["Units hesitant to share emission data", "Voluntary and confidential, and it gives value first (CBAM reports buyers demand)."], ["BEE or EU methodology changes", "Versioned calculations with full lineage; re-run history on demand."]],
-    name: "Sabuj Shilpa",
-    subtitle: "Green Industry DMRV & Carbon-Readiness Platform",
-    tagline: "Keep Bengal's industry compliant and export-ready, and let it earn from going green.",
-    dept: "ICE; Non-Conventional & Renewable Energy Sources (same Minister); Environment / WBPCB. Partners: BEE, industry associations, accredited carbon verifiers",
-    status: "Not started at state level; our prototype is ready",
-    statusDetail: "The national Indian Carbon Market portal went live in March 2026. We are not aware of any state that offers its industry a service to help it comply. Our working DMRV prototype already covers onboarding → data → verification → registry.",
-    timeline: "Pilot 8–10 weeks (20 units) · Rollout 5 months",
-    problem: [
-      "India's Carbon Credit Trading Scheme (CCTS) is now binding. About 490 obligated entities in 7 sectors (aluminium, cement, chlor-alkali, pulp & paper, refinery, petrochemicals, textiles) must cut emission intensity in FY26 and FY27. Iron & steel and fertiliser targets come next, and they fall directly on the Durgapur–Asansol–Haldia belt.",
-      "The EU's Carbon Border Adjustment Mechanism (CBAM) entered its paid phase in January 2026. Bengal's steel, aluminium and engineering exporters, including MSME suppliers, need verified product-level emission data or they lose EU buyers.",
-      "Most units, and especially MSMEs and secondary steel and sponge-iron plants, lack the capacity to measure, report and verify (MRV) their emissions. Consultants are costly and the data is collected by hand.",
-      "WBPCB already receives online emission data (OCEMS) from red-category units, but that data is not used for economic or green-investment decisions.",
-    ],
-    solutionIntro: "A state-sponsored digital MRV (DMRV) service for industry, built on our existing working prototype.",
-    modules: [
-      ["Facility registry + auto-ingest", "Registry in CCTS format; energy bills, fuel purchases, production data and WBPCB OCEMS feeds loaded automatically."],
-      ["CCTS compliance engine", "Emission-intensity calculation to the official methodology, alerts on the gap to target, and ready-made packs for accredited verifiers and BEE."],
-      ["CBAM Export Desk", "Calculators for the emissions embedded in each product, and reports in the EU's format, for MSME exporters."],
-      ["Green incentive link", "Verified reductions (rooftop solar, efficiency upgrades) qualify for state green top-ups under the new industrial policy."],
-      ["State Green Industry Dashboard + aggregation", "A sector and district view for the Renewable Energy portfolio, and pooling of MSME efficiency gains to earn carbon credits under the offset mechanism."],
-    ],
-    differentiator: "The state provides this to its industry as a service, instead of leaving each unit to face Delhi and Brussels alone. We already have a working prototype of the full workflow (entity onboarding → data quality → calculation lineage → third-party verification → regulator approval → registry), so the pilot starts in weeks, not months.",
-    phases: [
-      ["0. Mobilise", "3 weeks", "List the obligated entities based in Bengal and the top 50 EU exporters; agree the OCEMS data feed with WBPCB; workshops in Durgapur and Haldia.", "Pilot cohort"],
-      ["1. Pilot", "8–10 weeks", "Configure the prototype for 20 units (large obligated entities plus MSME exporters); first CCTS and CBAM reports.", "First compliance packs"],
-      ["2. Rollout", "5 months", "All willing obligated entities plus 500 MSMEs; aggregation; dashboard; incentive link.", "State DMRV service"],
-      ["3. Sustain", "Ongoing", "Large units pay a modest subscription; the state funds access for MSMEs.", "Self-funding core"],
-    ],
-    method: "Methodologies aligned with BEE and CCTS, a full audit trail and lineage for every calculated number, and optional IoT energy meters for high-emitting units. Data stays within India.",
-    benefitsGov: [
-      "The state's first industrial carbon map, useful for climate finance and for promoting green investment.",
-      "Keeps export jobs in the Durgapur–Asansol and Howrah engineering belts.",
-      "Low long-term cost to the state, because subscriptions and aggregation fees pay for the service.",
-    ],
-    benefitsInd: [
-      "Obligated units avoid penalties and can earn and sell Carbon Credit Certificates.",
-      "MSMEs keep their EU orders under CBAM.",
-      "Compliance at a fraction of what a consultant would charge.",
-    ],
-    cost: { pilot: [25, 40], rollout: [100, 160], infra: [20, 35], om: [25, 40] },
-    costNote: "Lower than a greenfield build because the core prototype exists. Optional IoT energy meters cost ₹0.5–2 lakh per unit, borne by the industry or subsidised.",
-  },
 ];
 
 const sources = [
@@ -296,8 +251,6 @@ const sources = [
   ["Four toll-free helplines against extortion (News On AIR)", "https://newsonair.gov.in/four-toll-free-helplines-launched-in-west-bengal-to-address-extortion-and-illegal-activities/"],
   ["Poor implementation track record of Bengal business summits (Business Standard)", "https://www.business-standard.com/article/economy-policy/with-40-implementation-record-bengal-business-summit-was-bound-to-fail-117012400318_1.html"],
   ["EPFO may give states real-time PM-VBRY data (Business Standard)", "https://www.business-standard.com/economy/news/epfo-states-real-time-pm-vbry-data-district-outreach-126082100793_1.html"],
-  ["CCTS compliance obligations enter into force for seven sectors (ICAP)", "https://icapcarbonaction.com/en/news/compliance-obligations-under-indias-carbon-credit-trading-scheme-enter-force-seven-sectors"],
-  ["OCEMS status and CPCB online monitoring (PIB)", "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2225207&reg=48&lang=2"],
   ["Darjeeling tea adulteration and traceability (PIB summaries, May 2026)", "https://www.legacyias.com/pib-summaries-06-may-2026/"],
 ];
 

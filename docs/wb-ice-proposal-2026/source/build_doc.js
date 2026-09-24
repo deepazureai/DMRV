@@ -88,14 +88,14 @@ function cover() {
     children: [cell([
       para([run("PROPOSAL FOR DISCUSSION", { bold: true, color: "F6C27A", size: 20 })], { after: 300, before: 400 }),
       para([run("Shilpa Shakti Digital Stack", { bold: true, color: "FFFFFF", size: 56 })], { after: 120, line: 300 }),
-      para([run("Six technology initiatives to speed up investment, jobs and ease of doing business in West Bengal", { color: "DCE6F2", size: 28 })], { after: 360, line: 320 }),
+      para([run("Five technology initiatives to speed up investment, jobs and ease of doing business in West Bengal", { color: "DCE6F2", size: 28 })], { after: 360, line: 320 }),
       para([run("Prepared for: ", { color: "B8C7DA", size: 21 }), run("Department of Industry, Commerce & Enterprises, Government of West Bengal", { color: "FFFFFF", size: 21, bold: true })], { after: 80 }),
       para([run("Prepared by: ", { color: "B8C7DA", size: 21 }), run(COMPANY, { color: "FFFFFF", size: 21, bold: true }), run("  ·  Kolkata  ·  September 2026", { color: "B8C7DA", size: 21 })], { after: 300 }),
     ], CW, { fill: NAVY, borders: noBorders, pad: 400 })],
   })], [CW]));
 
   out.push(para("", { after: 240 }));
-  out.push(para([run("THE SIX INITIATIVES", { bold: true, color: AMBER, size: 20 })], { after: 120 }));
+  out.push(para([run("THE FIVE INITIATIVES", { bold: true, color: AMBER, size: 20 })], { after: 120 }));
   const rows = projects.map((p) => new TableRow({ children: [
     cell(para([run(p.code, { bold: true, color: AMBER, size: 30 })], { after: 0 }), 900, { borders: { ...noBorders, bottom: thin }, valign: VerticalAlign.CENTER }),
     cell([para([run(p.name, { bold: true, color: NAVY, size: 23 }), run("  ·  " + p.subtitle, { color: MUTED, size: 19 })], { after: 20 }),
@@ -111,7 +111,7 @@ function cover() {
 function portfolio() {
   const out = [new Paragraph({ children: [new PageBreak()] })];
   out.push(para([run("Portfolio at a glance", { bold: true, color: NAVY, size: 36 })], { after: 80 }));
-  out.push(para("West Bengal's new government has made industrial revival its first economic priority. Its plans include a jobs-linked incentive pool of ₹5,000 crore, a new land policy, an overhaul of Silpa Sathi, revival of closed-factory land, and a ₹1,000 crore programme to rejuvenate legacy clusters. Each of these commitments now needs a digital backbone that makes it fast, verifiable and visible to investors. The six initiatives below were chosen because they either do not exist yet or exist only as static portals, and because each one directly supports a commitment the government has already announced.", { after: 140 }));
+  out.push(para("West Bengal's new government has made industrial revival its first economic priority. Its plans include a jobs-linked incentive pool of ₹5,000 crore, a new land policy, an overhaul of Silpa Sathi, revival of closed-factory land, and a ₹1,000 crore programme to rejuvenate legacy clusters. Each of these commitments now needs a digital backbone that makes it fast, verifiable and visible to investors. The five initiatives below were chosen because they either do not exist yet or exist only as static portals, and because each one directly supports a commitment the government has already announced.", { after: 140 }));
 
   const W = [450, 1850, 3000, 2050, 1450, 1506];
   const head = ["#", "Initiative", "What it solves", "Status today", "One-time", "Recurring / yr"];
@@ -122,7 +122,6 @@ function portfolio() {
     "03": "Desk-to-desk approvals; 'deemed approval' with no enforcement",
     "04": "Jobs-linked incentives that are easy to inflate; legacy-claim disputes",
     "05": "Middlemen, brand dilution and siloed ONDC pilots across 570 clusters",
-    "06": "CCTS carbon targets and EU CBAM threatening jobs in heavy industry and exports",
   };
   let lo = 0, hi = 0, rlo = 0, rhi = 0;
   projects.forEach((p, idx) => {
@@ -147,13 +146,13 @@ function portfolio() {
   const pct = [(lo / 100 / 6000 * 100).toFixed(1), (hi / 100 / 6000 * 100).toFixed(1)];
   out.push(para([run(`For scale: the whole portfolio costs about ${pct[0]}–${pct[1]}% of the ₹6,000 crore (incentive pool plus cluster programme) it would help the state spend well.`, { italics: true, color: MUTED, size: 17 })], { before: 60, after: 120 }));
 
-  out.push(sectionHead("→", "How the six fit together"));
-  out.push(para([run("One investor, one ID, one journey. ", { bold: true }), run("Nivesh Setu (01) tracks the investor from MoU to production. Shilpa Bhumi (02) finds and clears the land. Silpa Sathi 2.0 (03) issues approvals on a clock. Karma Praman (04) pays incentives against verified jobs. Bangla Cluster Connect (05) carries the same approach to MSME clusters, and Sabuj Shilpa (06) keeps heavy industry and exporters carbon-compliant. Each can be built on its own, but they share a common investor record, sign-on and dashboard, so every one added makes the others more useful.")], { after: 100 }));
+  out.push(sectionHead("→", "How the five fit together"));
+  out.push(para([run("One investor, one ID, one journey. ", { bold: true }), run("Nivesh Setu (01) tracks the investor from MoU to production. Shilpa Bhumi (02) finds and clears the land. Silpa Sathi 2.0 (03) issues approvals on a clock. Karma Praman (04) pays incentives against verified jobs. Bangla Cluster Connect (05) carries the same approach to MSME clusters. Each can be built on its own, but they share a common investor record, sign-on and dashboard, so every one added makes the others more useful.")], { after: 100 }));
 
   out.push(table([new TableRow({ children: [cell([
     para([run("RECOMMENDED STARTING POINTS", { bold: true, color: AMBER, size: 18 })], { after: 60 }),
     bullet([run("04 Karma Praman: ", { bold: true }), run("the most time-critical. The ₹5,000 crore jobs-linked policy is expected around October 2026, and building the verification engine alongside the policy means claims can be checked from the first payout.")]),
-    bullet([run("06 Sabuj Shilpa: ", { bold: true }), run("fastest to show. Our DMRV prototype already works end to end, so a 20-unit pilot can go live in 8–10 weeks.")]),
+    bullet([run("03 Silpa Sathi 2.0: ", { bold: true }), run("builds on work already underway. The clearance engine plugs into the portal being overhauled, and a 10-service pilot runs alongside officers in shadow mode, so there is no disruption.")]),
     bullet([run("01 Nivesh Setu: ", { bold: true }), run("the shared backbone. A war-room for the top 100 projects gives the CM and Minister immediate visibility and links all the later modules.")], { after: 0 }),
   ], CW, { fill: TINT_AMBER, borders: { ...noBorders, left: { style: BorderStyle.SINGLE, size: 24, color: AMBER } }, pad: 120 })] })], [CW]));
   return out;
@@ -285,7 +284,7 @@ function closing() {
 
 const doc = new Document({
   creator: COMPANY,
-  title: "Shilpa Shakti Digital Stack: Six initiatives for the ICE Department, Government of West Bengal",
+  title: "Shilpa Shakti Digital Stack: Five initiatives for the ICE Department, Government of West Bengal",
   styles: { default: { document: { run: { font: FONT, size: BODY, color: INK } } } },
   numbering: { config: [
     { reference: "bul", levels: [{ level: 0, format: LevelFormat.BULLET, text: "•", alignment: AlignmentType.LEFT, style: { paragraph: { indent: { left: 300, hanging: 200 } }, run: { color: TEAL } } }] },

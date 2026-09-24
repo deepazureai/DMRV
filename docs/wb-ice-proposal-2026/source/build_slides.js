@@ -66,20 +66,20 @@ const dot = (slide, x, y, d, label, fill = AMBER) => {
 
   const cols = [
     { tag: "1", when: "Now – 12 months", name: "Foundation", color: AMBER_DK, items: [
-      "1–2 paid pilots with the ICE Department (Karma Praman, Sabuj Shilpa)",
+      "1–2 paid pilots with the ICE Department (e.g. Karma Praman, Nivesh Setu)",
       "Register on GeM; apply for Webel Technology empanelment; begin ISO 27001",
       "Core team of 12–15 in Kolkata",
     ], target: "First ₹1–2 cr revenue" },
     { tag: "2", when: "1 – 3 years", name: "Scale", color: TEAL, items: [
       "4–6 department solutions live, each with a multi-year maintenance contract",
-      "Private IT for Bengal industry: carbon and CBAM compliance, MSME automation",
+      "Industry services: IoT metering and data logging to central portals; MSME automation",
       "Team of 50–80; campus hiring from state colleges",
     ], target: "₹10–15 cr revenue, 30%+ recurring" },
     { tag: "3", when: "3 – 5+ years", name: "Products", color: NAVY, items: [
-      "License our engines (DMRV, rules-as-code clearances, incentive verification) to other states and enterprises",
-      "SaaS subscriptions for industry compliance",
+      "Identify a few needs that repeat across our projects and build them into products or platforms",
+      "Subscription and licence revenue that keeps the business sustainable",
       "Bengal as our delivery hub for India-wide clients",
-    ], target: "40%+ revenue from products" },
+    ], target: "35%+ revenue from products" },
   ];
   const cw = 3.9, cg = 0.32, y0 = 1.85;
   // connector line behind the number dots
@@ -89,14 +89,14 @@ const dot = (slide, x, y, d, label, fill = AMBER) => {
     dot(s, x, y0, 0.6, c.tag, c.color);
     t(s, c.when.toUpperCase(), { x: x + 0.75, y: y0 + 0.02, w: cw - 0.8, h: 0.28, fontSize: 12, bold: true, color: c.color, charSpacing: 1 });
     t(s, c.name, { x: x + 0.75, y: y0 + 0.28, w: cw - 0.8, h: 0.4, fontFace: HEAD, fontSize: 22, bold: true, color: INK });
-    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: y0 + 0.85, w: cw, h: 3.25, fill: { color: CARD }, line: { color: CARD }, rectRadius: 0.1 });
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: y0 + 0.85, w: cw, h: 3.5, fill: { color: CARD }, line: { color: CARD }, rectRadius: 0.1 });
     s.addText(c.items.map((it, j) => ({ text: it, options: { bullet: { indent: 14 }, breakLine: j < c.items.length - 1 } })),
       { isTextBox: true, x: x + 0.25, y: y0 + 1.1, w: cw - 0.5, h: 2.1, fontFace: BODY, fontSize: 14, color: INK, margin: 0, valign: "top", paraSpaceAfter: 8 });
-    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: x + 0.25, y: y0 + 3.3, w: cw - 0.5, h: 0.6, fill: { color: c.color }, line: { color: c.color }, rectRadius: 0.08 });
-    t(s, "Target: " + c.target, { x: x + 0.25, y: y0 + 3.3, w: cw - 0.5, h: 0.6, align: "center", valign: "middle", fontSize: 14, bold: true, color: "FFFFFF" });
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: x + 0.25, y: y0 + 3.55, w: cw - 0.5, h: 0.6, fill: { color: c.color }, line: { color: c.color }, rectRadius: 0.08 });
+    t(s, "Target: " + c.target, { x: x + 0.25, y: y0 + 3.55, w: cw - 0.5, h: 0.6, align: "center", valign: "middle", fontSize: 14, bold: true, color: "FFFFFF" });
   });
   t(s, "Short-term focus: prove value to the West Bengal ICE Department with fast, low-risk pilots, then earn long-term trust through maintenance that never lets a system go stale.",
-    { x: 0.6, y: 6.3, w: 12.1, h: 0.6, fontSize: 14, italic: true, color: MUTED });
+    { x: 0.6, y: 6.5, w: 12.1, h: 0.6, fontSize: 14, italic: true, color: MUTED });
   s.addNotes("Revenue targets are indicative planning goals. The key message: we win with government, stay through maintenance, then scale into private IT and products.");
 }
 

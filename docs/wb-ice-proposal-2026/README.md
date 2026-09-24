@@ -2,7 +2,7 @@
 
 | File | What it is |
 |---|---|
-| `WB_ICE_Initiatives.pdf` / `.docx` | 16-page print booklet: cover, portfolio summary, 6 initiatives (2 pages each), engagement model, cost assumptions, sources |
+| `WB_ICE_Initiatives.pdf` / `.docx` | 14-page print booklet: cover, portfolio summary, 5 initiatives (2 pages each), engagement model, cost assumptions, sources |
 | `Company_Vision_Goals.pdf` / `.pptx` | 3 slides: motto, vision & mission; short/mid/long-term goals; revenue mix & social commitment |
 
 ## Editing and rebuilding
