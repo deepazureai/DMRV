@@ -11,6 +11,10 @@ const { COMPANY, CLIENT, CLIENT_SHORT, ROADS_BUDGET_CR, modules, intro, fitToget
 const LOADING = 1.25;
 const up = ([lo, hi]) => [Math.round(lo * LOADING * 2) / 2, Math.round(hi * LOADING * 2) / 2];
 modules.forEach((m) => { for (const k of Object.keys(m.cost)) m.cost[k] = up(m.cost[k]); });
+// Customer quote: show the top of each range as a single figure. The ranges stay in content.js
+// and the internal negotiation sheet (docs/internal/Negotiation_Sheet_Jharkhand.md).
+const QUOTE_HIGH = true;
+if (QUOTE_HIGH) modules.forEach((m) => { for (const k of Object.keys(m.cost)) m.cost[k] = [m.cost[k][1], m.cost[k][1]]; });
 
 // ---------- design tokens ----------
 const FONT = "Arial";
@@ -34,6 +38,7 @@ const num = (v) => (Number.isInteger(v) ? String(v) : v.toFixed(1));
 const crs = (l) => (l / 100).toFixed(2).replace(/0$/, "").replace(/\.0$/, ".0");
 function one(l) { return l >= 100 ? `₹${crs(l)} cr` : `₹${num(l)} lakh`; }
 function rng([a, b]) {
+  if (a === b) return one(a);
   if (a >= 100) return `₹${crs(a)}–${crs(b)} cr`;
   if (b < 100) return `₹${num(a)}–${num(b)} lakh`;
   return `₹${num(a)} lakh–${crs(b)} cr`;
@@ -101,7 +106,7 @@ function cover() {
     ] })], [900, CW - 900]));
     out.push(para("", { after: 60 }));
   });
-  out.push(para([run("Each module is set out in the same way: the problem, what we will build, how, the benefits and indicative cost. All figures are indicative and subject to detailed scoping with the Department.", { italics: true, color: MUTED, size: 17 })], { before: 120 }));
+  out.push(para([run("Each module is set out in the same way: the problem, what we will build, how, the benefits and cost. Prices exclude GST and are valid for 90 days from the date of this proposal.", { italics: true, color: MUTED, size: 17 })], { before: 120 }));
   return out;
 }
 
@@ -128,7 +133,7 @@ function portfolio() {
   ] }));
   out.push(table(rows, W));
   const pct = (l) => (l / 100 / ROADS_BUDGET_CR * 100).toFixed(3);
-  out.push(para([run(`For scale: the whole portfolio costs about ${pct(TOTAL_ONE[0])}–${pct(TOTAL_ONE[1])}% of RCD's ₹${ROADS_BUDGET_CR.toLocaleString("en-IN")} crore roads allocation for 2026–27.`, { italics: true, color: MUTED, size: 17 })], { before: 80, after: 120 }));
+  out.push(para([run(`For scale: the whole portfolio costs about ${TOTAL_ONE[0] === TOTAL_ONE[1] ? pct(TOTAL_ONE[1]) : pct(TOTAL_ONE[0]) + "–" + pct(TOTAL_ONE[1])}% of RCD's ₹${ROADS_BUDGET_CR.toLocaleString("en-IN")} crore roads allocation for 2026–27.`, { italics: true, color: MUTED, size: 17 })], { before: 80, after: 120 }));
   out.push(para([run("→  ", { bold: true, color: TEAL, size: 21 }), run("HOW THE SEVEN FIT TOGETHER", { bold: true, color: NAVY, size: 21 })], { before: 120, after: 80, keepNext: true }));
   out.push(para([run("One DPR, one digital thread. ", { bold: true }), run(fitTogether)], { after: 160, align: AlignmentType.JUSTIFIED }));
   out.push(callout("RECOMMENDED STARTING POINTS", startingPoints.flatMap(([h, t]) => [
@@ -157,7 +162,7 @@ function modulePages(m) {
     ] }),
     new TableRow({ children: [
       cell([label("TIMELINE"), para([run(m.timeline, { size: 17 })], { after: 0 })], h),
-      cell([label("INDICATIVE COST"), para([run("One-time ", { size: 17 }), run(rng(oneTime(c)), { size: 17, bold: true }), run("  ·  Recurring " + rng(recur(c)) + " / yr", { size: 17 })], { after: 0 })], h),
+      cell([label("COST"), para([run("One-time ", { size: 17 }), run(rng(oneTime(c)), { size: 17, bold: true }), run("  ·  Recurring " + rng(recur(c)) + " / yr", { size: 17 })], { after: 0 })], h),
     ] }),
   ], [h, h]));
 
@@ -183,15 +188,14 @@ function modulePages(m) {
     cell([bh("For contractors, consultants & citizens"), ...m.benefitsInd.map((t) => bullet([run(t, { size: 18 })]))], h, { borders: noBorders, pad: 30 }),
   ] })], [h, h]));
 
-  out.push(sectionHead("5", "Indicative cost"));
-  const CWs = [5806, 2200, 2200];
+  out.push(sectionHead("5", "Cost"));
+  const CWs = [7806, 2400];
   const crow = (lbl, v, o = {}) => new TableRow({ cantSplit: true, children: [
     cell(para([run(lbl, { size: 17, bold: o.bold })], { after: 0 }), CWs[0], { fill: o.fill }),
-    cell(para([run(one(v[0]), { size: 17, bold: o.bold })], { after: 0 }), CWs[1], { fill: o.fill }),
-    cell(para([run(one(v[1]), { size: 17, bold: o.bold })], { after: 0 }), CWs[2], { fill: o.fill }),
+    cell(para([run(one(v[1]), { size: 17, bold: o.bold })], { after: 0, align: AlignmentType.RIGHT }), CWs[1], { fill: o.fill }),
   ] });
   out.push(table([
-    headRow(["Component", "Low", "High"], CWs),
+    headRow(["Component", "Amount"], CWs, 1),
     crow("Development: pilot (Phases 0–1)", c.pilot),
     crow("Development: full rollout (Phase 2), incl. security audit", c.rollout),
     crow("One-time total", oneTime(c), { bold: true, fill: TINT_TEAL }),
@@ -199,7 +203,7 @@ function modulePages(m) {
     crow("Operations & maintenance per year (support, updates, helpdesk)", c.om),
     crow("Recurring total per year", recur(c), { bold: true, fill: TINT_TEAL }),
   ], CWs));
-  out.push(para([run((m.costNote ? m.costNote + " " : "") + "Figures exclude GST and are ±25% until scoped.", { italics: true, color: MUTED, size: 17 })], { before: 60 }));
+  out.push(para([run((m.costNote ? m.costNote + " " : "") + "Figures exclude GST.", { italics: true, color: MUTED, size: 17 })], { before: 60 }));
 
   out.push(sectionHead("6", "Key risks"));
   const RW = [3000, CW - 3000];
