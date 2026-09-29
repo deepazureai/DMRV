@@ -19,7 +19,12 @@ const dot = (slide, x, y, d, label, fill = AMBER) => {
 {
   const s = pres.addSlide();
   s.background = { color: NAVY };
-  t(s, COMPANY.toUpperCase(), { x: 0.6, y: 0.45, w: 8, h: 0.35, fontSize: 13, bold: true, color: "F6C27A", charSpacing: 3 });
+  t(s, COMPANY.toUpperCase(), { x: 0.6, y: 0.45, w: 5.5, h: 0.35, fontSize: 13, bold: true, color: "F6C27A", charSpacing: 3 });
+  s.addText([
+    { text: "Kirnova", options: { bold: true, color: "FFFFFF" } },
+    { text: " = kiran (a ray of light) + nova (new):  ", options: { color: ICE } },
+    { text: "a new ray of light", options: { italic: true, color: "F6C27A" } },
+  ], { isTextBox: true, x: 6.2, y: 0.45, w: 6.53, h: 0.35, fontFace: BODY, fontSize: 13, margin: 0, align: "right", valign: "top" });
   t(s, "Technology that serves Bengal.", { x: 0.6, y: 0.85, w: 12, h: 0.9, fontFace: HEAD, fontSize: 42, bold: true, color: "FFFFFF" });
   t(s, "Build for Bengal  ·  Maintain for Bengal  ·  Scale from Bengal", { x: 0.6, y: 1.75, w: 12, h: 0.4, fontSize: 16, italic: true, color: ICE });
 
