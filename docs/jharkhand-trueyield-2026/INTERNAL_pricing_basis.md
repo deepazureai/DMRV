@@ -3,42 +3,75 @@
 **Internal to Kirnova. Do not include in the government submission.**
 
 ## Headline (excl. GST)
-| Item | Price |
-|---|---|
-| Pilot (Phase 0–1, 4 months, 3 departments, 3 districts) | ₹28–38 lakh |
-| Statewide rollout (Phase 2, 6 months) | ₹40–54 lakh |
-| **One-time total** | **₹68–92 lakh** |
-| Recurring per year (infrastructure ₹4–8 lakh + O&M ₹12–18 lakh) | ₹16–26 lakh |
-| Optional municipal edition (3 ULBs) | ₹15–22 lakh |
+| One-time component | Pilot | Rollout | Total |
+|---|---|---|---|
+| Platform licence (existing product) | ₹8–10 lakh | ₹22–30 lakh | **₹30–40 lakh** |
+| Data platform (lake, Trino, ingestion, connectors) | ₹12–16 lakh | ₹14–18 lakh | **₹26–34 lakh** |
+| Adaptation & deployment | ₹14–18 lakh | ₹20–28 lakh | **₹34–46 lakh** |
+| Discovery engine (3 ML layers) | – | ₹24–32 lakh | **₹24–32 lakh** |
+| **One-time total** | **₹34–44 lakh** | **₹80–108 lakh** | **₹1.14–1.52 cr** |
 
-## Why it is lower than Sadak Setu
-The platform exists: a library of 85 checks across 10 families, the federated reader, the money engine, the rulebook compiler, the UI, the RAG assistant and the Azure/SDC deployment. The work is adaptation, not a build:
-- rules and rates moved to Jharkhand statutes (JGST, the JH Minor Mineral Concession Rules, the Indian Stamp Act as applied in Jharkhand, the JH Motor Vehicles Taxation Act, JH Excise)
-- Jharkhand register mappings (JIMMS, NGDRS, Jharbhoomi, VAHAN, JBVNL, excise/JSBCL)
-- entity resolution for registers without PAN (JBVNL, Jharbhoomi)
-- deployment and training
+- Recurring: infrastructure ₹15–25 lakh/yr + AMC ₹18–26 lakh/yr = **₹33–51 lakh/yr**.
+- Optional municipal edition: ₹15–22 lakh.
 
-## Effort
-**Pilot: about 24 person-months × ₹1.1–1.4 lakh = ₹26–34 lakh**
-- lead/PM ×1
-- tax domain specialist (ex-officer or CA) ×1
-- data/integration engineers ×2
-- rules/backend ×1
-- frontend ×0.5
-- QA ×0.5
+## Where your product effort is recovered
+1. **Platform licence, ₹30–40 lakh.**
+   - The existing build covers the detection engine, 85 checks, money engine, rulebook compiler, entity resolution, console, RAG assistant, policy simulator, data generator and deployment scripts. That's roughly 45–55 person-months, or about ₹55–65 lakh at cost.
+   - The licence recovers about 55–65% of that from Jharkhand. The rest is recovered from WB and later states, since the licence is non-exclusive.
+   - It's a perpetual, state-wide licence. The core source code goes into escrow, not to the state.
+2. **Your ongoing role as product owner and architect** is billed inside the data platform, adaptation and discovery lines at the lead rate. Plan on about 40% of your time across Phases 1–2.
+3. **AMC at ₹18–26 lakh/yr** includes licence support and upgrades. This is the recurring product revenue.
 
-Add infrastructure/test and travel of ₹2–4 lakh.
+## Why the one-time total rose from ₹68–92 lakh to ₹1.14–1.52 cr
+- Licence added: +₹30–40 lakh.
+- Data platform priced separately, for production scale rather than the PoC's DuckDB/SQLite federation: +₹26–34 lakh, of which about ₹10–12 lakh was previously hidden inside "integration".
+- Discovery engine added: +₹24–32 lakh.
+- Adaptation reduced, because integration moved to the data platform line.
 
-**Rollout: about 30 person-months (5 people × 6 months) = ₹33–42 lakh**
+## Effort behind the services lines
+**Data platform: about 22 person-months**
+- data architect ×1
+- data engineers ×2.5
+- DevOps ×0.5
 
-Add a CERT-In audit (₹3–5 lakh), training and travel (₹3–5 lakh) and infrastructure (₹1–2 lakh).
+Over the pilot and rollout this covers:
+- object storage and an Iceberg/Parquet lake at SDC or cloud
+- Trino (coordinator + 3 workers)
+- an Airflow-scheduled ingestion DAG per source
+- data-quality checks
+- 7 department connectors, about 2 PM each
+
+Add test infrastructure of ₹2–3 lakh.
+
+**Discovery engine: about 20 person-months** (ML lead ×1, ML engineers ×2, domain ×0.5, over about 5 months), plus GPU/compute of ₹2–4 lakh.
+- Layer 1 (unsupervised): isolation forest / autoencoder / clustering on cross-department taxpayer features.
+- Layer 2 (classification): gradient-boosted classifier trained on officer-verified outcomes from the pilot.
+- Layer 3 (rule finding): interpretable rule induction, i.e. rule lists or trees distilled from layer 2 with SHAP-guided thresholds.
+- Output: rule candidates in rulebook form, back-tested, then human review, then promotion into `detectors.py`, `rate_schedule.py` and `RULEBOOK.md`.
+
+**Adaptation: about 30 person-months** across the pilot and rollout:
+- Jharkhand rules and rates
+- entity resolution for JBVNL and Jharbhoomi
+- Hindi UI
+- CERT-In audit (₹3–5 lakh)
+- training and travel (₹4–6 lakh)
+
+## Infrastructure sizing (₹15–25 lakh/yr on a MeitY-empanelled cloud)
+- Trino: 1 coordinator + 3–4 workers (16 vCPU / 64 GB each)
+- 10–20 TB object storage with history
+- Airflow
+- 2 app servers
+- occasional GPU for retraining
+
+That comes to about ₹1.2–2 lakh a month. If JAP-IT's SDC provides VMs and storage, most of it is absorbed.
 
 ## Negotiation guidance
-- The pilot is the real ask. Don't discount it below about ₹25 lakh: data access in Phase 0 is the hardest part and takes senior time.
-- If they want a lower entry point, cut the pilot to 2 departments (Commercial Taxes + Mines & Geology, which covers about 65% of own revenue) and 2 districts, for about ₹20–26 lakh.
-- Avoid a pure percentage-of-recovery model. Governments rarely accept it, and it looks like a bounty. A small success-linked milestone is fine.
-- Upsell path: the municipal edition (already built, calibrated to Ranchi Municipal Corporation's published figures), then other states.
+- Protect the services lines, and flex the licence if needed. For example: licence ₹20 lakh up front plus ₹10–15 lakh/yr as subscription for 2 years, instead of discounting engineering.
+- Pilot floor: about ₹30 lakh.
+- Lower-entry fallback: pilot with 2 departments (Commercial Taxes + Mines & Geology) and 2 districts, at about ₹26–32 lakh.
+- Avoid a pure percentage-of-recovery model; a small success-linked milestone is fine.
 
-## Checks on the comparative study (confirm in Phase 0)
-- No public evidence was found of a cross-department revenue-leakage platform in Jharkhand. Ask the Commercial Taxes Department what BIFA / GST Prime outputs they receive, and whether any vendor analytics project is under way.
-- JIMMS already shares data with Commercial Taxes, so position TrueYield as *using* that sharing, not competing with JIMMS (CSM Technologies built JIMMS).
+## To confirm in Phase 0
+- Whether Commercial Taxes has any vendor analytics project under way, and which BIFA / GST Prime outputs it receives.
+- JIMMS already shares data with Commercial Taxes (CSM Technologies built JIMMS), so position TrueYield as consuming that data, not competing with it.
+- Whether SDC capacity is available for the data lake, which decides whether the ₹15–25 lakh infrastructure line mostly disappears.
