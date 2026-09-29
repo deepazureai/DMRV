@@ -357,7 +357,7 @@ const workWith = [
 ];
 
 const assumptions = [
-  "Delivery cost of ₹1.1–1.4 lakh per person-month for a Kolkata-based team with on-site presence in Ranchi.",
+  "Prices cover design, development, integration, project management, on-site support in Ranchi, training, and contingency for data-quality and integration work.",
   "Prices assume the seven modules are delivered together on one shared platform; modules bought separately may cost more.",
   "Pilot = initial proof of concept; Rollout = state-wide deployment. Annual maintenance is typically 15–20% of build cost.",
   "If hosted in the Jharkhand State Data Centre, part of the infrastructure cost is absorbed by the state.",

@@ -22,6 +22,14 @@ const COST = {
   amc: [18, 26],       // per year: licence support & upgrades, rule/rate updates, model retraining, helpdesk
   municipal: [15, 22], // optional: municipal edition for 3 ULBs
 };
+// Commercial loading applied to every cost line above (base = delivery cost estimate).
+// Covers partner/consulting arrangements and delivery contingency; see INTERNAL_pricing_basis.md.
+const LOADING = 1.25;
+const up = ([lo, hi]) => [Math.round(lo * LOADING * 2) / 2, Math.round(hi * LOADING * 2) / 2];
+for (const k of Object.keys(COST)) {
+  if (Array.isArray(COST[k])) COST[k] = up(COST[k]);
+  else { COST[k].pilot = up(COST[k].pilot); COST[k].rollout = up(COST[k].rollout); }
+}
 const add = (...r) => r.reduce((a, x) => [a[0] + x[0], a[1] + x[1]], [0, 0]);
 const COMPONENTS = ["licence", "data", "adapt", "discovery"];
 const PILOT = add(...COMPONENTS.map((k) => COST[k].pilot));
@@ -359,7 +367,7 @@ function section6() {
       "Clear, record-based reasons whenever a case is raised",
     ].map((t) => bullet([run(t, { size: 18 })]))], h, { borders: noBorders }),
   ] })], [h, h]));
-  out.push(callout("SCALE, NOT A FORECAST", [para(`If verified recoveries reached just 0.1% of own tax revenue (about ₹46 crore a year), that would be about thirty times the platform's full one-time cost of ${rng(ONE_TIME)}. How much leakage exists in Jharkhand today is not known by anyone; measuring it on real records is the purpose of the pilot.`, { after: 0, align: J })], TEAL, TINT_TEAL));
+  out.push(callout("SCALE, NOT A FORECAST", [para(`If verified recoveries reached just 0.1% of own tax revenue (about ₹46 crore a year), that would be more than twenty times the platform's full one-time cost of ${rng(ONE_TIME)}. How much leakage exists in Jharkhand today is not known by anyone; measuring it on real records is the purpose of the pilot.`, { after: 0, align: J })], TEAL, TINT_TEAL));
 
   out.push(h1("8", "Indicative cost"));
   const CWs = [4906, 1750, 1750, 1800];
@@ -396,7 +404,7 @@ function section6() {
     "The detection engine and console are an existing product, licensed perpetually for use across Government of Jharkhand departments; the pilot licence fee is credited against the full licence. The core product's source code is placed in escrow.",
     "The state owns its data, its Jharkhand-specific rules and rates, the department connectors and the rules the discovery engine finds for it.",
     "Infrastructure is priced for a government-approved cloud; if the Jharkhand State Data Centre (JAP-IT) provides the servers and storage, most of it is absorbed by the state.",
-    "Services are priced at ₹1.1–1.4 lakh per person-month for a Kolkata-based team with on-site presence in Ranchi. All amounts exclude GST and are indicative (±20%) until scoped with the Finance Department.",
+    "Prices cover delivery, integration, project management, on-site support in Ranchi, training, and contingency for data-access and data-quality work. All amounts exclude GST and are indicative (±20%) until scoped with the Finance Department.",
   ].forEach((t) => out.push(bullet(t)));
   return out;
 }
