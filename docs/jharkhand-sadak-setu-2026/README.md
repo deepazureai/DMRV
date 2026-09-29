@@ -2,14 +2,14 @@
 
 | File | What it is |
 |---|---|
-| `Sadak_Setu_Jharkhand_RCD.pdf` / `.docx` | 12-page proposal to the Road Construction Department, Government of Jharkhand: cover, at-a-glance, how the price is built, 7 modules (one page each), engagement model, sources |
+| `Sadak_Setu_Jharkhand_RCD.pdf` / `.docx` | 17-page proposal to the Road Construction Department, Government of Jharkhand, in the original Sadak Setu format: cover, portfolio at a glance, 7 modules (two pages each), how we will work, cost assumptions, sources |
+| `INTERNAL_pricing_basis.md` | Internal bottom-up pricing and negotiation notes (not for submission) |
 
-Pricing is bottom-up from one shared platform (about 70 person-months at ₹1.1–1.4 lakh, plus pass-through costs):
-one-time ₹88 lakh – ₹1.21 cr, recurring ₹21–32 lakh a year, essential package ₹57–81 lakh.
+Whole platform: one-time ₹88 lakh – ₹1.21 cr, recurring ₹21–32 lakh a year (excl. GST).
 
 ## Editing and rebuilding
 
-All text, effort and prices live in `source/content.js`; totals are computed by `source/build.js`.
+All text and per-module prices live in `source/content.js`; totals are computed by `source/build.js`.
 
 ```bash
 cd source && npm install docx
