@@ -6,6 +6,12 @@ const {
 } = require("docx");
 const { COMPANY, CLIENT, CLIENT_SHORT, ROADS_BUDGET_CR, modules, intro, fitTogether, startingPoints, workWith, assumptions, sources } = require("./content");
 
+// Commercial loading applied to every cost line in content.js (base = delivery cost estimate).
+// Covers partner/consulting arrangements and delivery contingency; see INTERNAL_pricing_basis.md.
+const LOADING = 1.25;
+const up = ([lo, hi]) => [Math.round(lo * LOADING * 2) / 2, Math.round(hi * LOADING * 2) / 2];
+modules.forEach((m) => { for (const k of Object.keys(m.cost)) m.cost[k] = up(m.cost[k]); });
+
 // ---------- design tokens ----------
 const FONT = "Arial";
 const NAVY = "1B2A44";

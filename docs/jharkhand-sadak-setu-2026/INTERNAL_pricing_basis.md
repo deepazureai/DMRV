@@ -41,3 +41,18 @@ Module prices in the proposal are the module effort, plus its share of the share
 - ₹88 lakh is roughly break-even at ₹1.1 lakh per person-month loaded cost. Target around ₹1.05 cr and don't go below about ₹95 lakh.
 - The margin comes from AMC and from reusing the platform: Rural Works Department, Building Construction Department, WB PWD, other states.
 - Fallback if the budget is tight: an essential package of Modules 06, 01, 03 and 05 at about ₹57–81 lakh.
+
+## Commercial loading (added)
+Every cost line in the proposal is the base delivery estimate × **1.25**, applied in `source/build.js` (`LOADING`). It's spread across all modules rather than shown as a separate line.
+- It covers the consulting-partner fee (15–20% of net receipts; see `docs/internal/Consulting_Partner_Term_Sheet_DRAFT.docx`) plus delivery contingency.
+- Quoted price is now: one-time **₹1.11–1.53 cr**, recurring **₹27.5–41.5 lakh/yr**.
+
+Profit against about ₹93 lakh delivery cost, before tax:
+
+| Price won | Partner at 15% | Partner at 20% |
+|---|---|---|
+| ₹1.53 cr (top) | about ₹37 lakh | about ₹30 lakh |
+| about ₹1.32 cr (mid) | about ₹19 lakh | about ₹13 lakh |
+| ₹1.11 cr (bottom) | about ₹1 lakh | about –₹4 lakh |
+
+Negotiation floor with a 20% partner: about ₹1.25 cr.

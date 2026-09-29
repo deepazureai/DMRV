@@ -75,3 +75,27 @@ That comes to about ₹1.2–2 lakh a month. If JAP-IT's SDC provides VMs and st
 - Whether Commercial Taxes has any vendor analytics project under way, and which BIFA / GST Prime outputs it receives.
 - JIMMS already shares data with Commercial Taxes (CSM Technologies built JIMMS), so position TrueYield as consuming that data, not competing with it.
 - Whether SDC capacity is available for the data lake, which decides whether the ₹15–25 lakh infrastructure line mostly disappears.
+
+## Commercial loading (added)
+Every cost line in the proposal is the base figure above × **1.25**, applied in `source/build.js` (`LOADING`). It's spread across all components rather than shown as a separate line.
+- It covers the consulting-partner fee (15–20% of net receipts) plus delivery contingency.
+
+Quoted price is now:
+- Pilot: **₹42.5–55 lakh**
+- One-time: **₹1.43–1.9 cr**
+  - licence ₹37.5–50 lakh
+  - data platform ₹32.5–42.5 lakh
+  - adaptation ₹42.5–57.5 lakh
+  - discovery engine ₹30–40 lakh
+- Recurring: **₹41.5–64 lakh/yr**
+- Municipal edition: ₹19–27.5 lakh
+
+Profit against about ₹93 lakh services delivery cost, before tax:
+
+| Price won | Partner at 15% | Partner at 20% |
+|---|---|---|
+| ₹1.9 cr (top) | about ₹68 lakh | about ₹59 lakh |
+| about ₹1.66 cr (mid) | about ₹48 lakh | about ₹40 lakh |
+| ₹1.43 cr (bottom) | about ₹28 lakh | about ₹21 lakh |
+
+Negotiation floor with a 20% partner: about ₹1.4 cr. Flex the licence into a subscription before cutting services.
