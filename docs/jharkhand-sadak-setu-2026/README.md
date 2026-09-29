@@ -2,10 +2,12 @@
 
 | File | What it is |
 |---|---|
-| `Sadak_Setu_Jharkhand_RCD.pdf` / `.docx` | 17-page proposal to the Road Construction Department, Government of Jharkhand, in the original Sadak Setu format: cover, portfolio at a glance, 7 modules (two pages each), how we will work, cost assumptions, sources |
-| `INTERNAL_pricing_basis.md` | Internal bottom-up pricing and negotiation notes (not for submission) |
+| `Sadak_Setu_Jharkhand_RCD.pdf` / `.docx` | Proposal to the Road Construction Department, Government of Jharkhand, in the original Sadak Setu format: cover, portfolio at a glance, 7 modules (two pages each), how we will work, cost assumptions, hosting requirements, sources |
+| `INTERNAL_pricing_basis.md` | Internal bottom-up pricing notes (not for submission) |
 
-Customer quote (excl. GST): one-time ₹1.53 cr, recurring ₹41.5 lakh a year. Internal ranges and walk-away floor: `../internal/Negotiation_Sheet_Jharkhand.md`.
+Customer quote (excl. GST): one-time ₹1.61 cr, recurring ₹30 lakh a year (maintenance only).
+- Everything is hosted in the Jharkhand State Data Centre, including the AI models. The state provides all infrastructure, which is not charged.
+- Internal ranges and the walk-away floor are in `../internal/Negotiation_Sheet_Jharkhand.md`.
 
 ## Editing and rebuilding
 

@@ -34,7 +34,7 @@ const modules = [
       ["2. Rollout", "3–4 months", "All circles; weekly review pack; connect to Modules 04 and 06.", "State-wide benchmarking"],
       ["3. Run", "Ongoing", "Benchmark refreshed quarterly with new sanctions; monthly accuracy reports.", "Monthly insights"],
     ],
-    method: ["Hosting", "Jharkhand State Data Centre (JAP-IT) or a government-approved cloud, with role-based access and a full audit trail."],
+    method: ["Hosting", "Jharkhand State Data Centre (JAP-IT), on the state's servers, with role-based access and a full audit trail."],
     benefitsGov: [
       "Every estimate compared with similar past projects before approval",
       "Evidence-based review for the Secretary and Engineer-in-Chief",
@@ -46,8 +46,8 @@ const modules = [
       "Transparent cost basis reduces disputes during tendering",
       "Engineers freed from manual rate lookups for field supervision",
     ],
-    cost: { pilot: [7, 9], rollout: [10, 14], infra: [1, 2], om: [3, 4] },
-    costNote: "Hosting in the State Data Centre or a government-approved cloud.",
+    cost: { pilot: [7, 9], rollout: [11, 15.5], infra: [0, 0], om: [3.5, 4.5] },
+    costNote: "Includes deploying the platform on the State Data Centre's servers.",
     risks: [
       ["Historical data quality varies", "Start with the 200 highest-value recent DPRs; combine scanning with manual validation; accuracy improves as data grows."],
       ["Officers see it as surveillance", "Positioned as decision support: it helps engineers strengthen their estimates and does not replace their judgement."],
@@ -71,7 +71,7 @@ const modules = [
     items: [
       ["Automated pavement design", "Layer thicknesses calculated to IRC:37, including heavy-axle mining traffic, with no manual spreadsheet work."],
       ["Complete Bill of Quantities", "Items linked to the Module 01 rate library with automatic rate application."],
-      ["AI-written narrative", "Executive summary, justification and site description drafted by AI; engineers review and edit instead of writing from scratch."],
+      ["AI-written narrative", "Executive summary, justification and site description drafted by an AI model running inside the State Data Centre; engineers review and edit instead of writing from scratch."],
       ["Clearance chapter", "Structured sections for forest land, land acquisition and utilities, so gaps are visible at draft stage."],
       ["One-click Word export", "Standard RCD format, checked against Module 01 benchmarks before export."],
     ],
@@ -82,7 +82,7 @@ const modules = [
       ["2. Rollout", "4–5 months", "All 5 project types, all circles and consultants; connect to Modules 03 and 04; training workshops.", "State-wide DPR automation"],
       ["3. Run", "Ongoing", "Template updates, rate synchronisation, quarterly accuracy review.", "Continuous improvement"],
     ],
-    method: ["Output", "Bilingual (Hindi and English). Hosted in the Jharkhand State Data Centre or a government-approved cloud."],
+    method: ["Output", "Bilingual (Hindi and English). The AI model is an open-source model running on the State Data Centre's own GPU server; no data leaves the data centre."],
     benefitsGov: [
       "DPR drafting time for common project types cut from weeks to days",
       "Consistent format and calculations across all 24 districts and all consultants",
@@ -94,8 +94,8 @@ const modules = [
       "Faster DPR-to-tender pipeline gets projects to construction sooner",
       "Standardised estimates reduce tendering disputes",
     ],
-    cost: { pilot: [8, 10], rollout: [14, 19], infra: [2, 3], om: [3.5, 5] },
-    costNote: "Infrastructure includes AI usage for narrative drafting.",
+    cost: { pilot: [8, 10], rollout: [16, 22], infra: [0, 0], om: [5, 6.5] },
+    costNote: "Includes installing and tuning the in-house AI model on the State Data Centre's GPU server.",
     risks: [
       ["Engineers resist AI-drafted DPRs", "AI drafts only the narrative; design and costs are rule-based. The engineer reviews and signs, and every edit is tracked."],
       ["Engineering standards change", "Design rules are version-controlled; new IRC editions are coded within weeks of notification."],
@@ -142,7 +142,7 @@ const modules = [
       "Consultants get instant feedback on gaps",
       "Clear compliance report for every DPR",
     ],
-    cost: { pilot: [4, 5], rollout: [6, 9], infra: [0.5, 1], om: [1.5, 2.5] },
+    cost: { pilot: [4, 5], rollout: [6, 9], infra: [0, 0], om: [1.5, 2.5] },
     costNote: "",
     risks: [
       ["Rules too rigid for field conditions", "Each rule has a review band, not just pass/fail. Engineers can override with a documented reason."],
@@ -188,8 +188,8 @@ const modules = [
       "Transparent benchmarking builds trust in estimates",
       "Fewer post-sanction disputes and revisions",
     ],
-    cost: { pilot: [2, 3], rollout: [3, 4], infra: [0.5, 1], om: [1, 1.5] },
-    costNote: "Builds on Module 01 infrastructure, so only incremental hosting is needed.",
+    cost: { pilot: [2, 3], rollout: [3, 4], infra: [0, 0], om: [1, 1.5] },
+    costNote: "Builds on Module 01, so no separate system is needed.",
     risks: [
       ["Too many false alerts initially", "Shadow mode for one cycle; calibrate against known-good sanctions."],
       ["Finance sees it as encroachment", "Designed jointly with Finance from Phase 0; the report supports their review and does not replace it."],
@@ -235,8 +235,8 @@ const modules = [
       "Clear feedback means faster correction and resubmission",
       "A digital trail replaces physical file tracking",
     ],
-    cost: { pilot: [5, 7], rollout: [8, 11], infra: [1, 2], om: [2, 3] },
-    costNote: "Infrastructure includes the SMS gateway for deadline alerts.",
+    cost: { pilot: [5, 7], rollout: [8, 11], infra: [0, 0], om: [2.5, 3.5] },
+    costNote: "Deadline alerts use the state's SMS and e-mail gateways.",
     risks: [
       ["Officers bypass the system", "Final sanction requires the digital record, so upstream adoption follows."],
       ["Poor connectivity in field offices", "Light web app, offline drafts and SMS fallback for alerts."],
@@ -269,7 +269,7 @@ const modules = [
       ["2. Rollout", "2–3 months", "Up to ~800 DPRs; all circles; connect to Modules 01, 02 and 04.", "State-wide knowledge base"],
       ["3. Run", "Ongoing", "Every newly sanctioned DPR added automatically.", "Self-growing archive"],
     ],
-    method: ["Approach", "Paper DPRs scanned and digitised with OCR; AI search and similarity matching; hosted in the State Data Centre."],
+    method: ["Approach", "Paper DPRs scanned and digitised with OCR; AI search and similarity matching run on models hosted inside the State Data Centre."],
     benefitsGov: [
       "Institutional memory preserved through transfers",
       "Comparable projects found in seconds instead of days",
@@ -280,7 +280,7 @@ const modules = [
       "Consultants can calibrate estimates against approved precedent",
       "Transparent record reduces disputes about past approvals",
     ],
-    cost: { pilot: [8, 11], rollout: [7, 10], infra: [1.5, 2], om: [2, 2.5] },
+    cost: { pilot: [8, 11], rollout: [8, 11.5], infra: [0, 0], om: [3, 3.5] },
     costNote: "Includes scanning and OCR of up to ~800 past DPRs.",
     risks: [
       ["Archive condition is poor", "Start with digital and recent files; manual correction where OCR fails."],
@@ -325,7 +325,7 @@ const modules = [
       "Contractors see where work is active and upcoming",
       "Citizens can see which roads in their district are being improved",
     ],
-    cost: { pilot: [2, 3], rollout: [4, 6], infra: [0.5, 1], om: [1, 1.5] },
+    cost: { pilot: [2, 3], rollout: [4, 6], infra: [0, 0], om: [1.5, 2] },
     costNote: "Reuses the existing RCD GIS portal, so no new map platform is purchased.",
     risks: [
       ["Road data is incomplete", "Start with State Highways and Major District Roads (best data); gaps are flagged, not hidden."],
@@ -348,7 +348,7 @@ const startingPoints = [
 const workWith = [
   ["Start small, prove value", "A 6–8 week proof of concept using the Department's own data. Scale up only after results are visible."],
   ["Transparent procurement", "Engagement through GeM, JAP-IT or an empanelled system integrator. Rollouts through open tender."],
-  ["Data stays with the state", "Hosting in the Jharkhand State Data Centre (JAP-IT) or a government-approved Indian cloud. Compliant with the DPDP Act 2023."],
+  ["Data stays with the state", "Everything runs in the Jharkhand State Data Centre (JAP-IT), including the AI models. No data goes to any external cloud or AI service. Compliant with the DPDP Act 2023."],
   ["Security first", "Independent security audit before every go-live. Role-based access and tamper-proof audit logs."],
   ["No vendor lock-in", "Open-source technology, source code in escrow, full documentation and training for state officers."],
   ["Hindi and English", "All screens, reports and training material in Hindi and English."],
@@ -360,8 +360,20 @@ const assumptions = [
   "Prices cover design, development, integration, project management, on-site support in Ranchi, training, and contingency for data-quality and integration work.",
   "Prices assume the seven modules are delivered together on one shared platform; modules bought separately may cost more.",
   "Pilot = initial proof of concept; Rollout = state-wide deployment. Annual maintenance is typically 15–20% of build cost.",
-  "If hosted in the Jharkhand State Data Centre, part of the infrastructure cost is absorbed by the state.",
+  "All infrastructure is provided by the Jharkhand State Data Centre (JAP-IT): servers, storage, GPU server for the AI models, network, security, backup and disaster recovery (see the hosting requirements below). Kirnova does not supply or charge for infrastructure.",
+  "All data and AI models stay inside the State Data Centre. The AI models are open-source models deployed on the state's servers; no data is sent to any external cloud or AI service.",
   "All amounts exclude GST and are valid for 90 days from the date of this proposal. They assume the scope described here; changes in scope are priced separately.",
+];
+
+const hosting = [
+  ["Application servers", "2 virtual machines, 8 vCPU / 32 GB RAM each, load-balanced"],
+  ["Database", "2 virtual machines, 8 vCPU / 32 GB RAM, 1 TB SSD each (PostgreSQL with PostGIS, primary and standby)"],
+  ["Search and document services", "1 virtual machine, 8 vCPU / 32 GB RAM, 500 GB SSD"],
+  ["AI server", "1 GPU server with one NVIDIA L4 / A10 (24 GB) or better, 16 vCPU / 64 GB RAM, for the in-house language and search models"],
+  ["Storage", "2 TB for DPR documents and scanned archives, plus backup as per the data centre's policy"],
+  ["Staging environment", "2 virtual machines, 8 vCPU / 32 GB RAM"],
+  ["Network and services", "SSL certificates, access to the state SMS and e-mail gateways, connectivity to RCD offices over the state network"],
+  ["Backup and disaster recovery", "As per the State Data Centre's standard policy"],
 ];
 
 const sources = [
@@ -377,4 +389,4 @@ const sources = [
   ["JAP-IT: nodal e-governance agency, State Data Centre", "https://japit.jharkhand.gov.in/"],
 ];
 
-module.exports = { COMPANY, CLIENT, CLIENT_SHORT, ROADS_BUDGET_CR, modules, intro, fitTogether, startingPoints, workWith, assumptions, sources };
+module.exports = { COMPANY, CLIENT, CLIENT_SHORT, ROADS_BUDGET_CR, modules, intro, fitTogether, startingPoints, workWith, assumptions, hosting, sources };
