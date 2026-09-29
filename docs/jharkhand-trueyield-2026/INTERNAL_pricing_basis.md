@@ -99,3 +99,19 @@ Profit against about ₹93 lakh services delivery cost, before tax:
 | ₹1.43 cr (bottom) | about ₹28 lakh | about ₹21 lakh |
 
 Negotiation floor with a 20% partner: about ₹1.4 cr. Flex the licence into a subscription before cutting services.
+
+## State Data Centre hosting (revised)
+Basis: everything runs in the Jharkhand State Data Centre (JAP-IT), including the data lake, Trino and the AI models. The state provides all infrastructure; Kirnova does not charge for any.
+
+Changes to the base figures (before the 1.25 uplift):
+- **Infrastructure:** ₹15–25 lakh/yr removed.
+- **Data platform, +₹3 lakh net:** ₹13–17 lakh (pilot) and ₹16–20 lakh (rollout). This covers installing MinIO/Iceberg, Trino, Airflow and PostgreSQL on the data centre's VMs, after removing the cloud test environments.
+- **Discovery engine, +₹2 lakh:** ₹26–34 lakh, for the machine-learning platform and the in-house assistant model on the data centre's GPU server.
+- **Maintenance:** ₹18–26 lakh becomes ₹32–38 lakh/yr, about 3 people. It covers running the self-managed stack at the data centre, 7 data pipelines, the monthly discovery cycle and retraining, and the helpdesk. The old figure was too low for that scope.
+
+Customer quote (highest figures):
+- Pilot: **₹56.5 lakh**
+- One-time: **₹1.97 cr**
+- Recurring: **₹47.5 lakh/yr** (maintenance only)
+
+Delivery cost is now about ₹98 lakh. Hardware sizing is in the proposal's Annex. The price ladder is in `../internal/Negotiation_Sheet_Jharkhand.md`.

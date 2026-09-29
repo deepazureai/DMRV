@@ -4,7 +4,7 @@ const {
   ShadingType, BorderStyle, AlignmentType, LevelFormat, PageBreak, Footer,
   PageNumber, VerticalAlign, TableLayoutType, HeightRule,
 } = require("docx");
-const { COMPANY, CLIENT, CLIENT_SHORT, ROADS_BUDGET_CR, modules, intro, fitTogether, startingPoints, workWith, assumptions, sources } = require("./content");
+const { COMPANY, CLIENT, CLIENT_SHORT, ROADS_BUDGET_CR, modules, intro, fitTogether, startingPoints, workWith, assumptions, hosting, sources } = require("./content");
 
 // Commercial loading applied to every cost line in content.js (base = delivery cost estimate).
 // Covers partner/consulting arrangements and delivery contingency; see INTERNAL_pricing_basis.md.
@@ -189,7 +189,7 @@ function modulePages(m) {
   ] })], [h, h]));
 
   out.push(sectionHead("5", "Cost"));
-  const CWs = [7806, 2400];
+  const CWs = [7006, 3200];
   const crow = (lbl, v, o = {}) => new TableRow({ cantSplit: true, children: [
     cell(para([run(lbl, { size: 17, bold: o.bold })], { after: 0 }), CWs[0], { fill: o.fill }),
     cell(para([run(one(v[1]), { size: 17, bold: o.bold })], { after: 0, align: AlignmentType.RIGHT }), CWs[1], { fill: o.fill }),
@@ -199,7 +199,10 @@ function modulePages(m) {
     crow("Development: pilot (Phases 0–1)", c.pilot),
     crow("Development: full rollout (Phase 2), incl. security audit", c.rollout),
     crow("One-time total", oneTime(c), { bold: true, fill: TINT_TEAL }),
-    crow("Infrastructure per year (hosting, storage, gateways, data)", c.infra),
+    new TableRow({ cantSplit: true, children: [
+      cell(para([run("Infrastructure (servers, storage, AI server, network)", { size: 17 })], { after: 0 }), CWs[0]),
+      cell(para([run("Provided by the State Data Centre", { size: 16, italics: true, color: MUTED })], { after: 0, align: AlignmentType.RIGHT }), CWs[1]),
+    ] }),
     crow("Operations & maintenance per year (support, updates, helpdesk)", c.om),
     crow("Recurring total per year", recur(c), { bold: true, fill: TINT_TEAL }),
   ], CWs));
@@ -225,7 +228,14 @@ function closing() {
   ] })), W));
   out.push(sectionHead("i", "Cost assumptions"));
   assumptions.forEach((t) => out.push(bullet(t)));
-  out.push(sectionHead("ii", "Sources (public information, accessed September 2026)"));
+  out.push(sectionHead("ii", "Hosting requirements (provided by the State Data Centre)"));
+  out.push(para("Sized for the full rollout of all seven modules; final sizing is confirmed with JAP-IT in Phase 0.", { after: 80 }));
+  const HW = [2800, CW - 2800];
+  out.push(table(hosting.map(([k, v]) => new TableRow({ cantSplit: true, children: [
+    cell(para([run(k, { bold: true, size: 17 })], { after: 0 }), HW[0], { pad: 60 }),
+    cell(para([run(v, { size: 17 })], { after: 0 }), HW[1], { pad: 60 }),
+  ] })), HW));
+  out.push(sectionHead("iii", "Sources (public information, accessed September 2026)"));
   sources.forEach(([t, u]) => out.push(new Paragraph({ children: [run(t + " — ", { size: 15 }), run(u, { size: 15 })], numbering: { reference: "num", level: 0 }, spacing: { after: 30, line: 230 } })));
   out.push(para([run("Status descriptions are based on public reports up to September 2026 and should be confirmed with the Department before formal submission.", { italics: true, size: 18 })], { before: 160 }));
   return out;

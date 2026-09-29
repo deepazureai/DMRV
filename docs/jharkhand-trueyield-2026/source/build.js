@@ -15,11 +15,12 @@ const CLIENT_SHORT = "Finance Department, Government of Jharkhand";
 const COST = {
   // one-time components as { pilot, rollout } ranges
   licence:   { pilot: [8, 10],  rollout: [22, 30] }, // TrueYield platform licence (existing product), perpetual, state-wide
-  data:      { pilot: [12, 16], rollout: [14, 18] }, // common data lake, Trino, scheduled ingestion, connectors
+  data:      { pilot: [13, 17], rollout: [16, 20] }, // data lake, Trino, ingestion, connectors — installed on State Data Centre servers
   adapt:     { pilot: [14, 18], rollout: [20, 28] }, // Jharkhand rules, rates, entity resolution, deployment, training, audit
-  discovery: { pilot: [0, 0],   rollout: [24, 32] }, // discovery engine: three ML layers
-  infra: [15, 25],     // per year: data lake storage, Trino cluster, app and ML compute (government-approved cloud)
-  amc: [18, 26],       // per year: licence support & upgrades, rule/rate updates, model retraining, helpdesk
+  discovery: { pilot: [0, 0],   rollout: [26, 34] }, // discovery engine: three ML layers + in-house AI model set-up on the SDC GPU server
+  infra: [0, 0],       // provided by the Jharkhand State Data Centre (JAP-IT); not charged
+  amc: [32, 38],       // per year: licence support & upgrades, running the SDC-hosted stack, rule/rate updates,
+                       // monthly discovery cycle and retraining, helpdesk (~3 FTE)
   municipal: [15, 22], // optional: municipal edition for 3 ULBs
 };
 // Commercial loading applied to every cost line above (base = delivery cost estimate).
@@ -44,7 +45,7 @@ const PILOT = add(...COMPONENTS.map((k) => COST[k].pilot));
 const ROLLOUT = add(...COMPONENTS.map((k) => COST[k].rollout));
 const TOTAL_OF = (k) => add(COST[k].pilot, COST[k].rollout);
 const ONE_TIME = add(PILOT, ROLLOUT);
-const RECUR = add(COST.infra, COST.amc);
+const RECUR = COST.amc;
 
 // ---------- design tokens ----------
 const FONT = "Arial";
@@ -134,6 +135,7 @@ function cover() {
     "8   Cost",
     "9   Key risks and safeguards",
     "10  How we will work with the Government",
+    "Annex: Hosting requirements (provided by the State Data Centre)",
   ].forEach((t) => out.push(para([run(t, { size: 19 })], { after: 40 })));
   return out;
 }
@@ -290,7 +292,7 @@ function section3() {
     ["Verification worklist", "ranked by district, circle and department, assigned to named officers, with status from assignment to recovery."],
     ["Recovery drill-down", "state › district › circle, separating recurring revenue from one-time recovery."],
     ["Leadership dashboard", "what has been found, verified and recovered, and how much rests on evidence rather than leads."],
-    ["Ask-a-question assistant", "officers ask about a taxpayer in plain Hindi or English and get answers that cite the records."],
+    ["Ask-a-question assistant", "officers ask about a taxpayer in plain Hindi or English and get answers that cite the records, from an AI model hosted inside the State Data Centre."],
     ["Policy simulator", "estimate the effect of a rate or threshold change before it is notified."],
   ].forEach(([h, t]) => out.push(bullet([run(h + ": ", { bold: true }), run(t)])));
   return out;
@@ -403,22 +405,47 @@ function section6() {
   ] });
   out.push(table([
     headRow(["Recurring and optional", "Amount"], RWs, 1),
-    r2("Infrastructure per year: data lake storage, Trino cluster, application and ML compute (government-approved cloud)", COST.infra, { suffix: " / yr" }),
-    r2("Annual maintenance: platform support and upgrades, rule and rate updates, model retraining, helpdesk", COST.amc, { suffix: " / yr" }),
-    r2("Recurring total per year", RECUR, { bold: true, fill: TINT_TEAL, suffix: " / yr" }),
+    new TableRow({ cantSplit: true, children: [
+      cell(para([run("Infrastructure: servers, data lake storage, GPU server for the AI models, network, backup (see Annex)", { size: 16 })], { after: 0, line: 232 }), RWs[0], { pad: 45 }),
+      cell(para([run("Provided by the State Data Centre", { size: 16, italics: true, color: MUTED })], { after: 0, align: AlignmentType.RIGHT }), RWs[1], { pad: 45 }),
+    ] }),
+    r2("Annual maintenance: support, upgrades, operations in the State Data Centre, rule updates, monthly discovery cycle, helpdesk", COST.amc, { bold: true, fill: TINT_TEAL, suffix: " / yr" }),
     r2("Optional: municipal edition for 3 urban local bodies (one-time)", COST.municipal),
   ], RWs));
   out.push(h2("Cost assumptions"));
   [
     "The detection engine and console are an existing product, licensed perpetually for use across Government of Jharkhand departments; the pilot licence fee is credited against the full licence. The core product's source code is placed in escrow.",
     "The state owns its data, its Jharkhand-specific rules and rates, the department connectors and the rules the discovery engine finds for it.",
-    "Infrastructure is priced for a government-approved cloud; if the Jharkhand State Data Centre (JAP-IT) provides the servers and storage, most of it is absorbed by the state.",
+    "Hosted entirely in the Jharkhand State Data Centre (JAP-IT), which provides all infrastructure: servers, data lake storage, the GPU server, network, security, backup and disaster recovery (see Annex). Kirnova does not supply or charge for infrastructure. All data and AI models (open-source, on the state's servers) stay inside the data centre.",
     "Prices cover delivery, integration, project management, on-site support in Ranchi, training, and contingency for data-access and data-quality work. All amounts exclude GST and are valid for 90 days from the date of this proposal; changes in scope are priced separately.",
   ].forEach((t) => out.push(bullet(t)));
   return out;
 }
 
 // ---------- 8-9 risks, engagement, sources ----------
+// ---------- annex: hosting requirements ----------
+function annexHosting() {
+  const out = [pageBreak()];
+  out.push(h1("Annex", "Hosting requirements (provided by the State Data Centre)"));
+  out.push(para("TrueYield runs entirely inside the Jharkhand State Data Centre. The following infrastructure is provided by the State Data Centre (JAP-IT); Kirnova installs, configures and operates the software on it. Sizing is for the statewide rollout with seven departments and is confirmed with JAP-IT in Phase 0; the pilot needs roughly half.", { align: J }));
+  const W = [3000, CW - 3000];
+  out.push(table([
+    headRow(["Component", "Requirement"], W),
+    ...[
+      ["Data lake storage", "S3-compatible object storage on the data centre's storage, 20 TB usable to start and expandable, holding department extracts with full history"],
+      ["Query engine (Trino)", "1 coordinator: 16 vCPU / 64 GB RAM; 4 workers: 16 vCPU / 128 GB RAM each"],
+      ["Ingestion and scheduling", "2 virtual machines, 8 vCPU / 32 GB RAM (scheduler and department connectors)"],
+      ["Application and console", "2 virtual machines, 8 vCPU / 32 GB RAM, load-balanced"],
+      ["Database", "2 virtual machines, 8 vCPU / 32 GB RAM, 1 TB SSD each (PostgreSQL, primary and standby)"],
+      ["AI and machine-learning server", "1 GPU server with 2× NVIDIA L40S (48 GB) or A100 (80 GB) or equivalent, 32 vCPU / 256 GB RAM, for training the discovery engine and running the in-house assistant model"],
+      ["Staging environment", "4 virtual machines, 8 vCPU / 32 GB RAM, and 2 TB storage"],
+      ["Network", "Secure read-only connectivity from the data centre to departmental systems over the state network; firewall rules; SSL certificates"],
+      ["Backup and disaster recovery", "As per the State Data Centre's standard policy"],
+    ].map((r) => txtRow(r, W, { boldFirst: true })),
+  ], W));
+  return out;
+}
+
 function closing() {
   const out = [pageBreak()];
   out.push(h1("9", "Key risks and safeguards"));
@@ -444,7 +471,7 @@ function closing() {
   out.push(table([
     ["Start small, prove value", "A 4-month pilot on real records in three districts; statewide rollout only after a decision gate."],
     ["Transparent procurement", "Engagement through GeM, JAP-IT or an empanelled system integrator."],
-    ["Data stays with the state", "Read-only extracts into a data lake hosted in the Jharkhand State Data Centre or a government-approved Indian cloud."],
+    ["Data stays with the state", "Everything, including the data lake and the AI models, runs in the Jharkhand State Data Centre; no data goes to any external cloud or AI service."],
     ["No vendor lock-in", "Open-source data components (Trino, open table formats); product source code in escrow; the state owns its data, rules and connectors; full documentation and training."],
     ["Pay for outcomes", "Milestones tied to measurable results: verified findings, cases assigned, recoveries tracked."],
   ].map(([hh, t]) => new TableRow({ cantSplit: true, children: [
@@ -484,7 +511,7 @@ const doc = new Document({
       run(`${COMPANY}  ·  Proposal to the ${CLIENT_SHORT}  ·  Page `, { size: 15, color: MUTED }),
       new TextRun({ children: [PageNumber.CURRENT], font: FONT, size: 15, color: MUTED }),
     ] })] }) },
-    children: [...cover(), ...execSummary(), ...section1(), ...section2(), ...section3(), ...sectionDiscovery(), ...section4(), ...section6(), ...closing()],
+    children: [...cover(), ...execSummary(), ...section1(), ...section2(), ...section3(), ...sectionDiscovery(), ...section4(), ...section6(), ...closing(), ...annexHosting()],
   }],
 });
 

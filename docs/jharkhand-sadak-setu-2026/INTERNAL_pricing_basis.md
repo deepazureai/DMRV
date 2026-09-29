@@ -56,3 +56,18 @@ Profit against about ₹93 lakh delivery cost, before tax:
 | ₹1.11 cr (bottom) | about ₹1 lakh | about –₹4 lakh |
 
 Negotiation floor with a 20% partner: about ₹1.25 cr.
+
+## State Data Centre hosting (revised)
+Basis: everything runs in the Jharkhand State Data Centre (JAP-IT), including the AI models. The state provides all infrastructure; Kirnova does not charge for any.
+
+Changes to the base figures (before the 1.25 uplift):
+- **Infrastructure:** set to zero in every module.
+- **Rollout, +₹4–6 lakh:** for deploying on the data centre's servers. That covers PostgreSQL high availability, search, and installing and tuning an open-source language model and search model on the state's GPU server:
+  - Module 01: +₹1–1.5 lakh
+  - Module 02: +₹2–3 lakh
+  - Module 06: +₹1–1.5 lakh
+- **Maintenance, +₹4 lakh/yr:** for running the self-managed stack.
+
+Customer quote (highest figures): one-time **₹1.61 cr**; recurring **₹30 lakh/yr** (maintenance only).
+
+Delivery cost is now about ₹96 lakh. The hosting the state must provide is listed in the proposal's hosting requirements section. The price ladder is in `../internal/Negotiation_Sheet_Jharkhand.md`.
