@@ -7,7 +7,7 @@
 
 Based on the platform in `deepazureai/trueyield_wb` (AeROS/TrueYield: 85 checks across 10 families).
 
-Price (excl. GST): pilot ₹34–44 lakh; one-time total ₹1.14–1.52 cr (licence ₹30–40 lakh, data platform ₹26–34 lakh, adaptation ₹34–46 lakh, discovery engine ₹24–32 lakh); recurring ₹33–51 lakh/yr.
+Customer quote (excl. GST): pilot ₹55 lakh; one-time ₹1.9 cr (licence ₹50 lakh, data platform ₹42.5 lakh, adaptation ₹57.5 lakh, discovery engine ₹40 lakh); recurring ₹64 lakh a year. Internal ranges and walk-away floor: `../internal/Negotiation_Sheet_Jharkhand.md`.
 
 ## Rebuild
 ```bash

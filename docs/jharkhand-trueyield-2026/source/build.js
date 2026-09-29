@@ -30,6 +30,14 @@ for (const k of Object.keys(COST)) {
   if (Array.isArray(COST[k])) COST[k] = up(COST[k]);
   else { COST[k].pilot = up(COST[k].pilot); COST[k].rollout = up(COST[k].rollout); }
 }
+// Customer quote: show the top of each range as a single figure. The ranges stay above and in
+// the internal negotiation sheet (docs/internal/Negotiation_Sheet_Jharkhand.md).
+const QUOTE_HIGH = true;
+const hi = ([, h]) => [h, h];
+if (QUOTE_HIGH) for (const k of Object.keys(COST)) {
+  if (Array.isArray(COST[k])) COST[k] = hi(COST[k]);
+  else { COST[k].pilot = hi(COST[k].pilot); COST[k].rollout = hi(COST[k].rollout); }
+}
 const add = (...r) => r.reduce((a, x) => [a[0] + x[0], a[1] + x[1]], [0, 0]);
 const COMPONENTS = ["licence", "data", "adapt", "discovery"];
 const PILOT = add(...COMPONENTS.map((k) => COST[k].pilot));
@@ -48,6 +56,7 @@ const num = (v) => (Number.isInteger(v) ? String(v) : v.toFixed(1));
 const crs = (l) => (l / 100).toFixed(2).replace(/0$/, "");
 const one = (l) => (l >= 100 ? `₹${crs(l)} cr` : `₹${num(l)} lakh`);
 function rng([a, b]) {
+  if (a === b) return one(a);
   if (a >= 100) return `₹${crs(a)}–${crs(b)} cr`;
   if (b < 100) return `₹${num(a)}–${num(b)} lakh`;
   return `₹${num(a)} lakh–${crs(b)} cr`;
@@ -122,7 +131,7 @@ function cover() {
     "5   What the CAG found, and how TrueYield would catch it",
     "6   Approach and methodology",
     "7   Benefits",
-    "8   Indicative cost",
+    "8   Cost",
     "9   Key risks and safeguards",
     "10  How we will work with the Government",
   ].forEach((t) => out.push(para([run(t, { size: 19 })], { after: 40 })));
@@ -369,7 +378,7 @@ function section6() {
   ] })], [h, h]));
   out.push(callout("SCALE, NOT A FORECAST", [para(`If verified recoveries reached just 0.1% of own tax revenue (about ₹46 crore a year), that would be more than twenty times the platform's full one-time cost of ${rng(ONE_TIME)}. How much leakage exists in Jharkhand today is not known by anyone; measuring it on real records is the purpose of the pilot.`, { after: 0, align: J })], TEAL, TINT_TEAL));
 
-  out.push(h1("8", "Indicative cost"));
+  out.push(h1("8", "Cost"));
   const CWs = [4906, 1750, 1750, 1800];
   const r3 = (lbl, p, r, t, o = {}) => new TableRow({ cantSplit: true, children: [
     cell(para([run(lbl, { size: 16, bold: o.bold })], { after: 0, line: 232 }), CWs[0], { fill: o.fill, pad: 45 }),
@@ -404,7 +413,7 @@ function section6() {
     "The detection engine and console are an existing product, licensed perpetually for use across Government of Jharkhand departments; the pilot licence fee is credited against the full licence. The core product's source code is placed in escrow.",
     "The state owns its data, its Jharkhand-specific rules and rates, the department connectors and the rules the discovery engine finds for it.",
     "Infrastructure is priced for a government-approved cloud; if the Jharkhand State Data Centre (JAP-IT) provides the servers and storage, most of it is absorbed by the state.",
-    "Prices cover delivery, integration, project management, on-site support in Ranchi, training, and contingency for data-access and data-quality work. All amounts exclude GST and are indicative (±20%) until scoped with the Finance Department.",
+    "Prices cover delivery, integration, project management, on-site support in Ranchi, training, and contingency for data-access and data-quality work. All amounts exclude GST and are valid for 90 days from the date of this proposal; changes in scope are priced separately.",
   ].forEach((t) => out.push(bullet(t)));
   return out;
 }

@@ -361,7 +361,7 @@ const assumptions = [
   "Prices assume the seven modules are delivered together on one shared platform; modules bought separately may cost more.",
   "Pilot = initial proof of concept; Rollout = state-wide deployment. Annual maintenance is typically 15–20% of build cost.",
   "If hosted in the Jharkhand State Data Centre, part of the infrastructure cost is absorbed by the state.",
-  "All amounts exclude GST and are indicative (±25%) until scoped jointly with the Department.",
+  "All amounts exclude GST and are valid for 90 days from the date of this proposal. They assume the scope described here; changes in scope are priced separately.",
 ];
 
 const sources = [
